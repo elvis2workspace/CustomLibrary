@@ -1,5 +1,4 @@
 # CustomLibrary
 customlibrary for robotframework
 
-This is the first changes for the brunch of the customlibrary master.
-test 16th May commit
+1.0.1 version update about jenkins module.
