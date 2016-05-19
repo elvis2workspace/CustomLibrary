@@ -1,0 +1,8 @@
+-C
+off
+-W
+157
+--suite
+Robotframework.MgAutoTestSuites.VolteSomkeCaseSuites
+--test
+Robotframework.MgAutoTestSuites.VolteSomkeCaseSuites.【N】安全检查：安全加密算法检查

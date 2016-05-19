@@ -7,6 +7,7 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 '''
 from robot.api import logger
+# from customkeywords._custom_android_utils import _CustomAndroidKeywords
 from customkeywords._custom_android_utils import _CustomAndroidKeywords
 
 def lanchappiumbefore():
