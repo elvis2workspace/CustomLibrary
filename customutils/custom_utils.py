@@ -6,6 +6,7 @@ Created on 2016年5月11日
 @author: zhang.xiuhai
 '''
 
+from __future__ import with_statement
 import os
 from dateutil.relativedelta import *
 from dateutil.easter import *
@@ -15,6 +16,7 @@ from datetime import *
 import calendar
 import time
 import config
+import ConfigParser
 
 def test():
     NOW = datetime.now()
@@ -45,6 +47,21 @@ def check_dir(name):
     else:
         os.makedirs(name)
 
+def test_config():
+    config =  ConfigParser.ConfigParser()
+    with open("../cuscfg.cfg", "r+") as cfgfile:
+        config.readfp(cfgfile)
+        name = config.get("info", "name")
+        age = config.get("info", "age")
+        print name, age
+        config.set("info", "name", "zxh")
+        config.set("info", "sex", "female")
+        config.set("info", "age", "28")
+        name = config.get("info", "name")
+        sex = config.get("info", "sex")
+        age = config.get("info", "age")
+        print name, sex, age
+
 if __name__ == '__main__':
     launch_cmd = "E:\Appium\node.exe E:\Appium\node_modules\appium\bin\appium.js -a 192.168.20.114 -p 4723 --no-reset"
     # now = parse("Fri May 20 17:13:46 UTC 2016")
@@ -65,3 +82,4 @@ if __name__ == '__main__':
     print str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))
     APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
     check_dir(APPIUM_RUNLOG)
+    test_config()
