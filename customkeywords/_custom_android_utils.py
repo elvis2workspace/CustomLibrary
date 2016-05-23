@@ -144,6 +144,7 @@ class _CustomAndroidKeywords(object):
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
 
+#         logger.info(proDetails, also_console=True)
         isNull = (len(proDetails)==0)
         
         if isNull:
