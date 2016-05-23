@@ -10,10 +10,15 @@ from  robot.api import logger
 import os
 import re
 import subprocess
+from datetime import  *
 import time
+from customutils.custom_utils import check_dir
 
-MAXVERSIONS = 100 
-RUNLOG = "D:\\Logs\\appium-runlog\\"
+
+MAXVERSIONS = 100
+APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
+check_dir(APPIUM_RUNLOG)
+
 APPIUMPORT = 4723 
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
 
@@ -42,7 +47,7 @@ class _CustomAndroidKeywords(object):
         runlogfilestr = "appium-runlog-%date:~0,4%%date:~5,2%%date:~8,2%-"+str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
         print runlogfilestr
         launchCMD = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode \
-        + " " + "--log-timestamp --local-timezone --session-override -g " +RUNLOG+runlogfilestr 
+        + " " + "--log-timestamp --local-timezone --session-override -g " +APPIUM_RUNLOG+"appium-runlog.txt"
         
         tmppid = self.get_port_pid(APPIUMPORT)
         
@@ -79,12 +84,13 @@ class _CustomAndroidKeywords(object):
         
         if appiumPidStr:
             appiumG = appiumPidStr.split(' ')
-            return appiumG[-1]
             logger.console("process about port " + str(port) +" is "+appiumG[-1]+" .", True, 'stdout')
+            return appiumG[-1]
         else:
             logger.console("No process about port " + str(port) +"!", True, 'stdout')
+            return None
         
-    def set_androidlog_status(self, flag=False, mode=True):
+    def set_androidlog_status(self, flag=None, mode=True):
         u'''设置android日志开关
         '''
         srchAdbCMD = "tasklist | findstr adb"
@@ -136,32 +142,45 @@ class _CustomAndroidKeywords(object):
         u'''杀掉移动端指定包名的进程
         '''
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
-        
-#         for key in kwargs:
-#             print "key words: " % (key, kwargs[key])
-            
-#         desired_caps = kwargs
-#         if None == remote_url:
         proDetails = os.popen(adbCmd).read()
-#         else:
-#             tmpapp = webdriver.Remote(str(remote_url), desired_caps)
-#             tmpapp.execute(adbCmd)
-            
-        logger.info(proDetails, also_console=True)
+
         isNull = (len(proDetails)==0)
         
         if isNull:
-            print pro_alias +" is not alive."
-            return;
+            logger.error(pro_alias +" is not alive.")
+            return -1
         else: 
             adbPid = proDetails.split(' ')
+            logger.info( "The ecm application pid is: "+ str(adbPid[4]), also_console=True)
             retVal = os.system("adb shell kill "+ str(adbPid[4]))
-            
-            if retVal == 0:
-                print pro_alias + " "+ str(adbPid[4]) + " killed successfully."
+            if 0 == retVal:
+                logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+": "+ pro_alias + " "+ str(adbPid[4]) + " killed successfully.", also_console=True)
             else:
-                print pro_alias + " "+ str(adbPid[4]) + " process fail to kill!"
+                logger.error("Failed to kill ecm pid.")
         
+        #重启android设备
+        retReb = os.popen("adb shell reboot").read()
+        isNull = (len(retReb)==0)
+        if isNull:
+                logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+": Succeed rebooting android device.", also_console=True)
+        else:
+            logger.error(retReb)
+            
+        #等待android设备重新连接    
+        retWait = os.system("adb wait-for-device")
+           
+        if 0 == retWait:
+            retDev = os.popen('adb devices').read()
+            logger.info("Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
+                
+            time.sleep(10)
+            logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+ ", sleep 10 to wait return.", also_console=True)
+        else:
+            logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
+            logger.error("Android device connected timeout.")
+            
+        
+            
     def Cswipe(self, xstart, ystart, xend, yend):
         u'''自定义滑动屏幕关键字
         '''  
@@ -191,6 +210,7 @@ class _CustomAndroidKeywords(object):
         
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
+    tmpObject.kill_adb_process('ecm')
 #     tmppro = tmpObject.launch_local_appium("192.168.20.114" , "4723", "no-reset")
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")
