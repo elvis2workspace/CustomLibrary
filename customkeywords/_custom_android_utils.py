@@ -10,12 +10,15 @@ from  robot.api import logger
 import os
 import re
 import subprocess
+from datetime import  *
 import time
-from zope.interface.declarations import alsoProvides
+from customutils.custom_utils import check_dir
 
 
-MAXVERSIONS = 100 
-RUNLOG = "D:\\Logs\\appium-runlog\\"
+MAXVERSIONS = 100
+APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
+check_dir(APPIUM_RUNLOG)
+
 APPIUMPORT = 4723 
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
 
@@ -44,7 +47,7 @@ class _CustomAndroidKeywords(object):
         runlogfilestr = "appium-runlog-%date:~0,4%%date:~5,2%%date:~8,2%-"+str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
         print runlogfilestr
         launchCMD = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode \
-        + " " + "--log-timestamp --local-timezone --session-override -g " +RUNLOG+runlogfilestr 
+        + " " + "--log-timestamp --local-timezone --session-override -g " +APPIUM_RUNLOG+"appium-runlog.txt"
         
         tmppid = self.get_port_pid(APPIUMPORT)
         
@@ -81,12 +84,13 @@ class _CustomAndroidKeywords(object):
         
         if appiumPidStr:
             appiumG = appiumPidStr.split(' ')
-            return appiumG[-1]
             logger.console("process about port " + str(port) +" is "+appiumG[-1]+" .", True, 'stdout')
+            return appiumG[-1]
         else:
             logger.console("No process about port " + str(port) +"!", True, 'stdout')
+            return None
         
-    def set_androidlog_status(self, flag=False, mode=True):
+    def set_androidlog_status(self, flag=None, mode=True):
         u'''设置android日志开关
         '''
         srchAdbCMD = "tasklist | findstr adb"
@@ -145,7 +149,7 @@ class _CustomAndroidKeywords(object):
         
         if isNull:
             logger.error(pro_alias +" is not alive.")
-            return;
+            return -1
         else: 
             adbPid = proDetails.split(' ')
             logger.info( "The ecm application pid is: "+ str(adbPid[4]), also_console=True)
