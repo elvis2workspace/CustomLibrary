@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Created on 2016Äê5ÔÂ11ÈÕ
+Created on 2016å¹´5æœˆ11æ—¥
 @author: zhang.xiuhai
 '''
 
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # print("How far is the Easter of that year: %s" % rdelta)
     # print("And the Easter of that year is: %s" % (today+rdelta))
 
-    #»ñÈ¡µ±Ç°Ê±¼ä
+    #Â»Ã±ÃˆÂ¡ÂµÂ±Ã‡Â°ÃŠÂ±Â¼Ã¤
 
     print datetime.now()
     print date.today()
