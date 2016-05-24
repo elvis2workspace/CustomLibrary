@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Created on 2016å¹´5æœˆ11æ—¥
-
+Created on 2016Äê5ÔÂ11ÈÕ
 @author: zhang.xiuhai
 '''
 
@@ -72,7 +71,8 @@ if __name__ == '__main__':
     # print("Year with next Aug 13th on a Friday is: %s" % year)
     # print("How far is the Easter of that year: %s" % rdelta)
     # print("And the Easter of that year is: %s" % (today+rdelta))
-    #è·å–å½“å‰æ—¶é—´
+
+    #»ñÈ¡µ±Ç°Ê±¼ä
     print datetime.now()
     print date.today()
     print str(date.today())+"-"+str(datetime.now().hour)
