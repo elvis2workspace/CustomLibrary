@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 '''
 Created on 2016年5月11日
-
 @author: zhang.xiuhai
 '''
 
@@ -72,6 +71,7 @@ if __name__ == '__main__':
     # print("Year with next Aug 13th on a Friday is: %s" % year)
     # print("How far is the Easter of that year: %s" % rdelta)
     # print("And the Easter of that year is: %s" % (today+rdelta))
+
     #获取当前时间
     print datetime.now()
     print date.today()
