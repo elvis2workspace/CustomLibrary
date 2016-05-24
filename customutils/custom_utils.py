@@ -71,9 +71,7 @@ if __name__ == '__main__':
     # print("Year with next Aug 13th on a Friday is: %s" % year)
     # print("How far is the Easter of that year: %s" % rdelta)
     # print("And the Easter of that year is: %s" % (today+rdelta))
-
-    #»ñÈ¡µ±Ç°Ê±¼ä
-
+    #获取当前时间
     print datetime.now()
     print date.today()
     print str(date.today())+"-"+str(datetime.now().hour)
