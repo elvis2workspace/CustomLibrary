@@ -73,6 +73,7 @@ if __name__ == '__main__':
     # print("And the Easter of that year is: %s" % (today+rdelta))
 
     #获取当前时间
+
     print datetime.now()
     print date.today()
     print str(date.today())+"-"+str(datetime.now().hour)
