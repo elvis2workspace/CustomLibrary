@@ -7,12 +7,11 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 '''
 from robot.api import logger
-# from customkeywords._custom_android_utils import _CustomAndroidKeywords
-from customkeywords._custom_android_utils import _CustomAndroidKeywords
+from customkeywords import _custom_android_utils
 
 #提前启动appium工具
 def lanchappiumbefore():
-    tmpObject = _CustomAndroidKeywords()
+    tmpObject = _custom_android_utils._CustomAndroidKeywords()
     tmpObject.launch_local_appium("192.168.20.114")
     
 if __name__ == '__main__':
