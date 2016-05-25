@@ -12,12 +12,12 @@ import re
 import subprocess
 from datetime import  *
 import time
-from customutils.custom_utils import check_dir
+from customutils import custom_utils
 
 
 MAXVERSIONS = 100
 APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
-check_dir(APPIUM_RUNLOG)
+custom_utils.check_dir(APPIUM_RUNLOG)
 
 APPIUMPORT = 4723 
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
