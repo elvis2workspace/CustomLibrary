@@ -7,7 +7,7 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 '''
 from robot.api import logger
-from customkeywords import _custom_android_utils
+from CustomLibrary.customkeywords import _custom_android_utils
 
 #提前启动appium工具
 def lanchappiumbefore():
