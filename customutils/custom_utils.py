@@ -16,7 +16,7 @@ import calendar
 import time
 import  sys
 sys.path.append("../")
-import config
+import CustomLibrary.config
 import ConfigParser
 
 def test():
