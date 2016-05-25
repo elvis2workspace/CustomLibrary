@@ -14,6 +14,8 @@ from dateutil.parser import *
 from datetime import *
 import calendar
 import time
+import  sys
+sys.path.append("../")
 import config
 import ConfigParser
 
@@ -61,6 +63,27 @@ def test_config():
         age = config.get("info", "age")
         print name, sex, age
 
+def test_config2():
+    config = ConfigParser.ConfigParser()
+    config.read("../cuscfg.cfg")
+
+    sections = config.sections()
+    print sections
+    o = config.options("url")
+    print o
+
+    v = config.items("url")
+    print v
+
+    access = config.get("url", "GLOBAL_URL")
+    print access
+
+    config.add_section("runpath")
+    config.set("runpath", "filepath", "D:\\")
+    f = open("../cuscfg.cfg", "a+")
+    config.write(f)
+    f.close()
+
 if __name__ == '__main__':
     launch_cmd = "E:\Appium\node.exe E:\Appium\node_modules\appium\bin\appium.js -a 192.168.20.114 -p 4723 --no-reset"
     # now = parse("Fri May 20 17:13:46 UTC 2016")
@@ -82,3 +105,4 @@ if __name__ == '__main__':
     APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
     check_dir(APPIUM_RUNLOG)
     test_config()
+    test_config2()
