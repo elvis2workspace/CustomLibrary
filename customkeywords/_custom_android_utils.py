@@ -179,7 +179,7 @@ class _CustomAndroidKeywords(object):
             retDev = os.popen('adb devices').read()
             logger.info(self._getcurtm() + ": Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
 
-            time.sleep(10)
+            time.sleep(15)
             logger.info(self._getcurtm() + ": Sleep 10 to wait return.", also_console=True)
         else:
             # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
