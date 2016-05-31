@@ -168,7 +168,7 @@ class _CustomAndroidKeywords(object):
             logger.error(retReb)
             
         #等待android设备重新连接    
-        retWait = os.system("adb wait-for-device")
+        retWait = os.popen("adb wait-for-device").read()
            
         if 0 == retWait:
             retDev = os.popen('adb devices').read()
