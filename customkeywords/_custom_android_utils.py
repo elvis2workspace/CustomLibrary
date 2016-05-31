@@ -139,7 +139,9 @@ class _CustomAndroidKeywords(object):
             return pidList[1:num]
 
     def kill_shell_process(self, pro_alias='ecm'):
-        #杀掉指定进程
+        u"""杀掉指定相关进程
+
+        """
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
         # print "proDetails: "+ proDetails
