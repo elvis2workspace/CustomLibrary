@@ -145,8 +145,8 @@ class _CustomAndroidKeywords(object):
         #杀掉指定进程
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
-        print "proDetails: "+ proDetails
-        logger.info(proDetails, also_console=True)
+        # print "proDetails: "+ proDetails
+        # logger.info(proDetails, also_console=True)
         isNull = (len(proDetails)==0)
         
         if isNull:
@@ -154,10 +154,10 @@ class _CustomAndroidKeywords(object):
             return -1
         else: 
             adbPid = proDetails.split(' ')
-            logger.info(self.getcurtm() + ": The ecm application pid is: "+ str(adbPid[4]), also_console=True)
+            logger.info(self._getcurtm() + ": The ecm application pid is: "+ str(adbPid[4]), also_console=True)
             retval = os.system("adb shell kill "+ str(adbPid[4]))
             if 0 == retval:
-                logger.info(self.getcurtm() + ": " + pro_alias + " " + str(adbPid[4]) + " killed successfully.", also_console=True)
+                logger.info(self._getcurtm() + ": " + pro_alias + " " + str(adbPid[4]) + " killed successfully.", also_console=True)
             else:
                 logger.error("Failed to kill ecm pid.")
 
@@ -166,7 +166,7 @@ class _CustomAndroidKeywords(object):
         retReb = os.popen("adb shell reboot").read()
         isNull = (len(retReb)==0)
         if isNull:
-                logger.info(self.getcurtm()+": Succeed rebooting android device.", also_console=True)
+                logger.info(self._getcurtm()+": Succeed rebooting android device.", also_console=True)
         else:
             logger.error(retReb)
             
@@ -177,16 +177,15 @@ class _CustomAndroidKeywords(object):
 
         if None == retval.stdout:
             retDev = os.popen('adb devices').read()
-            logger.info(self.getcurtm() + ": Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
+            logger.info(self._getcurtm() + ": Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
 
             time.sleep(10)
-            logger.info(self.getcurtm() + ", sleep 10 to wait return.", also_console=True)
+            logger.info(self._getcurtm() + ": Sleep 10 to wait return.", also_console=True)
         else:
             # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
-            logger.error(self.getcurtm() + ": Android device connected timeout.")
+            logger.error(self._getcurtm() + ": Android device connected timeout.")
             
-    def getcurtm(self):
-        return time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+
             
     def Cswipe(self, xstart, ystart, xend, yend):
         u'''自定义滑动屏幕关键字
@@ -214,7 +213,10 @@ class _CustomAndroidKeywords(object):
     def _execute_sql(self, path):
         logger.debug("Executing : %s" % path)
         print path
-        
+
+    def _getcurtm(self):
+        return time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     tmpObject.kill_adb_process('ecm')
