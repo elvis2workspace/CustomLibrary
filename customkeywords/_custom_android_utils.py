@@ -6,7 +6,7 @@ Created on 2015年7月21日
 @author: zhang.xiuhai
 '''
 
-from  robot.api import logger
+from robot.api import logger
 import os
 import re
 import subprocess
@@ -138,15 +138,15 @@ class _CustomAndroidKeywords(object):
         else:
             return pidList[1:num]
     
-    def kill_adb_process(self, pro_alias='ecm',remote_url=None ):
+    def kill_adb_process(self, pro_alias='Ecm',remote_url=None ):
         u'''杀掉移动端指定包名的进程
         '''
 
         #杀掉指定进程
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
-
-#         logger.info(proDetails, also_console=True)
+        print "proDetails: "+ proDetails
+        logger.info(proDetails, also_console=True)
         isNull = (len(proDetails)==0)
         
         if isNull:
@@ -154,35 +154,39 @@ class _CustomAndroidKeywords(object):
             return -1
         else: 
             adbPid = proDetails.split(' ')
-            logger.info( "The ecm application pid is: "+ str(adbPid[4]), also_console=True)
-            retVal = os.system("adb shell kill "+ str(adbPid[4]))
-            if 0 == retVal:
-                logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+": "+ pro_alias + " "+ str(adbPid[4]) + " killed successfully.", also_console=True)
+            logger.info(self.getcurtm() + ": The ecm application pid is: "+ str(adbPid[4]), also_console=True)
+            retval = os.system("adb shell kill "+ str(adbPid[4]))
+            if 0 == retval:
+                logger.info(self.getcurtm() + ": " + pro_alias + " " + str(adbPid[4]) + " killed successfully.", also_console=True)
             else:
                 logger.error("Failed to kill ecm pid.")
+
         
         #重启android设备
         retReb = os.popen("adb shell reboot").read()
         isNull = (len(retReb)==0)
         if isNull:
-                logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+": Succeed rebooting android device.", also_console=True)
+                logger.info(self.getcurtm()+": Succeed rebooting android device.", also_console=True)
         else:
             logger.error(retReb)
             
-        #等待android设备重新连接    
-        retWait = os.popen("adb wait-for-device").read()
-           
-        if 0 == retWait:
+        #等待android设备重新连接
+
+        retval = subprocess.Popen("adb wait-for-device", shell=True)
+        retval.wait()
+
+        if None == retval.stdout:
             retDev = os.popen('adb devices').read()
-            logger.info("Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
-                
+            logger.info(self.getcurtm() + ": Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
+
             time.sleep(10)
-            logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+ ", sleep 10 to wait return.", also_console=True)
+            logger.info(self.getcurtm() + ", sleep 10 to wait return.", also_console=True)
         else:
             # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
-            logger.error("Android device connected timeout.")
+            logger.error(self.getcurtm() + ": Android device connected timeout.")
             
-        
+    def getcurtm(self):
+        return time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
             
     def Cswipe(self, xstart, ystart, xend, yend):
         u'''自定义滑动屏幕关键字
