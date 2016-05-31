@@ -138,18 +138,18 @@ class _CustomAndroidKeywords(object):
         else:
             return pidList[1:num]
 
-    def kill_shell_process(self, pro_alias='ecm'):
-        u"""杀掉指定相关进程
-
-        """
+    def kill_shell_process(self, pro_alias = 'ecm'):
+        u'''
+        杀掉指定进程
+        '''
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
         # print "proDetails: "+ proDetails
         # logger.info(proDetails, also_console=True)
-        isNull = (len(proDetails)==0)
+        isNull = (len(proDetails) == 0)
 
         if isNull:
-            logger.error(pro_alias +" is not alive.")
+            logger.error(pro_alias + " is not alive.")
             return -1
         else:
             adbPid = proDetails.split(' ')
