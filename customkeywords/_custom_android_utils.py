@@ -141,6 +141,8 @@ class _CustomAndroidKeywords(object):
     def kill_adb_process(self, pro_alias='ecm',remote_url=None ):
         u'''杀掉移动端指定包名的进程
         '''
+
+        #杀掉指定进程
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
 
@@ -177,7 +179,7 @@ class _CustomAndroidKeywords(object):
             time.sleep(10)
             logger.info(time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))+ ", sleep 10 to wait return.", also_console=True)
         else:
-            logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
+            # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
             logger.error("Android device connected timeout.")
             
         
