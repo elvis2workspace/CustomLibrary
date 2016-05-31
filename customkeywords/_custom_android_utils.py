@@ -137,31 +137,34 @@ class _CustomAndroidKeywords(object):
             logger.console("The process about "+ tcmd +" is not exist.", True)
         else:
             return pidList[1:num]
-    
-    def kill_adb_process(self, pro_alias='Ecm',remote_url=None ):
-        u'''杀掉移动端指定包名的进程
-        '''
 
+    def kill_shell_process(self, pro_alias='ecm'):
         #杀掉指定进程
         adbCmd = "adb shell ps | grep "+str(pro_alias)+" | grep -v ecmapplication:"
         proDetails = os.popen(adbCmd).read()
         # print "proDetails: "+ proDetails
         # logger.info(proDetails, also_console=True)
         isNull = (len(proDetails)==0)
-        
+
         if isNull:
             logger.error(pro_alias +" is not alive.")
             return -1
-        else: 
+        else:
             adbPid = proDetails.split(' ')
             logger.info(self._getcurtm() + ": The ecm application pid is: "+ str(adbPid[4]), also_console=True)
             retval = os.system("adb shell kill "+ str(adbPid[4]))
             if 0 == retval:
                 logger.info(self._getcurtm() + ": " + pro_alias + " " + str(adbPid[4]) + " killed successfully.", also_console=True)
+                return None
             else:
                 logger.error("Failed to kill ecm pid.")
+                return -1
 
-        
+    def reset_android(self, pro_alias=None, remote_url=None ):
+        u'''
+        重启android设备
+        '''
+
         #重启android设备
         retReb = os.popen("adb shell reboot").read()
         isNull = (len(retReb)==0)
@@ -169,6 +172,7 @@ class _CustomAndroidKeywords(object):
                 logger.info(self._getcurtm()+": Succeed rebooting android device.", also_console=True)
         else:
             logger.error(retReb)
+            return -1
             
         #等待android设备重新连接
 
@@ -178,15 +182,15 @@ class _CustomAndroidKeywords(object):
         if None == retval.stdout:
             retDev = os.popen('adb devices').read()
             logger.info(self._getcurtm() + ": Android device named: "+ retDev.split('\n')[1].split('\t')[0] +" connected.", also_console=True)
-
             time.sleep(15)
             logger.info(self._getcurtm() + ": Sleep 10 to wait return.", also_console=True)
+            return None
         else:
             # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
             logger.error(self._getcurtm() + ": Android device connected timeout.")
+            return -1
             
 
-            
     def Cswipe(self, xstart, ystart, xend, yend):
         u'''自定义滑动屏幕关键字
         '''  
@@ -219,7 +223,8 @@ class _CustomAndroidKeywords(object):
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
-    tmpObject.kill_adb_process('ecm')
+    tmpObject.kill_shell_process("ecm")
+    tmpObject.reset_android()
 #     tmppro = tmpObject.launch_local_appium("192.168.20.114" , "4723", "no-reset")
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")
