@@ -9,8 +9,9 @@ Created on 2016年5月16日
 import zipfile
 import os, os.path
 import subprocess
+import shutil
+from datetime import *
 import time
-import  shutil
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
@@ -40,8 +41,13 @@ def unzip_file(zipfilename=None, unzipdir=None):
 
 #初始化本地文件目录，便于执行预安装
 def initial_env():
-    unzip_file(r'F:\Documents\PyCharmProjects\CustomLibrary\jenkins\releasePack1.0.4.zip', "./")
-    if not os.path.exists(r'F:\Documents\PyCharmProjects\CustomLibrary\jenkins\releasePack'): return -1
+    # src_file_path = "Z:\VoLTE_ECM\DailyBuild\\release\\" + datetime.now().strftime('%Y%m%d') + "\\releasePack.zip"
+    # print src_file_path
+    # print PATH(r"./releasePack.zip")
+    #
+    # shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
+    unzip_file(PATH(r"./releasePack.zip"), "./")
+    if not os.path.exists(PATH(r"./releasePack")): return -1
     tmpfile = open(r'releasePack/clean_all.bat', 'r+')
     filelit = tmpfile.readlines()
     print filelit[-2]
@@ -76,13 +82,13 @@ def run_pre_install():
     if 0 != initial_env():
         print "check env please."
     else:
-         run_bat(r'clean_all.bat')
-         time.sleep(20)
+         # run_bat(r'clean_all.bat')
+         # time.sleep(30)
          run_bat(r'install_32lib_app.bat')
 
     shutil.rmtree(PATH(r"./releasePack/"))
     shutil.rmtree(PATH(r"./VoLTE_libs/"))
-    shutil.rmtree(PATH(r"./bak/"))
+    # shutil.rmtree(PATH(r"./bak/"))
     os.remove(PATH(r"./EncryptCardManager.apk"))
 
 if __name__ == '__main__':

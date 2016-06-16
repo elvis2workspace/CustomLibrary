@@ -97,12 +97,17 @@ if __name__ == '__main__':
     #获取当前时间
     print datetime.now()
     print date.today()
-    print str(date.today())+"-"+str(datetime.now().hour)
-    print str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)
-    custom_dir("zhangxiuhai")
-    print datetime.now()+relativedelta(months=+1) # print now time in next month.
-    print str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))
-    APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
-    check_dir(APPIUM_RUNLOG)
-    test_config()
-    test_config2()
+    cur = datetime.now()
+    print cur
+    print cur.strftime('%Y%m%d')
+    print datetime.now().strftime('%Y%m%d')
+    datetime.n
+    # print str(date.today())+"-"+str(datetime.now().hour)
+    # print str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)
+    # custom_dir("zhangxiuhai")
+    # print datetime.now()+relativedelta(months=+1) # print now time in next month.
+    # print str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))
+    # APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
+    # check_dir(APPIUM_RUNLOG)
+    # test_config()
+    # test_config2()
