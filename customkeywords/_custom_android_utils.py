@@ -53,8 +53,9 @@ class _CustomAndroidKeywords(object):
         
         if None == tmppid:
             child = subprocess.Popen(launchCMD, shell=True)
-            time.sleep(20)
-            logger.info("Launch the local appium successfully.", also_console=True)
+            if child:
+                time.sleep(20)
+                logger.info("Launch the local appium successfully.", also_console=True)
             return child.pid
         else:
             time.sleep(10)
