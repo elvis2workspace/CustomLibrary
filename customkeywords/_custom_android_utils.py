@@ -54,13 +54,13 @@ class _CustomAndroidKeywords(object):
         if None == tmppid:
             child = subprocess.Popen(launchCMD, shell=True)
             if child:
-                time.sleep(20)
+                child.wait()
                 logger.info("Launch the local appium successfully.", also_console=True)
-            return child.pid
+            #return child.pid
         else:
             time.sleep(10)
             logger.info("Appium tool have launched, pid: "+tmppid, also_console=True)
-            return tmppid
+            # return tmppid
         
     def stop_tookit(self, toolniki):
         u'''停止测试工具,例如 本地Appium
