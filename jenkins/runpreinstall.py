@@ -93,7 +93,7 @@ def run_pre_install():
 
     shutil.rmtree(PATH(r"./releasePack/"))
     shutil.rmtree(PATH(r"./VoLTE_libs/"))
-    shutil.rmtree(PATH(r"./bak/"))
+    # shutil.rmtree(PATH(r"./bak/"))
     os.remove(PATH(r"./EncryptCardManager.apk"))
 
 if __name__ == '__main__':
