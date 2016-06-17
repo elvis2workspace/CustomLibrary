@@ -18,6 +18,8 @@ from CustomLibrary.customkeywords import _custom_android_utils
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
+RUNTIMETAG = "robot-runlog-%date:~0,4%%date:~5,2%%date:~8,2%"
+
 def unzip_file(zipfilename=None, unzipdir=None):
     if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
     zfobj = zipfile.ZipFile(zipfilename)
