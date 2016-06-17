@@ -12,6 +12,8 @@ import subprocess
 import shutil
 from datetime import *
 import time
+from robot.api import logger
+from CustomLibrary.customkeywords import _custom_android_utils
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
@@ -85,6 +87,7 @@ def run_pre_install():
          # run_bat(r'clean_all.bat')
          # time.sleep(30)
          run_bat(r'install_32lib_app.bat')
+         time.sleep(30)
 
     shutil.rmtree(PATH(r"./releasePack/"))
     shutil.rmtree(PATH(r"./VoLTE_libs/"))
@@ -92,4 +95,17 @@ def run_pre_install():
     os.remove(PATH(r"./EncryptCardManager.apk"))
 
 if __name__ == '__main__':
+    #提前启动appium工具
+    tmpObject = _custom_android_utils._CustomAndroidKeywords()
+    tmpObject.launch_local_appium("192.168.20.114")
+
+    #拷贝安装包进行安装
     run_pre_install()
+
+    #执行冒烟测试用例
+    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
+    -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
+    E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
+    F:\\Myspace\\GitHub\\OPython\\robotframework"
+    print pybot_cmd
+    os.system(pybot_cmd)
