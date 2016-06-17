@@ -100,6 +100,7 @@ if __name__ == '__main__':
     #提前启动appium工具
     tmpObject = _custom_android_utils._CustomAndroidKeywords()
     tmpObject.launch_local_appium("192.168.20.114")
+    time.sleep(20)
 
     #拷贝安装包进行安装
     run_pre_install()
