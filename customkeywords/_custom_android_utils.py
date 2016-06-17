@@ -16,7 +16,8 @@ from CustomLibrary.customutils import custom_utils
 
 
 MAXVERSIONS = 100
-APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)+"\\"
+APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-" + str(date.today()) + "-" + str(datetime.now().hour) + "-" +\
+                str(datetime.now().minute) + "\\"
 custom_utils.check_dir(APPIUM_RUNLOG)
 
 APPIUMPORT = 4723 
@@ -44,14 +45,16 @@ class _CustomAndroidKeywords(object):
         u'''根据ip，port，mode启动本地appium，例           
         
         '''
-        runlogfilestr = "appium-runlog-%date:~0,4%%date:~5,2%%date:~8,2%-"+str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
-        print runlogfilestr
-        launchCMD = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode \
-        + " " + "--log-timestamp --local-timezone --session-override -g " +APPIUM_RUNLOG+"appium-runlog.txt"
+        # runlogfilestr = "appium-runlog-%date:~0,4%%date:~5,2%%date:~8,2%-"+\
+        #                 str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
+        # print runlogfilestr
+
+        launchCMD = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
+                    "--log-timestamp --local-timezone --session-override -g " + APPIUM_RUNLOG + "appium-runlog.txt"
         
         tmppid = self.get_port_pid(APPIUMPORT)
         
-        if None == tmppid:
+        if tmppid is None:
             child = subprocess.Popen(launchCMD, shell=True)
             if child:
                 child.wait()
@@ -97,20 +100,20 @@ class _CustomAndroidKeywords(object):
         srchAdbCMD = "tasklist | findstr adb"
         logPid = self.get_CMD_pid('adb.exe')
         
-        if mode == True:
-            logCMD = "adb shell logcat -v time >D:\Logs\logcat_" + flag + ".log &1"
-            subprocess.Popen(logCMD, shell=True)
-        elif mode == False:
+        if mode:
+            log_cmd = "adb shell logcat -v time >D:\Logs\logcat_" + flag + ".log &1"
+            subprocess.Popen(log_cmd, shell=True)
+        elif not mode:
             for i in logPid:
-                logoffCMD = "tskill " + i
-                child = subprocess.Popen(logoffCMD, shell=True)
+                logoff_cmd = "tskill " + i
+                child = subprocess.Popen(logoff_cmd, shell=True)
                 child.wait()
         else:
             return -1
         
         logger.debug("Debug on.", html=True)
         
-    def grap_androidLog_afterOper(self, flag, path):  
+    def grap_androidlog_after_oper(self, flag, path):
         u'''获取操作后日志
         
         '''
