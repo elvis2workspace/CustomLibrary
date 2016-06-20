@@ -88,6 +88,7 @@ def run_bat(batfile=None):
 #执行预安装命令        
 def run_pre_install():
     if 0 != initial_env():
+        #预拷贝
         print "check env please."
     else:
          # run_bat(r'clean_all.bat')
@@ -107,7 +108,7 @@ if __name__ == '__main__':
     time.sleep(30)
 
     #执行冒烟测试用例
-    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
+    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
     -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
     E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
     F:\\Myspace\\GitHub\\OPython\\robotframework"
