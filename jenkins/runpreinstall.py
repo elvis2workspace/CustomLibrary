@@ -50,7 +50,7 @@ def initial_env():
     print src_file_path
     print PATH(r"./releasePack.zip")
 
-    restr = shutil.copy(r"Z:\VoLTE_ECM\DailyBuild\release\20160620\releasePack.zip", PATH(r"./releasePack.zip"))
+    restr = shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
 
     print "shutil.copy rest: ", restr
 
