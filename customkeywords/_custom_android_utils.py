@@ -13,6 +13,7 @@ import subprocess
 from datetime import  *
 import time
 from CustomLibrary.customutils import custom_utils
+import commands
 
 
 MAXVERSIONS = 100
@@ -49,21 +50,28 @@ class _CustomAndroidKeywords(object):
         #                 str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
         # print runlogfilestr
 
-        launchCMD = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
+        launch_cmd = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
                     "--log-timestamp --local-timezone --session-override -g " + APPIUM_RUNLOG + "appium-runlog.txt"
-        
-        tmppid = self.get_port_pid(APPIUMPORT)
-        
-        if tmppid is None:
-            child = subprocess.Popen(launchCMD, shell=True)
-            if child:
-                child.wait()
-                logger.info("Launch the local appium successfully.", also_console=True)
+        print "launch_cmd: ", launch_cmd
+
+        tmp_pid = self.get_port_pid(APPIUMPORT)
+
+        if tmp_pid is None:
+            child = subprocess.Popen(launch_cmd, shell=True)
+            print "child: ", child
+
+            if child.returncode is None:
+                # child.wait()
+                logger.info("Launch the local appium successfully, and appium tool is running....", also_console=True)
+                time.sleep(20)
+                return self.get_port_pid(APPIUMPORT)
+            else:
+                logger.error("Appium tool have stopped.", also_console=True)
+                return -1
             #return child.pid
         else:
-            time.sleep(10)
-            logger.info("Appium tool have launched, pid: "+tmppid, also_console=True)
-            # return tmppid
+            logger.info("Appium tool have been launched, pid: " + tmp_pid, also_console=True)
+            return tmp_pid
         
     def stop_tookit(self, toolniki):
         u'''停止测试工具,例如 本地Appium
@@ -84,14 +92,13 @@ class _CustomAndroidKeywords(object):
         '''
         getPidCMD = "netstat -ano | findstr  LISTENING | findstr " + str(port)
         appiumPidStr = os.popen(getPidCMD).read()
-        print appiumPidStr
         
         if appiumPidStr:
-            appiumG = appiumPidStr.split(' ')
-            logger.console("process about port " + str(port) +" is "+appiumG[-1]+" .", True, 'stdout')
-            return appiumG[-1]
+            appium_g = appiumPidStr.split(' ')
+            logger.console("Process about port " + str(port) + " have existed, is " +appium_g[-1] + ".", True, 'stdout')
+            return appium_g[-1]
         else:
-            logger.console("No process about port " + str(port) +"!", True, 'stdout')
+            logger.console("No process about port " + str(port) + "!", True, 'stdout')
             return None
         
     def set_androidlog_status(self, flag=None, mode=True):
@@ -229,9 +236,10 @@ class _CustomAndroidKeywords(object):
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
-    tmpObject.kill_shell_process("ecm")
-    tmpObject.reset_android()
-#     tmppro = tmpObject.launch_local_appium("192.168.20.114" , "4723", "no-reset")
+    # tmpObject.kill_shell_process("ecm")
+    # tmpObject.reset_android()
+    tmppro = tmpObject.launch_local_appium("192.168.20.114" , "4723", "no-reset")
+
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")
 #     time.sleep(10)
