@@ -46,11 +46,11 @@ def unzip_file(zipfilename=None, unzipdir=None):
 
 #初始化本地文件目录，便于执行预安装
 def initial_env():
-    # src_file_path = "Z:\VoLTE_ECM\DailyBuild\\release\\" + datetime.now().strftime('%Y%m%d') + "\\releasePack.zip"
-    # print src_file_path
-    # print PATH(r"./releasePack.zip")
-    #
-    # shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
+    src_file_path = "Z:\VoLTE_ECM\DailyBuild\\release\\" + datetime.now().strftime('%Y%m%d') + "\\releasePack.zip"
+    print src_file_path
+    print PATH(r"./releasePack.zip")
+
+    shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
     unzip_file(PATH(r"./releasePack.zip"), "./")
     if not os.path.exists(PATH(r"./releasePack")): return -1
     tmpfile = open(r'releasePack/clean_all.bat', 'r+')
