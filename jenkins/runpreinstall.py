@@ -52,7 +52,7 @@ def initial_env():
 
     shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
     unzip_file(PATH(r"./releasePack.zip"), "./")
-    if not os.path.exists(PATH(r"./releasePack")): return -1
+    if not os.path.exists(PATH(r"./releasePack/")): return -1
     tmpfile = open(r'releasePack/clean_all.bat', 'r+')
     filelit = tmpfile.readlines()
     print filelit[-2]
@@ -96,6 +96,7 @@ def run_pre_install():
     shutil.rmtree(PATH(r"./VoLTE_libs/"))
     # shutil.rmtree(PATH(r"./bak/"))
     os.remove(PATH(r"./EncryptCardManager.apk"))
+    os.remove(PATH(r"./releasePack.zip"))
 
 if __name__ == '__main__':
     #拷贝安装包进行安装
