@@ -50,7 +50,7 @@ def initial_env():
     print src_file_path
     print PATH(r"./releasePack.zip")
 
-    shutil.copy(src_file_path, PATH(r"./releasePack.zip"))
+    shutil.copy(src_file_path, "./")
     unzip_file(PATH(r"./releasePack.zip"), "./")
     if not os.path.exists(PATH(r"./releasePack/")): return -1
     tmpfile = open(r'releasePack/clean_all.bat', 'r+')
