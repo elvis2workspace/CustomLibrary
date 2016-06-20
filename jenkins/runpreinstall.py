@@ -50,7 +50,10 @@ def initial_env():
     print src_file_path
     print PATH(r"./releasePack.zip")
 
-    shutil.copy(src_file_path, "./")
+    restr = shutil.copy(r"Z:\VoLTE_ECM\DailyBuild\release\20160620\releasePack.zip", PATH(r"./releasePack.zip"))
+
+    print "shutil.copy rest: ", restr
+
     unzip_file(PATH(r"./releasePack.zip"), "./")
     if not os.path.exists(PATH(r"./releasePack/")): return -1
     tmpfile = open(r'releasePack/clean_all.bat', 'r+')
@@ -101,12 +104,12 @@ def run_pre_install():
 if __name__ == '__main__':
     #拷贝安装包进行安装
     run_pre_install()
-    time.sleep(30)
-
-    #执行冒烟测试用例
-    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
-    -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
-    E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
-    F:\\Myspace\\GitHub\\OPython\\robotframework"
-    print pybot_cmd
-    os.system(pybot_cmd)
+    # time.sleep(30)
+    #
+    # #执行冒烟测试用例
+    # pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
+    # -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
+    # E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
+    # F:\\Myspace\\GitHub\\OPython\\robotframework"
+    # print pybot_cmd
+    # os.system(pybot_cmd)
