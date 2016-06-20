@@ -98,30 +98,14 @@ def run_pre_install():
     os.remove(PATH(r"./EncryptCardManager.apk"))
 
 if __name__ == '__main__':
-    #提前启动appium工具
-    tmpObject = _custom_android_utils._CustomAndroidKeywords()
-    cus_threads = []
-    thrd_1 = threading.Thread(target=tmpObject.launch_local_appium("192.168.20.114"))
-    thrd_2 = threading.Thread(target=run_pre_install())
-    cus_threads.append(thrd_1)
-    cus_threads.append(thrd_2)
+    #拷贝安装包进行安装
+    run_pre_install()
+    time.sleep(30)
 
-    for t in cus_threads:
-        t.setDaemon(True)
-        t.start()
-
-    # ret_str = tmpObject.launch_local_appium("192.168.20.114")
-    # print "ret_str: ", ret_str
-    # time.sleep(20)
-    print " all over."
-    # #拷贝安装包进行安装
-    # run_pre_install()
-    # time.sleep(30)
-    #
-    # #执行冒烟测试用例
-    # pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
-    # -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
-    # E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
-    # F:\\Myspace\\GitHub\\OPython\\robotframework"
-    # print pybot_cmd
-    # os.system(pybot_cmd)
+    #执行冒烟测试用例
+    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog-%date:~0,4%%date:~5,2%%date:~8,2%\ -T -o output.xml -r report.html -l log.html \
+    -L TRACE --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt --listener \
+    E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
+    F:\\Myspace\\GitHub\\OPython\\robotframework"
+    print pybot_cmd
+    os.system(pybot_cmd)
