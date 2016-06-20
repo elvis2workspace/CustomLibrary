@@ -34,4 +34,5 @@ src_file_path = "Z:\VoLTE_ECM\DailyBuild\\release\\" + datetime.now().strftime('
 print src_file_path
 print PATH(r"./releasePack.zip")
 restr = shutil.copy(r"D:\\releasePack.zip", PATH(r"./releasePack.zip"))
+
 print "shutil.copy rest: ", restr
