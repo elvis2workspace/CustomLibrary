@@ -103,9 +103,9 @@ def run_pre_install():
     os.remove(PATH(r"./releasePack.zip"))
 
 if __name__ == '__main__':
-    # #拷贝安装包进行安装
-    # run_pre_install()
-    # time.sleep(30)
+    #拷贝安装包进行安装
+    run_pre_install()
+    time.sleep(30)
 
     #执行冒烟测试用例
     pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H%M%S') + \
