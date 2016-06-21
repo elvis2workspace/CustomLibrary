@@ -100,8 +100,8 @@ if __name__ == '__main__':
     cur = datetime.now()
     print cur
     print cur.strftime('%Y%m%d')
-    print datetime.now().strftime('%Y%m%d')
-    datetime.n
+    print datetime.now().strftime('%Y%m%d%H%M%S')
+
     # print str(date.today())+"-"+str(datetime.now().hour)
     # print str(date.today())+"-"+str(datetime.now().hour)+ "-"+str(datetime.now().minute)
     # custom_dir("zhangxiuhai")
