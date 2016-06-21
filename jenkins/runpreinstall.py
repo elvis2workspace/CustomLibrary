@@ -108,7 +108,7 @@ if __name__ == '__main__':
     time.sleep(30)
 
     #执行冒烟测试用例
-    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H%M%S') + \
+    pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H%M') + \
     " -o output.xml -r report.html -l log.html -L TRACE \
     --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt \
     --listener E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
