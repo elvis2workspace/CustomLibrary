@@ -14,5 +14,3 @@ import time
 tmpObject = _custom_android_utils._CustomAndroidKeywords()
 ret_str = tmpObject.launch_local_appium("192.168.20.114")
 
-print "ret_str: ", ret_str
-time.sleep(20)

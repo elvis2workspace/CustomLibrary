@@ -58,17 +58,9 @@ class _CustomAndroidKeywords(object):
 
         if tmp_pid is None:
             child = subprocess.Popen(launch_cmd, shell=True)
-            print "child: ", child
-
             if child.returncode is None:
-                # child.wait()
                 logger.info("Launch the local appium successfully, and appium tool is running....", also_console=True)
-                time.sleep(20)
-                return self.get_port_pid(APPIUMPORT)
-            else:
-                logger.error("Appium tool have stopped.", also_console=True)
-                return -1
-            #return child.pid
+                child.wait()
         else:
             logger.info("Appium tool have been launched, pid: " + tmp_pid, also_console=True)
             return tmp_pid
