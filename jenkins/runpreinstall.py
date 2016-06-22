@@ -110,8 +110,8 @@ if __name__ == '__main__':
     #执行冒烟测试用例
     pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H') + \
     " -o output.xml -r report.html -l log.html -L TRACE \
-    --argumentfile E:\Python27\Lib\site-packages\CustomLibrary\jenkins\\argfile.txt \
-    --listener E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
+    --argumentfile " + PATH(r"./argfile.txt") + \
+    " --listener E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
     F:\\Myspace\\GitHub\\OPython\\robotframework"
     print pybot_cmd
     os.system(pybot_cmd)
