@@ -129,4 +129,4 @@ if __name__ == '__main__':
     " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + PATH(r"./argfile.txt") + \
     " F:\\Myspace\\GitHub\\OPython\\robotframework"
     print "pybot_Cmd: ", pybot_cmd
-    # os.system(pybot_cmd)
+    os.system(pybot_cmd)
