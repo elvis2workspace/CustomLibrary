@@ -97,11 +97,12 @@ class _CustomAndroidKeywords(object):
     def set_androidlog_status(self, flag=None, mode=True):
         u'''设置android日志开关
         '''
-        srchAdbCMD = "tasklist | findstr adb"
+
+        # srchAdbCMD = "tasklist | findstr adb"
         log_pid = self.get_cmd_pid('adb.exe')
-        
+
         if mode:
-            log_cmd = "adb shell logcat -v time >D:\Logs\android-runlog\logcat_" + flag + ".log &1"
+            log_cmd = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
             child_str = subprocess.Popen(log_cmd, shell=True)
             child_str.wait()
             return True
@@ -137,7 +138,7 @@ class _CustomAndroidKeywords(object):
             else:
                 pass
             
-        if num <= 1 :
+        if num <= 1:
             logger.console("The process about " + t_cmd + " is not exist.", True)
         else:
             return pid_list[1:num]
