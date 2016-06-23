@@ -12,6 +12,7 @@ import subprocess
 import shutil
 from datetime import *
 import time
+import  sys
 from robot.api import logger
 from CustomLibrary.customkeywords import _custom_android_utils
 import threading
@@ -77,41 +78,48 @@ def initial_env():
     shutil.move(r'releasePack/VoLTE_libs/', './VoLTE_libs/')
     return 0
 
-#执行命令行
+#执行批处理命令
 def run_bat(batfile=None):
     bat_path = PATH(r"./releasePack/"+batfile)
-    print bat_path
     if not os.path.exists(bat_path): return -1
-    childpid = subprocess.Popen(bat_path, shell=True)
+    childpid = subprocess.Popen(bat_path, shell=True, stdout=subprocess.PIPE)
     childpid.wait()
+    restdoutstr = childpid.stdout.readlines()
+
+    for restr in restdoutstr:
+        if restr.find("failed!") is not -1:
+            print "Failed reason: ", restr
+            shutil.rmtree(PATH(r"./releasePack/"))
+            shutil.rmtree(PATH(r"./VoLTE_libs/"))
+            # shutil.rmtree(PATH(r"./bak/"))
+            os.remove(PATH(r"./EncryptCardManager.apk"))
+            os.remove(PATH(r"./releasePack.zip"))
+            return -1
+    return 0
 
 #执行预安装命令        
 def run_pre_install():
-    if 0 != initial_env():
+    if initial_env() is not 0:
         #预拷贝
-        print "check env please."
-    else:
-         # run_bat(r'clean_all.bat')
-         # time.sleep(30)
-         run_bat(r'install_32lib_app.bat')
-         time.sleep(30)
-
-    shutil.rmtree(PATH(r"./releasePack/"))
-    shutil.rmtree(PATH(r"./VoLTE_libs/"))
-    # shutil.rmtree(PATH(r"./bak/"))
-    os.remove(PATH(r"./EncryptCardManager.apk"))
-    os.remove(PATH(r"./releasePack.zip"))
+        print "Check your environment please!"
+     # run_bat(r'clean_all.bat')
+     # time.sleep(30)
+    if run_bat(r'install_32lib_app.bat') is -1:
+        logger.error("Run run_bat function error.", html=True)
+        return -1
+    time.sleep(30)
+    return 0
 
 if __name__ == '__main__':
     #拷贝安装包进行安装
-    run_pre_install()
-    time.sleep(30)
+    if run_pre_install() is not 0:
+        logger.error("Execute run_pre_install function failed!",html=True)
 
-    #执行冒烟测试用例
+    time.sleep(20)
+
+    #执行冒烟测试用例robotframework
     pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H') + \
-    " -o output.xml -r report.html -l log.html -L TRACE \
-    --argumentfile " + PATH(r"./argfile.txt") + \
-    " --listener E:\\Python27\\lib\\site-packages\\robotide\\contrib\\testrunner\\TestRunnerAgent.py:59463:False \
-    F:\\Myspace\\GitHub\\OPython\\robotframework"
-    print pybot_cmd
+    " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + PATH(r"./argfile.txt") + \
+    " F:\\Myspace\\GitHub\\OPython\\robotframework"
+
     os.system(pybot_cmd)
