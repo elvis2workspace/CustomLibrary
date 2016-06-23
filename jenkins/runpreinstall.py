@@ -40,7 +40,8 @@ def unzip_file(zipfilename=None, unzipdir=None):
         else:
             ext_filename = os.path.join(unzipdir, name)
             ext_dir = os.path.dirname(ext_filename)
-            if not os.path.exists(ext_dir): os.mkdir(ext_dir, 0777)
+            if not os.path.exists(ext_dir):
+                os.mkdir(ext_dir, 0777)
             outfile = open(ext_filename, 'wb')
             outfile.write(zfobj.read(name))
             outfile.close()
