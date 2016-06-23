@@ -107,6 +107,13 @@ def run_pre_install():
     if run_bat(r'install_32lib_app.bat') is -1:
         logger.error("Run run_bat function error.", html=True)
         return -1
+    else:
+        shutil.rmtree(PATH(r"./releasePack/"))
+        shutil.rmtree(PATH(r"./VoLTE_libs/"))
+        # shutil.rmtree(PATH(r"./bak/"))
+        os.remove(PATH(r"./EncryptCardManager.apk"))
+        os.remove(PATH(r"./releasePack.zip"))
+
     time.sleep(30)
     return 0
 
@@ -121,5 +128,5 @@ if __name__ == '__main__':
     pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H') + \
     " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + PATH(r"./argfile.txt") + \
     " F:\\Myspace\\GitHub\\OPython\\robotframework"
-
-    os.system(pybot_cmd)
+    print "pybot_Cmd: ", pybot_cmd
+    # os.system(pybot_cmd)
