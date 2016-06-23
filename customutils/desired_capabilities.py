@@ -5,10 +5,12 @@ Created on 2015年4月10日
 
 @author: zhangxiuhai
 '''
+
 import os
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
+
 
 def get_desired_capabilities(app=None):
     desired_caps={}
@@ -18,9 +20,7 @@ def get_desired_capabilities(app=None):
 #     desired_caps['app'] = PATH(
 #         r'../../../mgAuto/apps/' + str(app)
 #     )
-        
-        
-    #需要获取包名和组件名
+    # 需要获取包名和组件名
     desired_caps['appPackage'] = 'com.cetcs.ecmapplication'
     desired_caps['appActivity'] = '.LaunchActivity'
 #     desired_caps['unicodeKeyboard'] = 'true'

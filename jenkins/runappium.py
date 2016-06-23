@@ -12,7 +12,7 @@ import time
 import sys
 import logging
 
-#提前启动appium工具
+# 提前启动appium工具
 tmpObject = _custom_android_utils._CustomAndroidKeywords()
 
 if len(sys.argv) == 1:

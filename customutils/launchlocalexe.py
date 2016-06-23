@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 '''
 Created on 2016年5月11日
-
 @author: zhang.xiuhai
 '''
 
 import os
+
 
 def launch_local_exe(default=None):
     os.system(default)
