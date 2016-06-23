@@ -98,20 +98,21 @@ class _CustomAndroidKeywords(object):
         u'''设置android日志开关
         '''
         srchAdbCMD = "tasklist | findstr adb"
-        logPid = self.get_CMD_pid('adb.exe')
+        log_pid = self.get_cmd_pid('adb.exe')
         
         if mode:
-            log_cmd = "adb shell logcat -v time >D:\Logs\logcat_" + flag + ".log &1"
-            subprocess.Popen(log_cmd, shell=True)
+            log_cmd = "adb shell logcat -v time >D:\Logs\android-runlog\logcat_" + flag + ".log &1"
+            child_str = subprocess.Popen(log_cmd, shell=True)
+            child_str.wait()
+            return True
         elif not mode:
-            for i in logPid:
-                logoff_cmd = "tskill " + i
+            for i in log_pid:
+                logoff_cmd = "taskkill -PID " + i + " /F"
                 child = subprocess.Popen(logoff_cmd, shell=True)
                 child.wait()
+                return True
         else:
-            return -1
-        
-        logger.debug("Debug on.", html=True)
+            return False
         
     def grap_androidlog_after_oper(self, flag, path):
         u'''获取操作后日志
@@ -119,7 +120,7 @@ class _CustomAndroidKeywords(object):
         '''
         os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
 
-    def get_cmd_pid(self, tcmd):
+    def get_cmd_pid(self, t_cmd):
         u'''获取执行命令的进程ID
         
         '''
@@ -129,7 +130,7 @@ class _CustomAndroidKeywords(object):
         pid_list = []
         num = 0
         for i in rg:
-            if re.search(tcmd, i):
+            if re.search(t_cmd, i):
                 num += 1
             elif re.match(r'\d{5}|\d{4}', i):
                 pid_list.append(i)
@@ -137,7 +138,7 @@ class _CustomAndroidKeywords(object):
                 pass
             
         if num <= 1 :
-            logger.console("The process about " + tcmd + " is not exist.", True)
+            logger.console("The process about " + t_cmd + " is not exist.", True)
         else:
             return pid_list[1:num]
 
