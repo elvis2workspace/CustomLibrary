@@ -12,10 +12,10 @@ __version__ = CUSTOM_LIB_VERSION
 
 class CustomLibrary(
         _CustomAndroidKeywords,
-        _NativeOperationKeywords,
-        _OutputResultKeywords,
-        _OutputRunnerKeywords,
-        _OutputPwdKeywords,
+        # _NativeOperationKeywords,
+        # _OutputResultKeywords,
+        # _OutputRunnerKeywords,
+        # _OutputPwdKeywords,
 ):
 
     """
