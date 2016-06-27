@@ -129,6 +129,6 @@ if __name__ == '__main__':
     # 执行冒烟测试用例 Robot framework
     pybot_cmd = u"pybot.bat -d D:\\Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H') + \
     " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + PATH(r"./argfile.txt") + \
-    " F:\\Myspace\\GitHub\\OPython\\robotframework"
+    " E:\\robotframework"
     print "pybot_cmd: ", pybot_cmd
     os.system(pybot_cmd)
