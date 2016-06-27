@@ -33,13 +33,14 @@ class _CustomAndroidKeywords(object):
         '''
         Constructor
         '''
+
     # public
     def get_local_address(self):    
         u'''获取本地的地址.例
         
         '''
-        tmpconfig = os.popen('ipconfig').read()
-        ip = re.search(r'192.168.*.*', tmpconfig)
+        tmp_config = os.popen('ipconfig').read()
+        ip = re.search(r'192.168.*.*', tmp_config)
         return ip.group(0)
     
     def launch_local_appium(self, ip="127.0.0.1", tport="4723", mode="no-reset"):
@@ -69,6 +70,7 @@ class _CustomAndroidKeywords(object):
     def stop_tookit(self, toolniki):
         u'''停止测试工具,例如本地 Appium
         '''
+
         if "appium" == toolniki:
             pid = self.get_port_pid(APPIUMPORT)
             logger.info("going to stop local appium, pid: ."+str(pid), also_console=True) 
@@ -83,6 +85,7 @@ class _CustomAndroidKeywords(object):
     def get_port_pid(self, port):
         u'''根据参数中的端口号查找对应使用该端口号的进程ID，并返回该进程的PID号。
         '''
+
         getPidCMD = "netstat -ano | findstr  LISTENING | findstr " + str(port)
         appiumPidStr = os.popen(getPidCMD).read()
         
@@ -98,35 +101,47 @@ class _CustomAndroidKeywords(object):
         u'''设置android日志开关
         '''
 
-        # srchAdbCMD = "tasklist | findstr adb"
-        log_pid = self.get_cmd_pid('adb.exe')
+        # 获取adb.exe的进程ID
+        log_pid = self.get_cmd_pids('adb.exe')[1:]
+        if log_pid.__len__() is not 0:
+            print "log_pid: ", log_pid
 
         if mode:
             log_cmd = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
             child_str = subprocess.Popen(log_cmd, shell=True)
-            child_str.wait()
-            return True
+            re_code = child_str.wait()
+            if re_code is not 0:
+                print "Open the android log tool for log successfully."
+                return 0
+            else:
+                print "Open the android log tool for log failed."
+                return -1
         elif not mode:
             for i in log_pid:
                 logoff_cmd = "taskkill -PID " + i + " /F"
                 child = subprocess.Popen(logoff_cmd, shell=True)
                 child.wait()
-                return True
-        else:
-            return False
-        
+
+            if self.get_cmd_pids('adb.exe').__len__() == 1:
+                print "Have closed all the adb.exe processes."
+            else:
+                print "Close the adb.exe processes failed!"
+                return -1
+
     def grap_androidlog_after_oper(self, flag, path):
         u'''获取操作后日志
         
         '''
         os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
 
-    def get_cmd_pid(self, t_cmd):
+    def get_cmd_pids(self, t_cmd):
         u'''获取执行命令的进程ID
         
         '''
+
         srchAdbCMD = "tasklist | findstr adb.exe"
         r_str = os.popen(srchAdbCMD).read()
+        # print "r_str: ", r_str
         rg = r_str.split(' ')
         pid_list = []
         num = 0
@@ -137,11 +152,7 @@ class _CustomAndroidKeywords(object):
                 pid_list.append(i)
             else:
                 pass
-            
-        if num <= 1:
-            logger.console("The process about " + t_cmd + " is not exist.", True)
-        else:
-            return pid_list[1:num]
+        return pid_list
 
     def kill_shell_process(self, pro_alias='ecm'):
         u'''
@@ -233,7 +244,10 @@ if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
-    tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
+    adb_pid = tmpObject.get_cmd_pids('adb.exe')
+    tmpObject.set_androidlog_status(flag="test", mode=False)
+    # print "adb_pid: ", adb_pid[1:]
+    # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")
