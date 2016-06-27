@@ -107,10 +107,16 @@ class _CustomAndroidKeywords(object):
             print "log_pid: ", log_pid
 
         if mode:
-            log_cmd = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
-            child_str = subprocess.Popen(log_cmd, shell=True)
+            log_cmd_0 = "adb devices"
+            log_cmd_1 = "adb shell logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
+                          "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
+                          " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" + flag + ".log"
+            log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
+            # print "log_cmd_1: ", log_cmd_1
+            child_str = subprocess.Popen(log_cmd_1, shell=True)
             re_code = child_str.wait()
-            if re_code is not 0:
+            # print "re_code: ", re_code
+            if re_code is 0:
                 print "Open the android log tool for log successfully."
                 return 0
             else:
@@ -245,7 +251,7 @@ if __name__ == '__main__':
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
     adb_pid = tmpObject.get_cmd_pids('adb.exe')
-    tmpObject.set_androidlog_status(flag="test", mode=False)
+    tmpObject.set_androidlog_status(flag="test")
     # print "adb_pid: ", adb_pid[1:]
     # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
