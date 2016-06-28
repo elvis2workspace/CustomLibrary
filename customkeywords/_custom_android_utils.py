@@ -23,6 +23,9 @@ custom_utils.check_dir(APPIUM_RUNLOG)
 APPIUMPORT = 4723 
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
 
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__), p))
+
 
 class _CustomAndroidKeywords(object):
     '''
@@ -114,15 +117,21 @@ class _CustomAndroidKeywords(object):
             log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
             # print "log_cmd_1: ", log_cmd_1
             child_str = subprocess.Popen(log_cmd_1, shell=True)
-            re_code = child_str.wait()
-            # print "re_code: ", re_code
-            if re_code is 0:
+            time.sleep(5)
+            if not os.path.exists("D:\Logs\\android-runlog\logcat_" + flag + ".log"):
+                return -1
+            else:
                 print "Open the android log tool for log successfully."
                 return 0
-            else:
-                print "Open the android log tool for log failed."
-                return -1
-        elif not mode:
+            # re_code = child_str.wait()
+            # print "re_code: ", re_code
+            # if re_code is 0:
+            #     print "Open the android log tool for log successfully."
+            #     return 0
+            # else:
+            #     print "Open the android log tool for log failed."
+            #     return -1
+        else:
             for i in log_pid:
                 logoff_cmd = "taskkill -PID " + i + " /F"
                 child = subprocess.Popen(logoff_cmd, shell=True)
@@ -252,6 +261,8 @@ if __name__ == '__main__':
     # tmpObject.reset_android()
     adb_pid = tmpObject.get_cmd_pids('adb.exe')
     tmpObject.set_androidlog_status(flag="test")
+    time.sleep(10)
+    tmpObject.set_androidlog_status(flag="test", mode=False)
     # print "adb_pid: ", adb_pid[1:]
     # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
