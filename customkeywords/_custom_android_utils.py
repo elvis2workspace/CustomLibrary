@@ -100,7 +100,7 @@ class _CustomAndroidKeywords(object):
             logger.console("No process about port " + str(port) + "!", True, 'stdout')
             return None
         
-    def set_androidlog_status(self, flag=None, mode=True):
+    def set_androidlog_status(self, mode=True):
         u'''设置android日志开关
         '''
 
@@ -114,12 +114,13 @@ class _CustomAndroidKeywords(object):
             log_cmd_0 = "adb devices"
             log_cmd_1 = "adb shell logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
                           "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
-                          " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" + flag + ".log"
-            log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + time_stamp + ".log &1"
+                          " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" +\
+                        time_stamp + ".log"
+            log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + time_stamp + ".log &1"
             # print "log_cmd_1: ", log_cmd_1
             child_str = subprocess.Popen(log_cmd_1, shell=True)
             time.sleep(5)
-            if os.path.exists("D:\Logs\\android-runlog\logcat_" + flag + time_stamp + ".log"):
+            if os.path.exists("D:\Logs\\android-runlog\logcat_" + time_stamp + ".log"):
                 print "Open the android log tool for log successfully."
                 return 0
             else:
