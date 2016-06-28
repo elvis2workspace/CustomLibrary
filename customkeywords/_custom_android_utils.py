@@ -112,7 +112,7 @@ class _CustomAndroidKeywords(object):
 
         if mode is True:
             log_cmd_0 = "adb devices"
-            log_cmd_1 = "adb shell logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
+            log_cmd_1 = "adb logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
                           "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
                           " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" +\
                         time_stamp + ".log"
@@ -262,9 +262,9 @@ if __name__ == '__main__':
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
     adb_pid = tmpObject.get_cmd_pids('adb.exe')
-    tmpObject.set_androidlog_status(flag="test")
+    tmpObject.set_androidlog_status()
     time.sleep(10)
-    tmpObject.set_androidlog_status(flag="test", mode=False)
+    tmpObject.set_androidlog_status(mode=False)
     print tmpObject._getcurtm()
     # print "adb_pid: ", adb_pid[1:]
     # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
