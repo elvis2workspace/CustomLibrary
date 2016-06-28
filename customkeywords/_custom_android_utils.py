@@ -104,25 +104,26 @@ class _CustomAndroidKeywords(object):
         u'''设置android日志开关
         '''
 
+        time_stamp = self._getcurtm()
         # 获取adb.exe的进程ID
         log_pid = self.get_cmd_pids('adb.exe')[1:]
         if log_pid.__len__() is not 0:
             print "log_pid: ", log_pid
 
-        if mode:
+        if mode is True:
             log_cmd_0 = "adb devices"
             log_cmd_1 = "adb shell logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
                           "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
                           " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" + flag + ".log"
-            log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + ".log &1"
+            log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + flag + time_stamp + ".log &1"
             # print "log_cmd_1: ", log_cmd_1
             child_str = subprocess.Popen(log_cmd_1, shell=True)
             time.sleep(5)
-            if not os.path.exists("D:\Logs\\android-runlog\logcat_" + flag + ".log"):
-                return -1
-            else:
+            if os.path.exists("D:\Logs\\android-runlog\logcat_" + flag + time_stamp + ".log"):
                 print "Open the android log tool for log successfully."
                 return 0
+            else:
+                return -1
             # re_code = child_str.wait()
             # print "re_code: ", re_code
             # if re_code is 0:
@@ -253,7 +254,7 @@ class _CustomAndroidKeywords(object):
         print path
 
     def _getcurtm(self):
-        return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
+        return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
@@ -263,6 +264,7 @@ if __name__ == '__main__':
     tmpObject.set_androidlog_status(flag="test")
     time.sleep(10)
     tmpObject.set_androidlog_status(flag="test", mode=False)
+    print tmpObject._getcurtm()
     # print "adb_pid: ", adb_pid[1:]
     # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
