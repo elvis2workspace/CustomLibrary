@@ -76,7 +76,7 @@ def initial_env():
     tmp_file1.close()
 
     shutil.copy(r'releasePack/EncryptCardManager.apk', './')
-    shutil.move(r'releasePack/VoLTE_libs/', './VoLTE_libs/')
+    shutil.copy(r'releasePack/VoLTE_libs/', './VoLTE_libs/')
     return 0
 
 # 执行批处理命令
