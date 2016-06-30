@@ -115,6 +115,7 @@ def run_pre_install():
         # shutil.rmtree(PATH(r"./bak/"))
         os.remove(PATH(r"./EncryptCardManager.apk"))
         os.remove(PATH(r"./releasePack.zip"))
+        logger.info("All install relative files have been removed.", html=True, also_console=True)
 
     time.sleep(30)
     return 0
@@ -123,6 +124,8 @@ if __name__ == '__main__':
     # 拷贝安装包进行安装
     if run_pre_install() is not 0:
         logger.error("Execute run_pre_install function failed!", html=True)
+    else:
+        logger.console("Execute run_pre_install successfully.")
 
     time.sleep(20)
 
