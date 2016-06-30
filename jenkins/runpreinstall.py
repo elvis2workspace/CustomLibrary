@@ -68,15 +68,16 @@ def initial_env():
     
     tmp_file1 = open(r'releasePack/install_32lib_app.bat', 'r+')
     file_lit1 = tmp_file1.readlines()
+    tmp_file1.close()
     print file_lit1[-3], file_lit1[-9]
     file_lit1[-3] = ""
     file_lit1[-9] = ""
-    tmp_file1.seek(0)
-    tmp_file1.writelines(file_lit1)
-    tmp_file1.close()
+    tmp_file2 = open(r'releasePack/install_32lib_app.bat', 'w')
+    tmp_file2.writelines(file_lit1)
+    tmp_file2.close()
 
     shutil.copy(r'releasePack/EncryptCardManager.apk', './')
-    shutil.copy(r'releasePack/VoLTE_libs/', './VoLTE_libs/')
+    shutil.move(r'releasePack/VoLTE_libs/', './VoLTE_libs/')
     return 0
 
 # 执行批处理命令
@@ -85,8 +86,8 @@ def run_bat(batfile=None):
     if not os.path.exists(bat_path):
         return -1
     child_pid = subprocess.Popen(bat_path, shell=True, stdout=subprocess.PIPE)
-    child_pid.wait()
     restdoutstr = child_pid.stdout.readlines()
+    print "restdoutstr: \n", restdoutstr
 
     for re_str in restdoutstr:
         if re_str.find("failed!") is not -1:
