@@ -1,24 +1,29 @@
-#-*- coding:utf-8 -*-
-'''
-    created by bugmaster 2015-01-29
-'''
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-__version__ = '0.1'
+'''
+Created on 2015年5月8日
+@author: zhang.xiuhai
+'''
 
 from robot.api import logger
 import os
 
+__version__ = '0.1'
+
+
 class Runbat(object):
 
-    def run_all_bat(self,path):
+    def run_all_bat(self, path):
         u'''接收一个目录的路径，并执行目录下的所有bat文件.例
-         | run all bat                   | filepath                 | 
+         | run all bat  |  filepath  |
         '''
-        for root,dirs,files in os.walk(path):
+
+        for root, dirs, files in os.walk(path):
             for f in files:
                 if os.path.splitext(f)[1] == '.bat':
                     os.chdir(root)
-                    #print root,f
+                    # print root, f
                     os.system(f)
 
     def __execute_sql(self, path):

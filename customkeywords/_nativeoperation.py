@@ -1,12 +1,14 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
 Created on 2015年5月8日
-
 @author: zhang.xiuhai
 '''
+
 import random
 import string
+
 
 class _NativeOperationKeywords(object):
     '''
@@ -22,18 +24,14 @@ class _NativeOperationKeywords(object):
     （5）我们要的本次的随机字符就是找到的locate处的后一个字符self.data[where+len(locate)+1]，如果locate为空，那么ch就是（2）后的第一个字符，也是随机的
     '''
 
-#     def __init__(self, params):
-#         '''
-#         Constructor
-#         '''
     def __init__(self,filename):  
         self.data = open(filename).read().lower() 
          
-    def renew(self,n = 8,maxmem = 3):  
+    def renew(self, n=8, maxmem=3):
         chars = []  
         for i in range(n):  
-            rmdIndex = random.randrange(len(self.data))   
-            self.data = self.data[rmdIndex:]+self.data[:rmdIndex]  
+            rmd_index = random.randrange(len(self.data))
+            self.data = self.data[rmd_index:]+self.data[:rmd_index]
             where = i-1  
             locate = chars[-maxmem:]  
             while where < 0 and locate:  

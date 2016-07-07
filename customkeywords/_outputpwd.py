@@ -1,19 +1,22 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 '''
 Created on 2015年5月8日
 
 @author: zhang.xiuhai
 '''
+
 import random
 import string
 from random import choice
 import re
 
+
 class _OutputPwdKeywords(object):
     '''
     classdocs
     '''
-
 
     def __init__(self, filename):
         '''
@@ -21,11 +24,11 @@ class _OutputPwdKeywords(object):
         '''
         self.data = open(filename).read().lower()
 
-    def renew(self,n = 8,maxmem = 3):  
+    def renew(self, n=8, maxmem=3):
         chars = []  
         for i in range(n):  
-            rmdIndex = random.randrange(len(self.data))   
-            self.data = self.data[rmdIndex:]+self.data[:rmdIndex]  
+            rmd_index = random.randrange(len(self.data))
+            self.data = self.data[rmd_index:]+self.data[:rmd_index]
             where = -1  
             locate = chars[-maxmem:]  
             while where < 0 and locate:  
@@ -37,13 +40,11 @@ class _OutputPwdKeywords(object):
             chars.append(ch)  
         return ''.join(chars)  
     '''
+
 pn1: 生成随机密码
 '''  
-    def GenPasswd(self, length = 8,chars = string.letters+string.digits):  
-         
+    def GenPasswd(self, length=8, chars=string.letters+string.digits):
         return ''.join([choice(chars) for i in range(length)])  
-
-
 
     '''
     pn3:统计Apache中每个IP的点击率
@@ -62,13 +63,13 @@ pn1: 生成随机密码
             match = re_ip.match(line)  
             if match :  
                 ip = match.group()  
-                #检查正确性  
+                # 检查正确性
                 try:  
                     quad = map(int,ip.split('.'))  
                 except ValueError:  
                     pass  
                 else:  
-                    #如果ip存在就+1，不存在就设置为1  
+                    # 如果ip存在就+1，不存在就设置为1
                     if len(quad) == 4 and min(quad) >= 0 and max(quad) <= 255:   
                         ipHitListing[ip] = ipHitListing.get(ip,0) + 1  
         return ipHitListing          

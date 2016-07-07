@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-CUSTOMLIBVERSION = '1.0.5'
+CUSTOM_LIB_VERSION = '1.0.5'

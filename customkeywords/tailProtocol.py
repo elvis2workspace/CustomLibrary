@@ -1,8 +1,11 @@
-'''
-Created on 2016年5月8日
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+'''
+Created on 2015年5月8日
 @author: zhang.xiuhai
 '''
+
 import os
 import hashlib
 
@@ -11,16 +14,16 @@ from twisted.protocols.basic import LineReceiver
 from twisted.python import log
 from twisted.internet import reactor, threads
 
+
 class TailProtocol(object):
     '''
     classdocs
     '''
 
-
     def __init__(self, write_callback):
         self.write = write_callback
 
-    def outReceived(self, data):
+    def out_received(self, data):
         self.write("Begin lastlog\n")
         data = [line for line in data.split('\n') if not line.startswith('==')]
         for d in data:
@@ -30,6 +33,7 @@ class TailProtocol(object):
     def processEnded(self, reason):
         if reason.value.exitCode != 0:
             log.msg(reason)
+
 
 class HashCompute(object):
     def __init__(self, path, write_callback):
@@ -54,6 +58,7 @@ class HashCompute(object):
 
     def err(self, failure):
         self.write("An error occured : %s\n" % failure.getErrorMessage())
+
 
 class CmdProtocol(LineReceiver):
 
@@ -94,6 +99,7 @@ class CmdProtocol(LineReceiver):
     def lineReceived(self, line):
         log.msg('Cmd received from %s : %s' % (self.client_ip, line))
         self.processCmd(line)
+
 
 class MyFactory(ServerFactory):
 

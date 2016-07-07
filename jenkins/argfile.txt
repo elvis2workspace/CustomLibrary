@@ -2,8 +2,10 @@
 on
 -W
 157
---include 
-sc
+--exclude
+手机号码绑定
+#--include
+#sc
 --suite
 Robotframework.MgAutoTestSuites.VolteSomkeCaseSuites
 #--test
