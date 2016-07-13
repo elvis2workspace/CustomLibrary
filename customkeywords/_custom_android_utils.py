@@ -19,6 +19,7 @@ MAXVERSIONS = 100
 APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-" + str(date.today()) + "-" + str(datetime.now().hour) + "-" +\
                 str(datetime.now().minute) + "\\"
 custom_utils.check_dir(APPIUM_RUNLOG)
+APPIUM_LOCALPATH = "E:\\Program Files\\nodejs\\node_global\\"
 
 APPIUMPORT = 4723 
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
@@ -267,7 +268,7 @@ if __name__ == '__main__':
     tmpObject.set_androidlog_status(mode=False)
     print tmpObject._getcurtm()
     # print "adb_pid: ", adb_pid[1:]
-    # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
+    tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")
