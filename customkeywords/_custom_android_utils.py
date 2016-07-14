@@ -12,7 +12,7 @@ import re
 import subprocess
 from datetime import  *
 import time
-from CustomLibrary.customutils import custom_utils
+from CustomLibrary.utils import custom_utils
 
 
 MAXVERSIONS = 100

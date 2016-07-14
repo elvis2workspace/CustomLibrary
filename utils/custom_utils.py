@@ -6,18 +6,20 @@ Created on 2016年5月11日
 '''
 
 from __future__ import with_statement
+
 import os
-from dateutil.relativedelta import *
-from dateutil.easter import *
-from dateutil.rrule import *
-from dateutil.parser import *
-from datetime import *
-import calendar
-import time
 import sys
+import time
+from datetime import *
+
+from dateutil.easter import *
+from dateutil.parser import *
+from dateutil.relativedelta import *
+from dateutil.rrule import *
+
 sys.path.append("../")
 import ConfigParser
-from CustomLibrary.config import *
+from CustomLibrary.config.config import *
 
 
 def test():

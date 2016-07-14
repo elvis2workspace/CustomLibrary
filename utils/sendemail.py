@@ -5,10 +5,12 @@ Created on 2015年9月1日
 @author: zhang.xiuhai
 '''
 
-import smtplib,sys,email
+import smtplib
+import sys
+import email
 
 
-def sendEmail():
+def send_email():
     result_name = []
     mail_from = ""
     mail_to = ['', '']
