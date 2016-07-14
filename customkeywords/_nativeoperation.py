@@ -25,7 +25,7 @@ class _NativeOperationKeywords(object):
     （5）我们要的本次的随机字符就是找到的locate处的后一个字符self.data[where+len(locate)+1]，如果locate为空，那么ch就是（2）后的第一个字符，也是随机的
     '''
 
-    def __init__(self,filename):  
+    def __init__(self, filename):
         self.data = open(filename).read().lower() 
 
     # public
@@ -46,7 +46,7 @@ class _NativeOperationKeywords(object):
             chars.append(ch)  
         return ''.join(chars)
 
-    def setup_xml(self, test_name, user_pin="123456", so_pin="12345678", loop_times="", data_len=""):
+    def setup_xml(self, test_name="", user_pin="123456", so_pin="12345678", loop_times="", data_len=""):
         """
         Setup the xml file:data.xml, config param include test_name, user_pin, so_pin, loop_times,
         data_len.
@@ -86,3 +86,8 @@ class _NativeOperationKeywords(object):
         test_node.toprettyxml(encoding="utf-8")
         doc.writexml(f, encoding="utf-8")
         f.close()
+
+
+if __name__ == '__main__':
+    native_opt_instance = _NativeOperationKeywords("./runbat.py")
+    native_opt_instance.setup_xml(test_name="101", loop_times="50", data_len="32")

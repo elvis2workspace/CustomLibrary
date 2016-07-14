@@ -18,8 +18,9 @@ from dateutil.relativedelta import *
 from dateutil.rrule import *
 
 sys.path.append("../")
-import ConfigParser
 from CustomLibrary.config.config import *
+import ConfigParser
+
 
 
 def test():

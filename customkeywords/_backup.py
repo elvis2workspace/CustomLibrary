@@ -51,6 +51,9 @@ class BackupKeywords(object):
                     except OSError:  
                             pass  
                 try:  
-                    shutil.copy(filepath,backup)  
+                    shutil.copy(filepath, backup)
                 except OSError:  
                     pass
+
+if __name__ == '__main__':
+    pass
