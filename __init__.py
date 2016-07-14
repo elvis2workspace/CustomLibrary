@@ -12,7 +12,6 @@ __version__ = VERSION
 
 class CustomLibrary(
         _CustomAndroidKeywords,
-        _NativeOperationKeywords,
 ):
 
     """
@@ -21,9 +20,9 @@ class CustomLibrary(
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION
-    ROBOT_LIBRARY_TIMEOUT = ""
     
-    def __init__(self, timeout=15):
+    def __init__(self):
+        print CustomLibrary.__bases__
         for base in CustomLibrary.__bases__:
             base.__init__(self)
-        self.ROBOT_LIBRARY_TIMEOUT = timeout
+
