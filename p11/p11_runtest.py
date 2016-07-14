@@ -6,14 +6,43 @@ Created on 2016年7月12日
 
 @author: zhang.xiuhai
 '''
+
 from ctypes import cdll
 import os
 import time
+import shutil
+import zipfile
+
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
 #make *.so
+
+def unzip_file(zipfilename=None, unzipdir=None):
+    if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
+    zfobj = zipfile.ZipFile(zipfilename)
+    print zfobj
+
+    for name in zfobj.namelist():
+        print name
+        name = name.replace('\\', '/')
+        print name
+
+        if name.endswith('/'):
+            if os.path.exists(os.path.join(unzipdir, name)):
+                pass
+            else:
+                os.mkdir(os.path.join(unzipdir, name))
+        else:
+            ext_filename = os.path.join(unzipdir, name)
+            ext_dir = os.path.dirname(ext_filename)
+            if not os.path.exists(ext_dir):
+                os.mkdir(ext_dir, 0777)
+            outfile = open(ext_filename, 'wb')
+            outfile.write(zfobj.read(name))
+            outfile.close()
+
 
 def compile_so():
     linuxstoccmd = "gcc -c -fPIC libtest.c"
@@ -25,6 +54,19 @@ def compile_so():
     
     print "Complete to Compile to *.so "
     return 0
+
+
+def initial_env_for_p11():
+    src_file_path = "D:\\PS_auto_project\\SCS 1.2.4.rar"
+    print src_file_path
+    print PATH(r"./releasePack.zip")
+
+    restr = shutil.copy(src_file_path, PATH(r"./SCS.rar"))
+
+    print "shutil.copy rest: ", restr
+
+    unzip_file(PATH(r"./SCS.rar"), "./")
+    if not os.path.exists(PATH(r"./SCS/")): return -1
 
 
 def callC():
@@ -45,6 +87,7 @@ def upload_file(sour_file=None, dest_path=None):
     push_command = "adb push " + PATH(r"./" + sour_file) + " " + dest_path
     print push_command
     os.system(push_command)
+
 
 def run_p11test():
     run_command1 = "adb shell " + "\"chmod 777 /data/p11test\""

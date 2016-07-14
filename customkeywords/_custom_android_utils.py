@@ -13,6 +13,7 @@ import subprocess
 from datetime import *
 import time
 from xml.dom import minidom
+import zipfile
 from CustomLibrary.utils import custom_utils
 
 
@@ -299,6 +300,45 @@ class _CustomAndroidKeywords(object):
         test_node.toprettyxml(encoding="utf-8")
         doc.writexml(f, encoding="utf-8")
         f.close()
+
+    def run_p11test(self):
+        """
+        execute p11test.so to verify the p11 interface.
+        """
+        run_command1 = "adb shell " + "\"chmod 777 /data/p11test\""
+        print run_command1
+        re_str = os.system(run_command1)
+        print re_str
+        run_command2 = "adb shell " + "\"cd /data/ && .\/p11test\""
+        print run_command2
+        os.system(run_command2)
+
+    def unzip_file(self, zipfilename=None, unzipdir=None):
+        """
+        unzip file.
+        """
+        if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
+        zfobj = zipfile.ZipFile(zipfilename)
+        print zfobj
+
+        for name in zfobj.namelist():
+            print name
+            name = name.replace('\\', '/')
+            print name
+
+            if name.endswith('/'):
+                if os.path.exists(os.path.join(unzipdir, name)):
+                    pass
+                else:
+                    os.mkdir(os.path.join(unzipdir, name))
+            else:
+                ext_filename = os.path.join(unzipdir, name)
+                ext_dir = os.path.dirname(ext_filename)
+                if not os.path.exists(ext_dir):
+                    os.mkdir(ext_dir, 0777)
+                outfile = open(ext_filename, 'wb')
+                outfile.write(zfobj.read(name))
+                outfile.close()
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()

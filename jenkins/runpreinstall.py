@@ -23,6 +23,7 @@ PATH = lambda p: os.path.abspath(
 RUNTIMETAG = "robot-runlog-%date:~0,4%%date:~5,2%%date:~8,2%"
 ROBOTLOGPATH = "D:\\PS_auto_project\\PS_Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H')
 
+
 def unzip_file(zipfilename=None, unzipdir=None):
     if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
     zfobj = zipfile.ZipFile(zipfilename)
