@@ -1,8 +1,9 @@
 from xml.dom import minidom
 
-f = open("xmlstuff.xml", "w")
+f = open("data.xml", "w")
 
 doc = minidom.Document()
+doc.standalone = True
 rootNode = doc.createElement("root")
 doc.appendChild(rootNode)
 bookNode = doc.createElement("Test")
@@ -28,6 +29,8 @@ looptimes_text_node = doc.createTextNode('50')
 looptimes_node.appendChild(looptimes_text_node)
 datalen_text_node = doc.createTextNode('32')
 datalen_node.appendChild(datalen_text_node)
-doc.writexml(f, "/t", "/t", "/n", "utf-8")
+# doc.writexml(f, "/t", "/t", "/n", "utf-8")
+bookNode.toprettyxml(encoding="utf-8")
+doc.writexml(f, encoding="utf-8")
 
 f.close()

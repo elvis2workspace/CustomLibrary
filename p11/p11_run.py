@@ -59,33 +59,32 @@ def setup_xml():
     import xml.dom.minidom
     if not os.path.exists(PATH(r"./data.xml")):
         return -1
-    xml_file_obj = xml.dom.minidom.parse(PATH(r"./data.xml"))
-    element_obj = xml_file_obj.documentElement
-    print element_obj.nodeName
-    print element_obj.nodeValue
-    print element_obj.nodeType
-    print element_obj.ELEMENT_NODE
-    Testname_value = xml_file_obj.getElementsByTagName('Testname')[0].firstChild.data
-    Userpin_value = xml_file_obj.getElementsByTagName('Userpin')[0].firstChild.data
-    Sopin_value = xml_file_obj.getElementsByTagName('Sopin')[0].firstChild.data
-    Looptimes_value = xml_file_obj.getElementsByTagName('Looptimes')[0].firstChild.data
-    Datalen_value = xml_file_obj.getElementsByTagName('Datalen')[0].firstChild.data
+    xml_dom = xml.dom.minidom.parse(PATH(r"./data.xml"))
+    xml_root = xml_dom.documentElement
+    print xml_root.nodeName
+    print xml_root.nodeValue
+    print xml_root.nodeType
+    print xml_root.ELEMENT_NODE
+    Testname_value = xml_dom.getElementsByTagName('Testname')[0].firstChild.data
+    Userpin_value = xml_dom.getElementsByTagName('Userpin')[0].firstChild.data
+    Sopin_value = xml_dom.getElementsByTagName('Sopin')[0].firstChild.data
+    Looptimes_value = xml_dom.getElementsByTagName('Looptimes')[0].firstChild.data
+    Datalen_value = xml_dom.getElementsByTagName('Datalen')[0].firstChild.data
     print Testname_value
     print Userpin_value
     print Sopin_value
     print Looptimes_value
     print Datalen_value
 
-    Testname_node = xml_file_obj.getElementsByTagName('Testname')
-    print Testname_node
-
+    Testname_node = xml_dom.getElementsByTagName('Testname')
+    print Testname_node[0].firstChild
 
 if __name__ == '__main__':
     # callC()
     # upload_file("libPKCS11.so", "/data/")
     # upload_file("p11test", "/data/")
     # time.sleep(5)
-    # run_p11test()
-    setup_xml()
+    run_p11test()
+    # setup_xml()
 
 
