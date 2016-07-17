@@ -12,12 +12,14 @@ import os
 import time
 import shutil
 import zipfile
+from robot.api import logger
 
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
 #make *.so
+
 
 def unzip_file(zipfilename=None, unzipdir=None):
     if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
@@ -57,19 +59,48 @@ def compile_so():
 
 
 def initial_env_for_p11():
-    src_file_path = "D:\\PS_auto_project\\SCS 1.2.4.rar"
+    src_file_path = "D:\\PS_auto_project\\SCS 1.2.4.zip"
     print src_file_path
-    print PATH(r"./releasePack.zip")
+    print PATH(r"./SCS.zip")
 
-    restr = shutil.copy(src_file_path, PATH(r"./SCS.rar"))
+    restr = shutil.copy(src_file_path, "SCS.zip")
 
     print "shutil.copy rest: ", restr
 
-    unzip_file(PATH(r"./SCS.rar"), "./")
-    if not os.path.exists(PATH(r"./SCS/")): return -1
+    unzip_file(PATH(r"./SCS.zip"), "./SCS/")
+    if not os.path.exists(PATH(r"./SCS/")):
+        return -1
+    print "SCS fold exist."
+
+    # push *.so file
+    if not os.path.exists(PATH(r"./SCS/libs/armeabi-v7a/libPKCS11.so")):
+        return -1
+    push_so_command = upload_file(PATH(r"./SCS/libs/armeabi-v7a/libPKCS11.so"), "/data")
+    os.system(push_so_command)
+    push_p11test_command = upload_file(PATH(r"./SCS/p11test/armeabi-v7a/p11test"), "/data")
+    os.system(push_so_command)
+
+    # check SCS service whether run or not
+    check_service("ServerCenter")
 
 
-def callC():
+def check_service(pro_alias):
+    adb_cmd = "adb shell ps | grep " + str(pro_alias)
+    pro_details = os.popen(adb_cmd).read()
+    # print "proDetails: "+ proDetails
+    # logger.info(proDetails, also_console=True)
+    is_null = (len(pro_details) == 0)
+
+    if is_null:
+        logger.error(pro_alias + " is not alive.")
+        return -1
+    elif pro_details.endswith("./ServerCenter"):
+        logger.info(pro_alias + " is alive.")
+    else:
+        return pro_details
+
+
+def call_so():
     # load the *.so
     print PATH(r"libhelloworld.so")
     if not os.path.exists(PATH(r"libhelloworld.so")):
@@ -89,6 +120,7 @@ def upload_file(sour_file=None, dest_path=None):
     os.system(push_command)
 
 
+# 执行p11测试
 def run_p11test():
     run_command1 = "adb shell " + "\"chmod 777 /data/p11test\""
     print run_command1
@@ -97,6 +129,7 @@ def run_p11test():
     run_command2 = "adb shell " + "\"cd /data/ && .\/p11test\""
     print run_command2
     os.system(run_command2)
+
 
 def setup_xml():
     import xml.dom.minidom
@@ -123,11 +156,12 @@ def setup_xml():
     print Testname_node[0].firstChild
 
 if __name__ == '__main__':
-    # callC()
+    # call_so()
     # upload_file("libPKCS11.so", "/data/")
     # upload_file("p11test", "/data/")
     # time.sleep(5)
-    run_p11test()
+    # run_p11test()
     # setup_xml()
+    initial_env_for_p11()
 
 
