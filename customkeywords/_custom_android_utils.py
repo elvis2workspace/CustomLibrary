@@ -252,14 +252,6 @@ class _CustomAndroidKeywords(object):
     def decode(self, customer_str):
         return customer_str.decode('utf-8')
 
-    # private
-    def _execute_sql(self, path):
-        logger.debug("Executing : %s" % path)
-        print path
-
-    def _getcurtm(self):
-        return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
-
     def setup_xml(self, test_name="", user_pin="123456", so_pin="12345678", loop_times="", data_len=""):
         """
         Setup the xml file:data.xml, config param include test_name, user_pin, so_pin, loop_times,
@@ -339,6 +331,14 @@ class _CustomAndroidKeywords(object):
                 outfile = open(ext_filename, 'wb')
                 outfile.write(zfobj.read(name))
                 outfile.close()
+
+    # private
+    def _execute_sql(self, path):
+        logger.debug("Executing : %s" % path)
+        print path
+
+    def _getcurtm(self):
+        return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
