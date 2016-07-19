@@ -14,7 +14,11 @@ from datetime import *
 import time
 from xml.dom import minidom
 import zipfile
+import shutil
 from CustomLibrary.utils import custom_utils
+from CustomLibrary.p11 import *
+from keywordgroup import KeywordGroup
+from robot.libraries.BuiltIn import BuiltIn
 
 
 MAXVERSIONS = 100
@@ -30,15 +34,17 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
 
-class _CustomAndroidKeywords(object):
+class _CustomAndroidKeywords(KeywordGroup):
     '''
     classdocs
     '''
 
     def __init__(self):
-        '''
+        """
         Constructor
-        '''
+        """
+        self._p11_utils = P11Tester()
+        self._biin = BuiltIn()
 
     # public
     def get_local_address(self):    
@@ -155,13 +161,10 @@ class _CustomAndroidKeywords(object):
         os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
 
     def get_cmd_pids(self, t_cmd):
-        u'''获取执行命令的进程ID
-        
-        '''
-
+        """获取执行命令的进程ID"""
         srchAdbCMD = "tasklist | findstr adb.exe"
         r_str = os.popen(srchAdbCMD).read()
-        # print "r_str: ", r_str
+        print "r_str: ", r_str
         rg = r_str.split(' ')
         pid_list = []
         num = 0
@@ -260,6 +263,10 @@ class _CustomAndroidKeywords(object):
         | setup xml | test_name | user_pin | so_pin | loop_times | data_len |
         | setup xml | 101 | 123456 | 12345678 | 50 | 32 |
         """
+
+        if os.path.exists(PATH(r"../res/data.xml")):
+            os.remove(PATH(r"../res/data.xml"))
+
         doc = minidom.Document()
         doc.standalone = True
         root_node = doc.createElement("root")
@@ -288,10 +295,23 @@ class _CustomAndroidKeywords(object):
         data_len_text_node = doc.createTextNode(data_len)
         data_len_node.appendChild(data_len_text_node)
         # doc.writexml(f, "/t", "/t", "/n", "utf-8")
-        f = open("data.xml", "w")
+        f = open(PATH(r"../res/data.xml"), "w")
         test_node.toprettyxml(encoding="utf-8")
         doc.writexml(f, encoding="utf-8")
         f.close()
+
+        if os.path.exists(PATH(r"../res/data.xml")):
+            logger.info("Setup xml file successfully.")
+        else:
+            logger.error("Failed to setup xml file.")
+            return -1
+
+    def adb_push(self, local_path=None, dest_path=None):
+        ret_str = self._p11_utils.upload_file(local_path, dest_path)
+        if ret_str is not None:
+            logger.error("Upload file to terminal device failed: %s" % ret_str, html=True)
+            return -1
+        logger.info("adb push %s to terminal device successfully." % local_path, html=True, also_console=True)
 
     def run_p11test(self):
         """
@@ -302,8 +322,15 @@ class _CustomAndroidKeywords(object):
         re_str = os.system(run_command1)
         print re_str
         run_command2 = "adb shell " + "\"cd /data/ && .\/p11test\""
-        print run_command2
-        os.system(run_command2)
+        if re_str < 0:
+            logger.error("Setup the permission of p11test failed.")
+            return -1
+        else:
+            output_str = os.system(run_command2)
+            if output_str is None:
+                return -1
+            else:
+                return output_str
 
     def unzip_file(self, zipfilename=None, unzipdir=None):
         """
@@ -332,6 +359,14 @@ class _CustomAndroidKeywords(object):
                 outfile.write(zfobj.read(name))
                 outfile.close()
 
+    def initial_environment_for_p11(self):
+        """
+        Initial the device environment fot the p11test project.
+        """
+
+        if self._p11_utils.initial_env_for_p11() is not None:
+            logger.error("Failed to initial environment for p11 verify.")
+
     # private
     def _execute_sql(self, path):
         logger.debug("Executing : %s" % path)
@@ -345,12 +380,14 @@ if __name__ == '__main__':
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
     adb_pid = tmpObject.get_cmd_pids('adb.exe')
-    tmpObject.set_androidlog_status()
-    time.sleep(10)
-    tmpObject.set_androidlog_status(mode=False)
-    print tmpObject._getcurtm()
-    # print "adb_pid: ", adb_pid[1:]
-    tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
+    print adb_pid
+    tmpObject.initial_environment_for_p11()
+    # tmpObject.set_androidlog_status()
+    # time.sleep(10)
+    # tmpObject.set_androidlog_status(mode=False)
+    # print tmpObject._getcurtm()
+    # # print "adb_pid: ", adb_pid[1:]
+    # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
 #     print "run the testcase."
 #     tmpObject.get_port_pid("4723")

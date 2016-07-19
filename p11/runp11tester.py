@@ -9,7 +9,6 @@ Created on 2016年7月12日
 
 from ctypes import cdll
 import os
-import time
 import shutil
 import zipfile
 from robot.api import logger
@@ -23,12 +22,10 @@ class P11Tester(object):
     classdocs
     """
 
-    def __init__(self, params):
+    def __init__(self):
         """
         Constructor
         """
-
-
 
     def unzip_file(self, zipfilename=None, unzipdir=None):
         if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
@@ -70,31 +67,38 @@ class P11Tester(object):
     def initial_env_for_p11(self):
         src_file_path = "D:\\PS_auto_project\\SCS 1.2.4.zip"
         print src_file_path
-        print PATH(r"./SCS.zip")
+        print PATH(r"../res/SCS.zip")
 
-        restr = shutil.copy(src_file_path, "SCS.zip")
+        restr = shutil.copy(src_file_path, PATH(r"../res/SCS.zip"))
 
         print "shutil.copy rest: ", restr
 
-        self.unzip_file(PATH(r"./SCS.zip"), "./SCS/")
-        if not os.path.exists(PATH(r"./SCS/")):
+        self.unzip_file(PATH(r"../res/SCS.zip"), PATH("../res/SCS/"))
+        if not os.path.exists(PATH(r"../res/SCS/")):
             return -1
-        print "SCS fold exist."
+        print "SCS fold unzip successfully."
 
         # push *.so file
-        if not os.path.exists(PATH(r"./SCS/libs/armeabi-v7a/libPKCS11.so")):
+        if not os.path.exists(PATH(r"../res/SCS/libs/armeabi-v7a/libPKCS11.so")):
             return -1
-        push_so_command = self.upload_file(PATH(r"./SCS/libs/armeabi-v7a/libPKCS11.so"), "/data")
-        os.system(push_so_command)
-        push_p11test_command = self.upload_file(PATH(r"./SCS/p11test/armeabi-v7a/p11test"), "/data")
-        os.system(push_p11test_command)
+
+        if self.upload_file(PATH(r"../res/SCS/libs/armeabi-v7a/libPKCS11.so"), "/data") is not None:
+            print "libPkCS11.so is push to the terminal device failed."
+
+        if not os.path.exists(PATH(r"../res/SCS/p11test/armeabi-v7a/p11test")):
+            return -1
+
+        # if self.upload_file(PATH(r"../res/SCS/p11test/armeabi-v7a/p11test"), "/data") is not None:
+        #     print "p11test file is failed to push to terminal device."
 
         # check SCS service whether run or not
-        self.check_service("ServerCenter")
+        # self.check_service("ServerCenter")
 
     def check_service(self, pro_alias):
-        adb_cmd = "adb shell ps | grep " + str(pro_alias)
+        adb_cmd = "adb shell \"ps | grep " + str(pro_alias) + "\""
+        print "adb_cmd: ", adb_cmd
         pro_details = os.popen(adb_cmd).read()
+        print "pro_details: ", pro_details
         # print "proDetails: "+ proDetails
         # logger.info(proDetails, also_console=True)
         is_null = (len(pro_details) == 0)
@@ -119,11 +123,13 @@ class P11Tester(object):
         print somelibc.helloworld()
 
     def upload_file(self, sour_file=None, dest_path=None):
-        if not os.path.exists(PATH(r"./" + sour_file)):
+        if os.path.exists(sour_file):
+            push_command = "adb push " + sour_file + " " + dest_path
+            print push_command
+            os.system(push_command)
+        else:
+            logger.error("%s is not exist." % sour_file, html=True)
             return -1
-        push_command = "adb push " + PATH(r"./" + sour_file) + " " + dest_path
-        print push_command
-        os.system(push_command)
 
     # 执行p11测试
     def run_p11test(self):
@@ -166,6 +172,7 @@ if __name__ == '__main__':
     # time.sleep(5)
     # run_p11test()
     # setup_xml()
-    pass
+    tmp_obj = P11Tester()
+    tmp_obj.check_service("ServerCenter")
 
 
