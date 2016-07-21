@@ -23,6 +23,7 @@ from CustomLibrary.config import config
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
+custom_utils.check_dir(config.APPIUM_RUNLOG)
 
 class _CustomAndroidKeywords(KeywordGroup):
     """

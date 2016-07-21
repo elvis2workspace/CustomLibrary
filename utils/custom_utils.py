@@ -51,7 +51,7 @@ def check_dir(name):
     if name is None:
         pass
     elif os.path.exists(name):
-        print "have existed."
+        print "%s have existed." % name
     else:
         os.makedirs(name)
 

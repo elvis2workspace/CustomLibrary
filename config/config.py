@@ -6,6 +6,7 @@ ROBOTLOGPATH = "D:\\PS_auto_project\\Logs\\robotf-runlog\\robotf-runlog-" + date
 MAXVERSIONS = 100
 APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-" + str(date.today()) + "-" +str(datetime.now().hour) +\
                 "-" + str(datetime.now().minute) + "\\"
+
 APPIUM_LOCALPATH = "E:\\Program Files\\nodejs\\node_global\\"
 
 APPIUMPORT = 4723
