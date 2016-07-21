@@ -179,6 +179,6 @@ if __name__ == '__main__':
     pybot_cmd = u"pybot.bat -d "+ config.ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE " \
         "--argumentfile " + PATH(r"./argfile.txt") + " D:\\PS_auto_project\\rf_mg_scripts"
     print "pybot_cmd: ", pybot_cmd
-    # os.system(pybot_cmd)
+    os.system(pybot_cmd)
 
 
