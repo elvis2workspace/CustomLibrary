@@ -1,10 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
+"""
 Created on 2015年5月8日
-
 @author: zhang.xiuhai
-'''
+"""
 
 import unittest
 import sys
@@ -13,23 +11,17 @@ import sys
 class _OutputResultKeywords(unittest.TestResult):
 
     separator1 = '[----------] '
-
     separator2 = '[==========] '
 
     def __init__(self, stream=sys.stderr, descriptions=1, verbosity=1):
-
         unittest.TestResult.__init__(self)
-
         self.stream = stream
-
         self.showAll = verbosity > 1
-
         self.dots = verbosity == 1
-
         self.descriptions = descriptions
 
     # public
-    def getDescription(self, test):
+    def get_description(self, test):
 
         if self.descriptions:
             return test.shortDescription() or str(test)
@@ -39,11 +31,11 @@ class _OutputResultKeywords(unittest.TestResult):
     def startTest(self, test):
 
         self.stream.green('[ Run      ] ')
-        self.stream.writeln(self.getDescription(test))
+        self.stream.writeln(self.get_description(test))
         unittest.TestResult.startTest(self, test)
 
         if self.showAll:
-            self.stream.write(self.getDescription(test))
+            self.stream.write(self.get_description(test))
             self.stream.write(" ... ")
 
     def addSuccess(self, test):
@@ -53,7 +45,7 @@ class _OutputResultKeywords(unittest.TestResult):
             self.stream.writeln("ok")
         elif self.dots:
             self.stream.green('[       OK ] ')
-            self.stream.writeln(self.getDescription(test))
+            self.stream.writeln(self.get_description(test))
 
     def addError(self, test, err):
         unittest.TestResult.addError(self, test, err)
@@ -68,5 +60,5 @@ class _OutputResultKeywords(unittest.TestResult):
             self.stream.writeln("FAIL")
         elif self.dots:
             self.stream.red('[  FAILED  ] ')
-            self.stream.writeln(self.getDescription(test))
+            self.stream.writeln(self.get_description(test))
             self.stream.write(self._exc_info_to_string(err, test))

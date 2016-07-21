@@ -1,10 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Created on 2015年5月8日
 @author: zhang.xiuhai
-'''
+"""
 
 import ctypes
 

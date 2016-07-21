@@ -1,9 +1,7 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
 Created on 2016年5月16日
-
 @author: zhang.xiuhai
 """
 

@@ -1,10 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
+"""
 Created on 2015年7月21日
-
 @author: zhang.xiuhai
-'''
+"""
 
 from robot.api import logger
 import os
@@ -19,25 +17,17 @@ from CustomLibrary.utils import custom_utils
 from CustomLibrary.p11 import *
 from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
+from CustomLibrary.config import config
 
-
-MAXVERSIONS = 100
-APPIUM_RUNLOG = "D:\\Logs\\appium-runlog\\appium-runlog-" + str(date.today()) + "-" + str(datetime.now().hour) + "-" +\
-                str(datetime.now().minute) + "\\"
-custom_utils.check_dir(APPIUM_RUNLOG)
-APPIUM_LOCALPATH = "E:\\Program Files\\nodejs\\node_global\\"
-
-APPIUMPORT = 4723 
-LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
 
 class _CustomAndroidKeywords(KeywordGroup):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self):
         """
@@ -48,27 +38,21 @@ class _CustomAndroidKeywords(KeywordGroup):
 
     # public
     def get_local_address(self):    
-        u'''获取本地的地址.例
-        
-        '''
+        """获取本地测试环境的IP地址"""
         tmp_config = os.popen('ipconfig').read()
         ip = re.search(r'192.168.*.*', tmp_config)
         return ip.group(0)
     
     def launch_local_appium(self, ip="127.0.0.1", tport="4723", mode="no-reset"):
-        u'''根据ip，port，mode启动本地appium，例
-        
-        '''
+        """根据ip，port，mode启动本地appium，例
 
-        # runlogfilestr = "appium-runlog-%date:~0,4%%date:~5,2%%date:~8,2%-"+\
-        #                 str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))[4:]+".txt"
-        # print runlogfilestr
+        """
 
         launch_cmd = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
-                    "--log-timestamp --local-timezone --session-override -g " + APPIUM_RUNLOG + "appium-runlog.txt"
+                    "--log-timestamp --local-timezone --session-override -g " + config.APPIUM_RUNLOG + "appium-runlog.txt"
         print "launch_cmd: ", launch_cmd
 
-        tmp_pid = self.get_port_pid(APPIUMPORT)
+        tmp_pid = self.get_port_pid(config.APPIUMPORT)
 
         if tmp_pid is None:
             child = subprocess.Popen(launch_cmd, shell=True)
@@ -80,29 +64,28 @@ class _CustomAndroidKeywords(KeywordGroup):
             return tmp_pid
 
     def stop_tookit(self, toolniki):
-        u'''停止测试工具,例如本地 Appium
-        '''
+        """停止测试工具,例如本地 Appium
+        """
 
         if "appium" == toolniki:
-            pid = self.get_port_pid(APPIUMPORT)
-            logger.info("going to stop local appium, pid: ."+str(pid), also_console=True)
-            stopAppiumCMD = "tskill " + str(pid)
-            child = subprocess.Popen(stopAppiumCMD, shell=True)
+            pid = self.get_port_pid(config.APPIUMPORT)
+            logger.info("Going to stop local appium, pid: ."+str(pid), also_console=True)
+            stop_appium_cmd = "tskill " + str(pid)
+            child = subprocess.Popen(stop_appium_cmd, shell=True)
             child.wait()
             return child.pid
-            
         else:
             logger.console("No other tools to use.")
             
     def get_port_pid(self, port):
-        u'''根据参数中的端口号查找对应使用该端口号的进程ID，并返回该进程的PID号。
-        '''
+        """根据参数中的端口号查找对应使用该端口号的进程ID，并返回该进程的PID号。
+        """
 
-        getPidCMD = "netstat -ano | findstr  LISTENING | findstr " + str(port)
-        appiumPidStr = os.popen(getPidCMD).read()
+        get_pid_cmd = "netstat -ano | findstr  LISTENING | findstr " + str(port)
+        appium_pid_str = os.popen(get_pid_cmd).read()
         
-        if appiumPidStr:
-            appium_g = appiumPidStr.split(' ')
+        if appium_pid_str:
+            appium_g = appium_pid_str.split(' ')
             logger.console("Process about port " + str(port) + " have existed, is " + appium_g[-1] + ".", True, 'stdout')
             return appium_g[-1]
         else:
@@ -110,8 +93,8 @@ class _CustomAndroidKeywords(KeywordGroup):
             return None
         
     def set_androidlog_status(self, mode=True):
-        u'''设置android日志开关
-        '''
+        """设置android日志开关
+        """
 
         time_stamp = self._getcurtm()
         # 获取adb.exe的进程ID
@@ -155,9 +138,9 @@ class _CustomAndroidKeywords(KeywordGroup):
                 return -1
 
     def grap_androidlog_after_oper(self, flag, path):
-        u'''获取操作后日志
+        """获取操作后日志
         
-        '''
+        """
         os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
 
     def get_cmd_pids(self, t_cmd):
@@ -178,23 +161,22 @@ class _CustomAndroidKeywords(KeywordGroup):
         return pid_list
 
     def kill_shell_process(self, pro_alias='ecm'):
-        u'''
-        杀掉指定进程
-        '''
-        adbCmd = "adb shell ps | grep " + str(pro_alias) + " | grep -v ecmapplication:"
-        proDetails = os.popen(adbCmd).read()
+        """杀掉指定进程"""
+
+        adb_kill_cmd = "adb shell ps | grep " + str(pro_alias) + " | grep -v ecmapplication:"
+        process_details = os.popen(adb_kill_cmd).read()
         # print "proDetails: "+ proDetails
         # logger.info(proDetails, also_console=True)
-        is_null = (len(proDetails) == 0)
+        is_null = (len(process_details) == 0)
 
         if is_null:
             logger.error(pro_alias + " is not alive.")
             return -1
         else:
-            adb_pid = proDetails.split(' ')
+            adb_pid = process_details.split(' ')
             logger.info(self._getcurtm() + ": The ecm application pid is: "+ str(adb_pid[4]), also_console=True)
-            retval = os.system("adb shell kill " + str(adb_pid[4]))
-            if 0 == retval:
+            ret_val = os.system("adb shell kill " + str(adb_pid[4]))
+            if 0 == ret_val:
                 logger.info(self._getcurtm() + ": " + pro_alias + " " + str(adb_pid[4]) + " killed successfully.", \
                             also_console=True)
                 return None
@@ -203,9 +185,7 @@ class _CustomAndroidKeywords(KeywordGroup):
                 return -1
 
     def reset_android(self, pro_alias=None, remote_url=None ):
-        u'''
-            重启android设备
-        '''
+        """重置android设备"""
 
         # 重启android设备
         ret_reb = os.popen("adb shell reboot").read()
@@ -217,7 +197,6 @@ class _CustomAndroidKeywords(KeywordGroup):
             return -1
             
         # 等待android设备重新连接
-
         ret_val = subprocess.Popen("adb wait-for-device", shell=True)
         ret_val.wait()
 
@@ -234,18 +213,15 @@ class _CustomAndroidKeywords(KeywordGroup):
             return -1
 
     def Cswipe(self, xstart, ystart, xend, yend):
-        u'''自定义滑动屏幕关键字
-        '''  
+        """自定义滑动屏幕关键字"""
         os.system("adb shell input swipe "+str(xstart)+" "+str(ystart)+" " +str(xend)+" "+str(yend))
         return 0  
     
-    def run_all_bat(self, path):
-
-        u''' 接收一个目录的路径，并执行目录下的所有bat文件.例
+    def run_all_batf(self, path):
+        """接收一个目录的路径，并执行目录下的所有bat文件.例
          | run all bat | file path|
-        '''
-
-        for root,dirs,files in os.walk(path):
+        """
+        for root, dirs, files in os.walk(path):
             for f in files:
                 if os.path.splitext(f)[1] == '.bat':
                     os.chdir(root)
@@ -333,9 +309,7 @@ class _CustomAndroidKeywords(KeywordGroup):
                 return output_str
 
     def unzip_file(self, zipfilename=None, unzipdir=None):
-        """
-        unzip file.
-        """
+        """unzip file."""
         if not os.path.exists(unzipdir): os.mkdir(unzipdir, 0777)
         zfobj = zipfile.ZipFile(zipfilename)
         print zfobj
@@ -360,14 +334,14 @@ class _CustomAndroidKeywords(KeywordGroup):
                 outfile.close()
 
     def initial_environment_for_p11(self):
-        """
-        Initial the device environment fot the p11test project.
-        """
+        """Initial the device environment fot the p11test project."""
 
         if self._p11_utils.initial_env_for_p11() is not None:
             logger.error("Failed to initial environment for p11 verify.")
 
     def adb_install_app(self, path_of_apk=None, options=None):
+        """本地安装apk到终端设备"""
+
         install_command = "adb install -" + options + " " + path_of_apk
         # logger.info(install_command, html=True)
         print "[adb_install_app]: install_command: ", install_command

@@ -12,24 +12,19 @@ from xml.dom import minidom
 
 
 class _NativeOperationKeywords(object):
-    '''
+    """
     pn2: 生成易记的伪随机密码:
     （1）对于每一个随机字符，我们都按照以下流程处理一遍
-    
     （2）随机找到中间点，然后分成两段，翻转合并
-    
     （3）用最后的结果的倒数maxmem个字符来做locate标记
-    
     （4）每次找到这个locate处，若找不到，locate缩减为locate[1:]，继续找，直到找到为止
-    
     （5）我们要的本次的随机字符就是找到的locate处的后一个字符self.data[where+len(locate)+1]，如果locate为空，那么ch就是（2）后的第一个字符，也是随机的
-    '''
+    """
 
     def __init__(self, filename):
         self.data = open(filename).read().lower() 
 
     # public
-
     def renew(self, n=8, max_mem=3):
         chars = []  
         for i in range(n):  
@@ -46,7 +41,7 @@ class _NativeOperationKeywords(object):
             chars.append(ch)  
         return ''.join(chars)
 
-    def setup_xml(self, test_name="", user_pin="123456", so_pin="12345678", loop_times="", data_len=""):
+    def setup_xml(self, test_name, user_pin="123456", so_pin="12345678", loop_times=None, data_len=None):
         """
         Setup the xml file:data.xml, config param include test_name, user_pin, so_pin, loop_times,
         data_len.
