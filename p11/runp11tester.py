@@ -3,17 +3,17 @@
 
 """
 Created on 2016年7月12日
-
 @author: zhang.xiuhai
 """
 
-from ctypes import cdll
 import os
 import shutil
 import zipfile
-from robot.api import logger
-from CustomLibrary.config import config
+from ctypes import cdll
 
+from robot.api import logger
+
+from CustomLibrary.config import config
 
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
@@ -51,7 +51,6 @@ class P11Tester(object):
                 outfile = open(ext_filename, 'wb')
                 outfile.write(zfobj.read(name))
                 outfile.close()
-
 
     def compile_so(self):
         linuxstoccmd = "gcc -c -fPIC libtest.c"
