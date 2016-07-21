@@ -1,0 +1,6 @@
+﻿-C
+on
+-W
+157
+--suite
+rf_mg_scripts.MgAutoTestSuites.P11InterfaceTestSuites

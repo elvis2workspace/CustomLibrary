@@ -12,6 +12,7 @@ import os
 import shutil
 import zipfile
 from robot.api import logger
+from CustomLibrary.config import config
 
 
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
@@ -172,7 +173,12 @@ if __name__ == '__main__':
     # time.sleep(5)
     # run_p11test()
     # setup_xml()
-    tmp_obj = P11Tester()
-    tmp_obj.check_service("ServerCenter")
+    # tmp_obj = P11Tester()
+    # tmp_obj.check_service("ServerCenter")
+    # 执行P11测试用例 Robot framework
+    pybot_cmd = u"pybot.bat -d "+ config.ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE " \
+        "--argumentfile " + PATH(r"./argfile.txt") + " D:\\PS_auto_project\\rf_mg_scripts"
+    print "pybot_cmd: ", pybot_cmd
+    # os.system(pybot_cmd)
 
 

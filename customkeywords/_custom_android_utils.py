@@ -85,7 +85,7 @@ class _CustomAndroidKeywords(KeywordGroup):
 
         if "appium" == toolniki:
             pid = self.get_port_pid(APPIUMPORT)
-            logger.info("going to stop local appium, pid: ."+str(pid), also_console=True) 
+            logger.info("going to stop local appium, pid: ."+str(pid), also_console=True)
             stopAppiumCMD = "tskill " + str(pid)
             child = subprocess.Popen(stopAppiumCMD, shell=True)
             child.wait()
@@ -367,6 +367,17 @@ class _CustomAndroidKeywords(KeywordGroup):
         if self._p11_utils.initial_env_for_p11() is not None:
             logger.error("Failed to initial environment for p11 verify.")
 
+    def adb_install_app(self, path_of_apk=None, options=None):
+        install_command = "adb install -" + options + " " + path_of_apk
+        # logger.info(install_command, html=True)
+        print "[adb_install_app]: install_command: ", install_command
+        result_adb_install = subprocess.Popen(install_command, shell=True, stdout=subprocess.PIPE,
+                                              stderr=subprocess.PIPE)
+        result_adb_install.wait()
+        # flag = result_adb_install.stdout.readlines()
+        print "result_adb_install.stdout: ", result_adb_install.stdout.readlines()
+        print "result_adb_install.stderr: ", result_adb_install.stderr.readlines()
+
     # private
     def _execute_sql(self, path):
         logger.debug("Executing : %s" % path)
@@ -375,13 +386,15 @@ class _CustomAndroidKeywords(KeywordGroup):
     def _getcurtm(self):
         return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
 
+
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
     adb_pid = tmpObject.get_cmd_pids('adb.exe')
     print adb_pid
-    tmpObject.initial_environment_for_p11()
+    path = "E:/Python27/Lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
+    tmpObject.adb_install_app(path, 'r')
     # tmpObject.set_androidlog_status()
     # time.sleep(10)
     # tmpObject.set_androidlog_status(mode=False)
