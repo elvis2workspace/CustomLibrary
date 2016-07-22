@@ -48,9 +48,8 @@ class _CustomAndroidKeywords(KeywordGroup):
         """根据ip，port，mode启动本地appium，例
 
         """
-
         launch_cmd = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
-                    "--log-timestamp --local-timezone --session-override -g " + config.APPIUM_RUNLOG + "appium-runlog.txt"
+                "--log-timestamp --local-timezone --session-override -g " + config.APPIUM_RUNLOG + "appium-runlog.txt"
         print "launch_cmd: ", launch_cmd
 
         tmp_pid = self.get_port_pid(config.APPIUMPORT)

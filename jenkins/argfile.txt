@@ -7,6 +7,4 @@ on
 --include
 sc
 --suite
-rf_mg_scripts.MgAutoTestSuites.VolteSomkeCaseSuites
-#--test
-#Robotframework.MgAutoTestSuites.VolteSomkeCaseSuites.【N】安全检查：安全加密算法检查
+RobotframeworkProject.MgAutoTestSuites.VolteSomkeCaseSuites
