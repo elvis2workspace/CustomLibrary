@@ -8,11 +8,9 @@ from robot.api import logger
 import os
 import re
 import subprocess
-from datetime import *
 import time
 from xml.dom import minidom
 import zipfile
-import shutil
 from CustomLibrary.utils import custom_utils
 from CustomLibrary.p11 import *
 from keywordgroup import KeywordGroup
@@ -353,6 +351,9 @@ class _CustomAndroidKeywords(KeywordGroup):
         print "result_adb_install.stderr: ", result_adb_install.stderr.readlines()
 
     # private
+    def _cdebug(self, log_variable=None):
+        print "[Debug]%s: %s" % ("log_variable", log_variable)
+
     def _execute_sql(self, path):
         logger.debug("Executing : %s" % path)
         print path
@@ -360,15 +361,36 @@ class _CustomAndroidKeywords(KeywordGroup):
     def _getcurtm(self):
         return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
 
+    def _get_apk_package(self, apk=None):
+        """获取指定apk的基本信息，package name, version name, launcher activity, and so on."""
+        package_info = {}
+        apk_path = os.path.join(config.APKLOCALPATH, apk)
+        self._cdebug(apk_path)
+        aapt_cmd = os.path.join(config.AAPTToolPATH, "aapt dump badging ")
+        self._cdebug(aapt_cmd)
+        parse_cmd = aapt_cmd + " " + apk_path
+        return_str = os.popen(parse_cmd).readlines()
+        self._cdebug(return_str)
+        package_name = return_str[0].split(" ")
+        print package_name[1]
+        package_info['name'] = package_name[1].split("=")[1]
+        package_info['version name'] = return_str[0].split("='")[3].split("'")[0]
+        print package_info['version name']
+        package_info['sdkVersion'] = return_str[1].split(":")[1]
+        package_info['targetSdkVersion'] = return_str[2].split(":")[1]
+        matching = [line for line in return_str if line.startswith("launchable")]
+        package_info['startActivity'] = matching[0].split(" ")[1].split("=")[1]
+        return package_info
 
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
-    adb_pid = tmpObject.get_cmd_pids('adb.exe')
-    print adb_pid
-    path = "E:/Python27/Lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
-    tmpObject.adb_install_app(path, 'r')
+    # adb_pid = tmpObject.get_cmd_pids('adb.exe')
+    # print adb_pid
+    # path = "E:/Python27/Lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
+    # tmpObject.adb_install_app(path, 'r')
+    tmpObject._get_apk_package("EncryptCardManager.apk")
     # tmpObject.set_androidlog_status()
     # time.sleep(10)
     # tmpObject.set_androidlog_status(mode=False)

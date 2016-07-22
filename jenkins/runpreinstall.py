@@ -114,8 +114,7 @@ def run_pre_install():
     if initial_env() is not 0:
         # 预拷贝
         print "Check your environment please!"
-     # run_bat(r'clean_all.bat')
-     # time.sleep(30)
+
     if run_bat(r'install_32lib_app.bat') is -1:
         logger.error("Run run_bat function error.", html=True)
         return -1

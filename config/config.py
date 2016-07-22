@@ -11,3 +11,5 @@ APPIUM_LOCALPATH = "E:\\Program Files\\nodejs\\node_global\\"
 
 APPIUMPORT = 4723
 LOCALADDRESS = "http://192.168.20.114:4723/wd/hub"
+AAPTToolPATH = "E:\\Android\\android-sdk\\build-tools\\22.0.1\\"
+APKLOCALPATH = "D:\\PS_auto_project\\apps\\"
