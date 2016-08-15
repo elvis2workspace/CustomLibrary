@@ -6,7 +6,6 @@ Created on 2016年5月11日
 @author: zhang.xiuhai
 """
 
-
 from __future__ import with_statement
 
 import os
@@ -135,16 +134,13 @@ def timestamp():
 
 # 获取对应包名的pid
 def get_app_pid(package_name):
-    if system is "Windows":
-        string = adb_shell("ps | findstr %s$" % package_name).stdout.read()
-
-    string = adb_shell("ps | grep -w %s" % package_name).stdout.read()
+    re_string = adb_shell("ps | %s -w %s" % (find_util, package_name)).stdout.read()
 
     if string == '':
         return "the process doesn't exist."
 
     pattern = re.compile(r"\d+")
-    result = string.split(" ")
+    result = re_string.split(" ")
     result.remove(result[0])
 
     return pattern.findall(" ".join(result))[0]
@@ -158,19 +154,16 @@ def kill_process(package_name):
     if result != "":
         raise custom_exception.CustomException("Operation not permitted or No such process")
 
+
 # 打开待测应用，运行脚本，默认times为20次（可自己手动修改次数），获取该应用cpu、memory占用率的曲线图，图表保存至chart目录下
-
-# top次数
-times = 20
-
-# 设备当前运行应用的包名
-pkg_name = get_current_surface_package_activity().split("/")[0]
-
-
 # 获取cpu、mem占用
-def top():
+def get_cpu_mem_info():
     cpu = []
     mem = []
+    # top次数
+    times = 20
+    # 设备当前运行应用的包名
+    pkg_name = get_current_surface_package_activity().split("/")[0]
 
     top_info = adb_shell("top -n %s | %s %s$" %(str(times), find_util, pkg_name)).stdout.readlines()
 
@@ -180,7 +173,7 @@ def top():
         cpu.append(temp_list[2])
         mem.append(temp_list[6])
 
-    return (cpu, mem)
+    return cpu, mem
 
 
 # 去除top信息中的空格，便于获取cpu、mem的值
@@ -197,10 +190,13 @@ def del_space(str_sec):
 
 # 绘制线性图表，具体接口的用法查看ChartDirector的帮助文档
 def line_chart():
+    times = 20
     import string
-    data = top()
+    data = get_cpu_mem_info()
     cpu_data = []
     mem_data = []
+    # 设备当前运行应用的包名
+    pkg_name = get_current_surface_package_activity().split("/")[0]
 
     # 去掉cpu占用率中的百分号，并转换为int型
     for cpu in data[0]:
@@ -246,12 +242,12 @@ def line_chart():
     layer.addDataSet(cpu_data, 0xff0000, "cpu(%)")
     layer.addDataSet(mem_data, 0x008800, "mem(M)")
 
-    path = PATH("%s/chart" % os.getcwd())
-    if not os.path.isdir(path):
-        os.makedirs(path)
+    path = PATH(r"../res/chart")
+    if check_dir(path) is not None:
+        return 1
 
     # 图片保存至脚本当前目录的chart目录下
-    c.makeChart(PATH("%s/%s.png" % (path, timestamp())))
+    c.makeChart(PATH("../res/chart/%s.png" % timestamp()))
 
 
 if __name__ == '__main__':

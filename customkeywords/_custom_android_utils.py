@@ -23,6 +23,7 @@ PATH = lambda p: os.path.abspath(
 
 custom_utils.check_dir(config.APPIUM_RUNLOG)
 
+
 class _CustomAndroidKeywords(KeywordGroup):
     """
     classdocs
