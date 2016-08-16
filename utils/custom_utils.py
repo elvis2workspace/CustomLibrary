@@ -250,6 +250,19 @@ def line_chart():
     c.makeChart(PATH("../res/chart/%s.png" % timestamp()))
 
 
+class MuffledCalculator:
+    def __init__(self):
+        self.muffled = False  # default closed.
+
+    def calc(self, expr):
+        try:
+            return eval(expr)
+        except ZeroDivisionError:
+            if self.muffled:
+                print 'Division by zero is illegal.'
+            else:
+                raise
+
 if __name__ == '__main__':
     launch_cmd = "E:\Appium\node.exe E:\Appium\node_modules\appium\bin\appium.js -a 192.168.20.114 -p 4723 --no-reset"
     now = parse("Fri May 20 17:13:46 UTC 2016")
@@ -277,4 +290,8 @@ if __name__ == '__main__':
     tmp_path = "D:\\PS_auto_project\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour) + \
                "-" + str(datetime.now().minute)+"\\"
     check_dir(tmp_path)
+    calculator = MuffledCalculator()
+    calculator.muffled = True
+    calculator.calc('10/2')
+    calculator.calc('10/0')
 
