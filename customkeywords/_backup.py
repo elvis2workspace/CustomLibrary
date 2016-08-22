@@ -1,27 +1,31 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Created on 2015年5月8日
 @author: zhang.xiuhai
-'''
+"""
 
+import filecmp
 import os
 import shutil
-import filecmp
 
-MAXVERSIONS = 100
+from CustomLibrary.config import config
+
 
 
 class BackupKeywords(object):
-    '''
+    """
     备份文件
-    '''
+    """
 
     def __init__(self, params):
-        '''
+        """
         Constructor
-        '''
+        """
+
+    # public
+
+
 
     def backup(self, tree_top, bakdir_name='bakdir'):
         for root, subdirs, files in os.walk(tree_top):
@@ -37,7 +41,7 @@ class BackupKeywords(object):
                 filepath = os.path.join(root, file_o)
                 destpath = os.path.join(backup_dir, file_o)
                 # 检查版本，共有MAXVERSIONS个版本
-                for index in xrange(MAXVERSIONS):  
+                for index in xrange(config.MAXVERSIONS):
                     backup = "%s.%2.2d" % (destpath,index)  
                     if not os.path.exists(backup):  
                         break  
@@ -51,6 +55,10 @@ class BackupKeywords(object):
                     except OSError:  
                             pass  
                 try:  
-                    shutil.copy(filepath,backup)  
+                    shutil.copy(filepath, backup)
                 except OSError:  
                     pass
+
+if __name__ == '__main__':
+    pass
+

@@ -2,20 +2,16 @@
 
 import os
 from customkeywords import *
-from customversion import CUSTOM_LIB_VERSION
+from version import VERSION
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-execfile(os.path.join(THIS_DIR, 'customversion.py'))
+execfile(os.path.join(THIS_DIR, 'version.py'))
 
-__version__ = CUSTOM_LIB_VERSION
+__version__ = VERSION
 
 
 class CustomLibrary(
         _CustomAndroidKeywords,
-        # _NativeOperationKeywords,
-        # _OutputResultKeywords,
-        # _OutputRunnerKeywords,
-        # _OutputPwdKeywords,
 ):
 
     """
@@ -23,8 +19,10 @@ class CustomLibrary(
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = CUSTOM_LIB_VERSION
+
+    ROBOT_LIBRARY_VERSION = VERSION
     
     def __init__(self):
+        print CustomLibrary.__bases__
         for base in CustomLibrary.__bases__:
             base.__init__(self)

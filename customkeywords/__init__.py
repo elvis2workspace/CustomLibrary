@@ -6,10 +6,9 @@ from _outputpwd import _OutputPwdKeywords
 from _outputresult import _OutputResultKeywords
 from _outputrunner import _OutputRunnerKeywords
 
-__all__ = [
-    "_CustomAndroidKeywords",
-    "_NativeOperationKeywords",
-    "_OutputRunnerKeywords",
-    "_OutputResultKeywords",
-    "_OutputPwdKeywords"      
-    ]
+__all__ = ["_CustomAndroidKeywords",
+           "_NativeOperationKeywords",
+           "_OutputRunnerKeywords",
+           "_OutputResultKeywords",
+           "_OutputPwdKeywords",
+           ]
