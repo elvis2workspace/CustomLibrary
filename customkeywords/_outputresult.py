@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on 2015年5月8日
@@ -21,7 +22,9 @@ class _OutputResultKeywords(unittest.TestResult):
         self.descriptions = descriptions
 
     # public
+
     def get_description(self, test):
+
 
         if self.descriptions:
             return test.shortDescription() or str(test)
@@ -31,11 +34,13 @@ class _OutputResultKeywords(unittest.TestResult):
     def startTest(self, test):
 
         self.stream.green('[ Run      ] ')
+
         self.stream.writeln(self.get_description(test))
         unittest.TestResult.startTest(self, test)
 
         if self.showAll:
             self.stream.write(self.get_description(test))
+
             self.stream.write(" ... ")
 
     def addSuccess(self, test):
@@ -45,7 +50,9 @@ class _OutputResultKeywords(unittest.TestResult):
             self.stream.writeln("ok")
         elif self.dots:
             self.stream.green('[       OK ] ')
+
             self.stream.writeln(self.get_description(test))
+
 
     def addError(self, test, err):
         unittest.TestResult.addError(self, test, err)
@@ -61,4 +68,5 @@ class _OutputResultKeywords(unittest.TestResult):
         elif self.dots:
             self.stream.red('[  FAILED  ] ')
             self.stream.writeln(self.get_description(test))
+
             self.stream.write(self._exc_info_to_string(err, test))

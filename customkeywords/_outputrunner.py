@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -21,6 +22,7 @@ class _OutputRunnerKeywords:
         result = _OutputResultKeywords(self.stream, self.descriptions, self.verbosity)
         self.stream.yellow('Note: Your Unit Tests Starts')
         self.stream.writeln()
+
         start_time = time.time()
         test(result)
         stop_time = time.time()
@@ -29,12 +31,15 @@ class _OutputRunnerKeywords:
         run = result.testsRun
         self.stream.writeln("Ran %d test%s in %.3fs" % (run, run != 1 and "s" or "", time_taken))
 
+
         failed, errored = map(len, (result.failures, result.errors))
         self.stream.green("[  PASSED  ] %d tests" % (run - failed - errored))
         self.stream.writeln()
 
         if not result.wasSuccessful():
+
             error_summary = ""
+
             if failed:
                 self.stream.red("[  FAILED  ] %d tests, listed below:" % failed)
                 self.stream.writeln()

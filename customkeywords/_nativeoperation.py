@@ -11,6 +11,7 @@ import string
 from xml.dom import minidom
 
 
+
 class _NativeOperationKeywords(object):
     """
     pn2: 生成易记的伪随机密码:
@@ -20,6 +21,7 @@ class _NativeOperationKeywords(object):
     （4）每次找到这个locate处，若找不到，locate缩减为locate[1:]，继续找，直到找到为止
     （5）我们要的本次的随机字符就是找到的locate处的后一个字符self.data[where+len(locate)+1]，如果locate为空，那么ch就是（2）后的第一个字符，也是随机的
     """
+
 
     def __init__(self, filename):
         self.data = open(filename).read().lower() 

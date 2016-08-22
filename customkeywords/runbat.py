@@ -15,9 +15,11 @@ __version__ = '0.1'
 class Runbat(object):
 
     def run_all_bat(self, path):
+
         """接收一个目录的路径，并执行目录下的所有bat文件.例
          | run all bat  |  filepath  |
         """
+
 
         for root, dirs, files in os.walk(path):
             for f in files:

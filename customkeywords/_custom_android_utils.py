@@ -21,9 +21,12 @@ from CustomLibrary.config import config
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
+
 custom_utils.check_dir(config.APPIUM_RUNLOG)
 
 
+
+<<<<<<< HEAD
 class _CustomAndroidKeywords(KeywordGroup):
     """
     classdocs
@@ -53,6 +56,7 @@ class _CustomAndroidKeywords(KeywordGroup):
 
         tmp_pid = self.get_port_pid(config.APPIUMPORT)
 
+
         if tmp_pid is None:
             child = subprocess.Popen(launch_cmd, shell=True)
             if child.returncode is None:
@@ -71,6 +75,7 @@ class _CustomAndroidKeywords(KeywordGroup):
             logger.info("Going to stop local appium, pid: ."+str(pid), also_console=True)
             stop_appium_cmd = "tskill " + str(pid)
             child = subprocess.Popen(stop_appium_cmd, shell=True)
+
             child.wait()
             return child.pid
         else:
@@ -137,8 +142,8 @@ class _CustomAndroidKeywords(KeywordGroup):
                 return -1
 
     def grap_androidlog_after_oper(self, flag, path):
-        """获取操作后日志
-        
+<<<<<<< HEAD
+        """获取操作后日志    
         """
         os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
 
@@ -196,6 +201,7 @@ class _CustomAndroidKeywords(KeywordGroup):
             return -1
             
         # 等待android设备重新连接
+
         ret_val = subprocess.Popen("adb wait-for-device", shell=True)
         ret_val.wait()
 
@@ -216,6 +222,7 @@ class _CustomAndroidKeywords(KeywordGroup):
         os.system("adb shell input swipe "+str(xstart)+" "+str(ystart)+" " +str(xend)+" "+str(yend))
         return 0  
     
+
     def run_all_batf(self, path):
         """接收一个目录的路径，并执行目录下的所有bat文件.例
          | run all bat | file path|
@@ -229,6 +236,7 @@ class _CustomAndroidKeywords(KeywordGroup):
 
     def decode(self, customer_str):
         return customer_str.decode('utf-8')
+
 
     def setup_xml(self, test_name="", user_pin="123456", so_pin="12345678", loop_times="", data_len=""):
         """
@@ -362,6 +370,7 @@ class _CustomAndroidKeywords(KeywordGroup):
     def _getcurtm(self):
         return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
 
+
     def _get_apk_package(self, apk=None):
         """获取指定apk的基本信息，package name, version name, launcher activity, and so on."""
         package_info = {}
@@ -383,10 +392,12 @@ class _CustomAndroidKeywords(KeywordGroup):
         package_info['startActivity'] = matching[0].split(" ")[1].split("=")[1]
         return package_info
 
+
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
+
     # adb_pid = tmpObject.get_cmd_pids('adb.exe')
     # print adb_pid
     # path = "E:/Python27/Lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
@@ -397,6 +408,7 @@ if __name__ == '__main__':
     # tmpObject.set_androidlog_status(mode=False)
     # print tmpObject._getcurtm()
     # # print "adb_pid: ", adb_pid[1:]
+
     # tmppro = tmpObject.launch_local_appium("192.168.20.114", "4723", "no-reset")
 
 #     print "run the testcase."
