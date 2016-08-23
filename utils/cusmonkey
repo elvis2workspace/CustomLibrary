@@ -1,0 +1,27 @@
+#头文件、控制monkey发送消息的参数
+type=raw events
+cont=10
+speed=1.0
+
+#以下为monkey命令
+start data >>
+
+#打开浏览器,并延时默认的时间
+LaunchActivity(com.android.browser,com.android.browser.BrowserActivity)
+ProfileWait()
+
+#清空网址
+Tap(500,150)
+DispatchPress(112)
+ProfileWait()
+
+#输入网址
+DispatchString(www.baidu.com)
+ProfileWait()
+
+#确认，载入网址
+DispatchPress(KEYCODE_ENTER)
+ProfileWait()
+
+#完成退出浏览器
+DispatchPress(3)

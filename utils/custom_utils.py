@@ -16,6 +16,7 @@ import re
 import Tkinter as tk
 import subprocess
 import custom_exception
+from robot.api import  logger
 
 from dateutil.easter import *
 from dateutil.parser import *
@@ -104,11 +105,18 @@ def adb_shell(args, by_shell=True):
         cmd = "%s -s %s shell %s" %(command, serial_number, str(args))
     else:
         cmd = "%s -s %s %s" %(command, serial_number, str(args))
-    return subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ret = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print "start process debug(Popen.poll): ", ret.poll()
+    while True:
+        bufsize = ret.stdout.readline()
+        if bufsize == "" and ret.poll() is not None:
+            print "end process debug(Popen.poll): ", ret.poll()
+            break
+        # print bufsize
 
 
 # 获取当前连接的终端设备列表
-def get_devices_list(args):
+def get_devices_list():
     import subprocess
     devices = []
     result = subprocess.Popen("adb devices", shell=True, stdout=subprocess.PIPE,
@@ -248,6 +256,18 @@ def line_chart():
 
     # 图片保存至脚本当前目录的chart目录下
     c.makeChart(PATH("../res/chart/%s.png" % timestamp()))
+
+
+def upload_file(sour_file=None, dest_path=None):
+        if os.path.exists(sour_file):
+            push_command = "push " + sour_file + " " + dest_path
+            print push_command
+            ret = adb_shell(push_command, by_shell=False)
+            print ret
+            logger.info("%s succeed to be uploaded to %s" % (sour_file, dest_path), html=True, also_console=True)
+        else:
+            logger.error("%s is not exist." % sour_file)
+            return -1
 
 
 class MuffledCalculator:
