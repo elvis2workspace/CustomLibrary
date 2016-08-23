@@ -207,7 +207,7 @@ class _CustomAndroidKeywords(KeywordGroup):
             logger.info(self._getcurtm() + ": Sleep 10 to wait return.", also_console=True)
             return None
         else:
-            # logger.error(pro_alias + " "+ str(adbPid[4]) + " process fail to kill!")
+            # logger.error(pro_alias + " "+ test_str(adbPid[4]) + " process fail to kill!")
             logger.error(self._getcurtm() + ": Android device connected timeout.")
             return -1
 
