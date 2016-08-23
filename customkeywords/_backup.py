@@ -56,4 +56,5 @@ class BackupKeywords(object):
                     pass
 
 if __name__ == '__main__':
-    pass
+    bk = BackupKeywords()
+    bk.backup("C:\\test")
