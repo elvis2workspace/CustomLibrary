@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import string
+from random import choice
 
 
 
@@ -52,9 +53,17 @@ def multi_list(x, y):
             print j*m,
         print "\t"
 
+
+def generate_password(length = 8, chars = string.letters + string.digits):
+    return ''.join([choice(chars) for i in range(length)])
+
+
 if __name__ == '__main__':
     print power(2, 9)
 
     print power_old(2, 10)
 
     multi_list(4, 5)
+
+    for i in range(6):
+        print generate_password(12)
