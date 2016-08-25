@@ -262,8 +262,7 @@ def upload_file(sour_file=None, dest_path=None):
         if os.path.exists(sour_file):
             push_command = "push " + sour_file + " " + dest_path
             print push_command
-            ret = adb_shell(push_command, by_shell=False)
-            print ret
+            adb_shell(push_command, by_shell=False)
             logger.info("%s succeed to be uploaded to %s" % (sour_file, dest_path), html=True, also_console=True)
         else:
             logger.error("%s is not exist." % sour_file)
