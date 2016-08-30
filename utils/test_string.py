@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # 去空格及特殊符号
 s = ' zhang xiuhai, yan'
 s.strip().lstrip().rstrip(',')
