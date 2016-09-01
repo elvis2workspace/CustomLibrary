@@ -36,6 +36,10 @@ class _CustomAndroidKeywords(KeywordGroup):
         self._p11_utils = P11Tester()
         self._biin = BuiltIn()
 
+    # 清空edit text内容
+    def clear_edit_text(self):
+        pass
+
     # public
     def get_local_address(self):    
         """获取本地测试环境的IP地址"""
