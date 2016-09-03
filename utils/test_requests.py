@@ -16,6 +16,7 @@ r = requests.get('http://www.baidu.com', params=p_load)
 r.cookies['BAIDUID']
 
 print r.url
+print r.status_code
 
 # send post request by data parameter
 pay_load = {'a': '杨', 'b': 'hello'}
@@ -38,9 +39,10 @@ print r.text
 
 # customize headers, communication by headers parameters
 
-url = 'https://api.github.com/some/endpoint'
+url1 = 'https://api.github.com/some/endpoint'
 pay_load = {'some': 'data'}
 headers = {'content-type': 'application/json'}
-r = requests.post(url, data=json.dumps(pay_load), headers=headers)
+r = requests.post(url1, data=json.dumps(pay_load), headers=headers)
 
 print r.text
+print "r.headers: ", r.headers
