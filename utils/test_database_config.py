@@ -63,7 +63,14 @@ sql = """CREATE TABLE EMPLOYEE (
          AGE INT,
          SEX CHAR(1),
          INCOME FLOAT )"""
+
+sql_create = """CREATE TABLE `user` (
+                `Id` int(11) NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) DEFAULT NULL,
+                `age` varchar(255) DEFAULT NULL,
+                PRIMARY KEY (`Id`)) ENGINE = InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;"""
 cursor.execute(sql)
+cursor.execute(sql_create)
 
 # cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
 
