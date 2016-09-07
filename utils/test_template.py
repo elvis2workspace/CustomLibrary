@@ -19,4 +19,6 @@ class Foo:
         self.sense = whatever
 
 x = len('abc')
+
 print(f.__doc__)
+

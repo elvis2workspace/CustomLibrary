@@ -153,3 +153,10 @@ print test_str[::-1]  # 创造一个与原字符串顺序相反的字符串
 print test_str[-3:-1]  # 截取倒数第三位与倒数第一位之前的字符
 print test_str[-3:]  # 截取倒数第三位到结尾
 print test_str[:-5:-3]  # 逆序截取，具体啥意思没搞明白？
+
+import os
+
+filenames = os.listdir('.')
+print filenames
+
+print any(name.endswith('.py') for name in filenames)  # 返回 bool 返回值，判断迭代对象是否非空
