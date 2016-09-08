@@ -32,6 +32,14 @@ class DevicesNotFound(CustomException):
     """被测设备未连接"""
 
 
+class ShortInputException(Exception):
+    """ A useer-defined exception class."""
+    def __init__(self, length, atleast):
+        Exception.__init__(self)
+        self.length = length
+        self.atleast = atleast
+
+
 def connect(self):
     pass
 
@@ -116,4 +124,16 @@ if __name__ == '__main__':
         print "输入的数字不能为0！"
 
     test_two_divide()
+
+    try:
+        s = raw_input('Enter something --> ')
+        if len(s) > 3:
+            raise ShortInputException(len(s), 3)
+    except EOFError:
+        print '\nWhy did you do an EOF on me?'
+    except ShortInputException, x:
+        print 'ShortInputException: The input was of length %d, \
+              was expecting at least %d' % (x.length, x.atleast)
+    else:
+        print 'No exception was raised.'
 
