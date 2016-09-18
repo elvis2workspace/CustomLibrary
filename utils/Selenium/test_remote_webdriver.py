@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
-import time
 import unittest
-
+import time
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class Baidu(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Remote(
+            command_executor='http://192.168.20.247:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.CHROME
+        )
+        # self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
         self.base_url = "http://www.baidu.com"
         self.verificationErrors = []
