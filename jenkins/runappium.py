@@ -5,10 +5,10 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 """
 
-import sys
 import logging
-from CustomLibrary.customkeywords import _custom_android_utils
+import sys
 
+from ..customkeywords import _custom_android_utils
 
 # 提前启动appium工具
 tmpObject = _custom_android_utils._CustomAndroidKeywords()
