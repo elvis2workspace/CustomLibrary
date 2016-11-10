@@ -1,3 +1,5 @@
+# !/usr/bin/env python
+
 # python启动办公软件进程(word、excel、ppt、以及wps的et、wps、wpp)
 # -*- coding:utf-8 -*-
 
@@ -20,4 +22,4 @@ if __name__ =='__main__':
                    'powerpoint.Application']
     for app_name in lst_app_name:
         print "app_name:%s" % app_name
-        start_office_application(app_name) # 该片段来自于http://outofmemory.cn
+        start_office_application(app_name)

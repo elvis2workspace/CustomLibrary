@@ -64,7 +64,6 @@ is_unique_char3 = lambda s: True if len(s) > 256 else not bool(filter(lambda n: 
 # 对字符串进行排序后，然后遍历每一个元素并与周围元素比较(请自行尝试)
 
 
-
 if __name__ == '__main__':
     string_tmp = 'zfleehfdfhefnlaflhiefldfhilllddez'
     print "is_unique_char: ", is_unique_char(string_tmp)

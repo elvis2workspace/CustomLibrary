@@ -13,11 +13,10 @@ from datetime import *
 import time
 from robot.api import logger
 
+from config.config import ROBOTLOGPATH
+
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
-
-RUNTIMETAG = "robot-runlog-%date:~0,4%%date:~5,2%%date:~8,2%"
-ROBOTLOGPATH = "D:\\PS_auto_project\\PS_Logs\\robotf-runlog\\robotf-runlog-" + datetime.now().strftime('%Y%m%d%H')
 
 
 class RunJenkins(object):
@@ -86,7 +85,7 @@ class RunJenkins(object):
     # 执行批处理命令
 
     def run_bat(self, batfile=None):
-        bat_path = PATH(r"./releasePack/"+batfile)
+        bat_path = PATH(r"./releasePack/" + batfile)
         if not os.path.exists(bat_path):
             return -1
         child_pid = subprocess.Popen(bat_path, shell=True, stdout=subprocess.PIPE)
@@ -109,8 +108,8 @@ class RunJenkins(object):
         if self.initial_env() is not 0:
             # 预拷贝
             print "Check your environment please!"
-         # run_bat(r'clean_all.bat')
-         # time.sleep(30)
+            # run_bat(r'clean_all.bat')
+            # time.sleep(30)
         if self.run_bat(r'install_32lib_app.bat') is -1:
             logger.error("Run run_bat function error.", html=True)
             return -1
@@ -125,6 +124,7 @@ class RunJenkins(object):
         time.sleep(30)
         return 0
 
+
 if __name__ == '__main__':
     # 拷贝安装包进行预安装
     run_instance = RunJenkins()
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     time.sleep(20)
 
     # 执行冒烟测试用例 Robot framework
-    pybot_cmd = u"pybot.bat -d "+ ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " +\
+    pybot_cmd = u"pybot.bat -d " + ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + \
                 PATH(r"./argfile.txt") + " D:\\PS_auto_project\\rf_mg_scripts"
 
     os.system(pybot_cmd)

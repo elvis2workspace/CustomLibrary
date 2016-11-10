@@ -13,7 +13,7 @@ from ctypes import cdll
 
 from robot.api import logger
 
-from CustomLibrary.config import config
+from ..config import config
 
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
@@ -62,7 +62,6 @@ class P11Tester(object):
 
         print "Complete to Compile to *.so "
         return 0
-
 
     def initial_env_for_p11(self):
         src_file_path = "D:\\PS_auto_project\\SCS 1.2.4.zip"

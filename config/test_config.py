@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import ConfigParser
-from custom_utils import *
+
+from utils.AndroidToolkits.custom_utils import *
 
 
 def test():

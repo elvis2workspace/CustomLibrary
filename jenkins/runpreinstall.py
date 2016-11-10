@@ -6,17 +6,17 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 """
 
-import zipfile
-import os, os.path
-import subprocess
 import shutil
-from datetime import *
+import subprocess
 import time
-import sys
-from robot.api import logger
-from CustomLibrary.config import config
-from CustomLibrary.utils import custom_utils
+import zipfile
+from datetime import *
 
+import os
+import os.path
+from robot.api import logger
+
+from ..config import config
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from _c_utils import _c_random_list
+from utils.basic_opt._c_utils import _c_random_list
 
 
 def insert_sort(args):

@@ -5,6 +5,7 @@ import win32netcon
 
 import os
 
+
 def share():
     shinfo = {}
     folder = "c:\\test"

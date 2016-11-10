@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
-import custom_exception
-from CustomLibrary.config import config
-from custom_utils import *
+from config import config
+from utils.AndroidToolkits.custom_utils import *
 
 
-class LogUtils():
+class LogUtils:
 
     def __init__(self):
         pass
 
     # capture the log after crash by time list of crash
     # app发生crash，未及时在logcat中抓取到有效log时，可通过该脚本获取到log，日志存放至crash_log目录
+
     @staticmethod
     def capture_crash_log(self, time_lists=None):
         if time_lists is None:

@@ -8,22 +8,20 @@ Created on 2016年5月11日
 
 from __future__ import with_statement
 
-import os
-import sys
 import platform
-import time
-import re
-import Tkinter as tk
 import subprocess
-import custom_exception
-from robot.api import  logger
+import time
 
+import re
 from dateutil.easter import *
 from dateutil.parser import *
 from dateutil.relativedelta import *
 from dateutil.rrule import *
-from CustomLibrary.config.config import *
 from pychartdir import *
+from robot.api import  logger
+
+from utils.exception_utils import custom_exception
+from config.config import *
 
 serial_number = ""
 
@@ -55,7 +53,6 @@ def launch_local_exe(default=None):
 
 # make custom directory, can specify the directory name
 def custom_dir(name=None):
-    import ConfigParser
     if name is None:
         dir_name = date.today()
         if os.path.exists(GLOBAL_LOG+str(dir_name)):

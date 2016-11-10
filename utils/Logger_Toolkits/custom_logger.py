@@ -1,3 +1,4 @@
+# !/usr/bin/env python
 #  -*- coding: utf-8 -*-
 """
 more resource about logging , access to python url:

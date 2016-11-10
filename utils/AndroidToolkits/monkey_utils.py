@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from custom_utils import *
 import os
+
+from utils.AndroidToolkits.custom_utils import *
 
 
 def monkey_stress(config_file):
