@@ -18,7 +18,7 @@ from dateutil.parser import *
 from dateutil.relativedelta import *
 from dateutil.rrule import *
 from pychartdir import *
-from robot.api import  logger
+from robot.api import logger
 
 from utils.exception_utils import custom_exception
 from config.config import *
