@@ -22,6 +22,3 @@ exec 'print "Hello World!"'
 # eval语句用来计算存储在字符串中的有效Python表达式，如下：
 
 print eval('2*3')
-
-
-#
