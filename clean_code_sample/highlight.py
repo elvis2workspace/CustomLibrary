@@ -1,4 +1,4 @@
-#/usr/bin/python
+# ！/usr/bin/python
 # -*- coding: utf-8 -*-
 
 """
@@ -26,15 +26,15 @@ import logging
 
 import nltk
 
-#Globals
+# Globals
 logging.basicConfig()
 LOG = logging.getLogger("highlight")
 LOG.setLevel(logging.INFO)
 
-class HighlightDocumentOperations(object):
 
+class HighlightDocumentOperations(object):
     """Highlight Operations for a Document"""
-    
+
     def __init__(self, document=None, query=None):
         """
         Kwargs:
@@ -44,12 +44,12 @@ class HighlightDocumentOperations(object):
         """
         self._document = document
         self._query = query
-    
+
     @staticmethod
     def _custom_highlight_tag(phrase,
                               start="<strong>",
                               end="</strong>"):
-        
+
         """Injects an open and close highlight tag after a word
 
         Args:
@@ -68,7 +68,7 @@ class HighlightDocumentOperations(object):
         """
         tagged_phrase = "{0}{1}{2}".format(start, phrase, end)
         return tagged_phrase
-    
+
     def _doc_to_sentences(self):
         """Takes a string document and converts it into a list of sentences
         
@@ -84,13 +84,13 @@ class HighlightDocumentOperations(object):
             the tuple, such as:  (0, "This was the first sentence")
         
         """
-        
+
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
         sentences = tokenizer.tokenize(self._document)
         for sentence in enumerate(sentences):
             yield sentence
 
-    @staticmethod    
+    @staticmethod
     def _score_sentences(sentence, querydict):
         """Creates a scoring system for each sentence by substitution analysis
         
@@ -102,14 +102,14 @@ class HighlightDocumentOperations(object):
                     raw sentence (str))
             
         """
-        
+
         position, sentence = sentence
         count = len(sentence)
         regex = re.compile('|'.join(map(re.escape, querydict)))
         score = len(re.findall(regex, sentence))
         processed_score = (score, (count, position, sentence))
         return processed_score
-    
+
     def _querystring_to_dict(self, split_token="+"):
         """Converts query parameters into a dictionary
         
@@ -117,12 +117,12 @@ class HighlightDocumentOperations(object):
             (dict)- dparams, a dictionary of query parameters
             
         """
-        
+
         params = self._query.split(split_token)
-        dparams = dict([(key, self._custom_highlight_tag(key)) for\
-                    key in params])
+        dparams = dict([(key, self._custom_highlight_tag(key)) for \
+                        key in params])
         return dparams
-    
+
     @staticmethod
     def _word_frequency_sort(sentences):
         """Sorts sentences by score frequency, yields sorted result
@@ -159,7 +159,7 @@ class HighlightDocumentOperations(object):
             Yes, I know what 'cornmeal' is, thanks."))]
             
         """
-        
+
         snippit = []
         total = 0
         for sentence in self._word_frequency_sort(sentences):
@@ -167,13 +167,13 @@ class HighlightDocumentOperations(object):
             score, (count, position, raw_sentence) = sentence
             total += count
             if total < max_characters:
-                #position now gets converted to index 0 for sorting later
+                # position now gets converted to index 0 for sorting later
                 snippit.append(((position), score, count, raw_sentence))
-        
-        #try to reassemble document by original order by doing a simple sort
+
+        # try to reassemble document by original order by doing a simple sort
         snippit.sort()
         return snippit
-    
+
     @staticmethod
     def _multiple_string_replace(string_to_replace, dict_patterns):
         """Performs a multiple replace in a string with dict pattern.
@@ -188,8 +188,9 @@ class HighlightDocumentOperations(object):
             (str) - Multiple replaced string.
         
         """
-        
+
         regex = re.compile('|'.join(map(re.escape, dict_patterns)))
+
         def one_xlat(match):
             """Closure that is called repeatedly during multi-substitution.
             
@@ -199,11 +200,11 @@ class HighlightDocumentOperations(object):
                 partial string substitution (str)
             
             """
-            
+
             return dict_patterns[match.group(0)]
-        
+
         return regex.sub(one_xlat, string_to_replace)
-    
+
     def _reconstruct_document_string(self, snippit, querydict):
         """Reconstructs string snippit, build tags, and return string
         
@@ -222,20 +223,20 @@ class HighlightDocumentOperations(object):
             (str) The most relevant snippet with the query terms highlighted.
         
         """
-        
+
         snip = []
         for entry in snippit:
             score = entry[1]
             sent = entry[3]
-            #if we have matches, now do the multi-replace
+            # if we have matches, now do the multi-replace
             if score:
                 sent = self._multiple_string_replace(sent,
-                                                    querydict)
+                                                     querydict)
             snip.append(sent)
         highlighted_snip = " ".join(snip)
-        
+
         return highlighted_snip
-        
+
     def highlight_doc(self):
         """Finds the most relevant snippit with the query terms highlighted
         
@@ -243,23 +244,21 @@ class HighlightDocumentOperations(object):
             (str) The most relevant snippet with the query terms highlighted.
         
         """
-        
-        #tokenize to sentences, and convert query to a dict
+
+        # tokenize to sentences, and convert query to a dict
         sentences = self._doc_to_sentences()
         querydict = self._querystring_to_dict()
-        
-        #process and score sentences
+
+        # process and score sentences
         scored_sentences = []
         for sentence in sentences:
             scored = self._score_sentences(sentence, querydict)
             scored_sentences.append(scored)
-        
-        #fit into max characters, and sort by original position
+
+        # fit into max characters, and sort by original position
         snippit = self._create_snippit(scored_sentences)
-        #assemble back into string
+        # assemble back into string
         highlighted_snip = self._reconstruct_document_string(snippit,
                                                              querydict)
 
         return highlighted_snip
-        
-        
