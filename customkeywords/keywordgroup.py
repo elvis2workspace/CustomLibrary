@@ -2,6 +2,7 @@
 
 import sys
 import inspect
+
 try:
     from decorator import decorator
 except SyntaxError:  # decorator module requires Python/Jython 2.4+
