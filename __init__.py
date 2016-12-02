@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from customkeywords import *
+from keywords import *
 from version import VERSION
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

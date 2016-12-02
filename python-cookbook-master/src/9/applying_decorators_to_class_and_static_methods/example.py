@@ -1,6 +1,7 @@
 import time
 from functools import wraps
 
+
 # A simple decorator
 def timethis(func):
     @wraps(func)
@@ -11,6 +12,7 @@ def timethis(func):
         print(end-start)
         return r
     return wrapper
+
 
 # Class illustrating application of the decorator to different kinds of methods
 class Spam:

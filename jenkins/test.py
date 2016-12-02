@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Created on 2016年5月19日
 
 @author: zhang.xiuhai
-'''
+"""
+
 import pexpect
 import shutil
 import os
 from datetime import *
-from CustomLibrary.customkeywords._custom_android_utils import _CustomAndroidKeywords
+from ..keywords._custom_android_utils import _CustomAndroidKeywords
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
