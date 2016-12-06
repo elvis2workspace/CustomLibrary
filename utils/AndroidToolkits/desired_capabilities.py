@@ -23,6 +23,7 @@ def get_desired_capabilities(app=None):
     desired_caps['appActivity'] = '.LaunchActivity'
     desired_caps['unicodeKeyboard'] = 'true'
     desired_caps['resetKeyboard'] = 'true'
+
     return desired_caps
 
 if __name__ == '__main__':
