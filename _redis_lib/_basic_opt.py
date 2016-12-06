@@ -14,6 +14,7 @@ class CRedisLib:
         ret = tmp_r.get(keys)
         return ret
 
+    # private
     def _baisc_opt(self):
         pass
 
