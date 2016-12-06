@@ -5,6 +5,7 @@ Created on 2015年5月8日
 @author: zhang.xiuhai
 """
 
+
 import os
 import hashlib
 
@@ -16,6 +17,7 @@ from twisted.internet import reactor, threads
 
 class TailProtocol(object):
     """classdocs"""
+
 
     def __init__(self, write_callback):
         self.write = write_callback

@@ -6,6 +6,13 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 """
 
+<<<<<<< HEAD
+=======
+
+import zipfile
+import os, os.path
+import subprocess
+>>>>>>> origin/master
 import shutil
 import subprocess
 import time
@@ -17,6 +24,7 @@ import os.path
 from robot.api import logger
 
 from ..config import config
+
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
@@ -48,6 +56,7 @@ def unzip_file(zipfilename=None, unzipdir=None):
 
 
 # 初始化本地文件目录，便于执行预安装, 包括修改批处理文件以便于自动化执行
+
 def initial_env():
     src_file_path = "Z:\VoLTE_ECM\DailyBuild\\release\\" + datetime.now().strftime('%Y%m%d') + "\\releasePack.zip"
     print src_file_path
@@ -61,6 +70,7 @@ def initial_env():
         logger.info("%s have copied to destination path." % src_file_path, html=True, also_console=True)
     else:
         logger.error("%s failed to copy." % src_file_path, html=True)
+
 
     unzip_file(PATH(r"./releasePack.zip"), "./")
     if not os.path.exists(PATH(r"./releasePack/")): return -1
@@ -98,6 +108,7 @@ def run_bat(batfile=None):
     print "ret_stdout_str: \n", ret_stdout_str
 
     for re_str in ret_stdout_str:
+
         if re_str.find("failed!") is not -1:
             print "Failed reason: ", re_str
             shutil.rmtree(PATH(r"./releasePack/"))
@@ -107,7 +118,6 @@ def run_bat(batfile=None):
             os.remove(PATH(r"./releasePack.zip"))
             return -1
     return 0
-
 
 # 执行预安装命令
 def run_pre_install():
@@ -140,6 +150,7 @@ if __name__ == '__main__':
     time.sleep(20)
 
     # 执行冒烟测试用例 Robot framework
+
     # custom_utils.check_dir(config.ROBOTLOGPATH)
 
     pybot_cmd = "pybot.bat -d "+ config.ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE " \
@@ -147,3 +158,4 @@ if __name__ == '__main__':
     print "pybot_cmd: ", pybot_cmd
 
     os.system(pybot_cmd)
+

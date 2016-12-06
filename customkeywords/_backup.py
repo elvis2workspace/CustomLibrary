@@ -12,6 +12,7 @@ import shutil
 from CustomLibrary.config import config
 
 
+
 class BackupKeywords(object):
     """
     备份文件
@@ -23,6 +24,9 @@ class BackupKeywords(object):
         """
 
     # public
+
+
+
     def backup(self, tree_top, bakdir_name='bakdir'):
         for root, subdirs, files in os.walk(tree_top):
             # join链接出每个root下的子目录bakdir
@@ -56,5 +60,10 @@ class BackupKeywords(object):
                     pass
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     bk = BackupKeywords()
     bk.backup("C:\\test")
+=======
+    pass
+
+>>>>>>> origin/master

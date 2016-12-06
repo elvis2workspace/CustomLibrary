@@ -1,9 +1,12 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
 Created on 2015年5月8日
 @author: zhang.xiuhai
+<<<<<<< HEAD
 """
+
 
 import random
 import string
@@ -34,6 +37,7 @@ class _OutputPwdKeywords(object):
             chars.append(ch)  
         return ''.join(chars)  
 
+
     def gen_passwd(self, length=8, chars=string.letters+string.digits):
         """pn1: 生成随机密码"""
         return ''.join([choice(chars) for i in range(length)])
@@ -48,6 +52,7 @@ class _OutputPwdKeywords(object):
         """
 
         ip_specs = r'\.'.join([r'\d{1,3}']*4)
+
         re_ip = re.compile(ip_specs)  
       
         ip_hit_listing = {}

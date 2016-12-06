@@ -23,10 +23,10 @@ class CustomLibrary(
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+
     ROBOT_LIBRARY_VERSION = VERSION
     
     def __init__(self):
         print CustomLibrary.__bases__
         for base in CustomLibrary.__bases__:
             base.__init__(self)
-
