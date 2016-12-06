@@ -7,7 +7,10 @@ Created on 2016年5月16日
 """
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/master
 
 import zipfile
 import os, os.path
@@ -24,6 +27,7 @@ import os.path
 from robot.api import logger
 
 from ..config import config
+
 
 
 PATH = lambda p: os.path.abspath(

@@ -66,4 +66,7 @@ if __name__ == '__main__':
 =======
     pass
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
