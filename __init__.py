@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+<<<<<<< HEAD
 from keywords import *
+=======
+from customkeywords import *
+>>>>>>> first commit
 from version import VERSION
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

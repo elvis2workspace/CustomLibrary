@@ -1,7 +1,10 @@
 import time
 from functools import wraps
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 # A simple decorator
 def timethis(func):
     @wraps(func)
@@ -13,7 +16,10 @@ def timethis(func):
         return r
     return wrapper
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 # Class illustrating application of the decorator to different kinds of methods
 class Spam:
     @timethis

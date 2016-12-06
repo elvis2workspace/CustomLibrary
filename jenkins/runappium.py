@@ -8,7 +8,11 @@ Created on 2016年5月16日
 import logging
 import sys
 
+<<<<<<< HEAD
 from ..keywords import _custom_android_utils
+=======
+from ..customkeywords import _custom_android_utils
+>>>>>>> first commit
 
 # 提前启动appium工具
 tmpObject = _custom_android_utils._CustomAndroidKeywords()
