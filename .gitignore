@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -137,4 +138,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> first commit
+>>>>>>> f48be024247b91e3756688231d2bb838a13f1a4b
 /.idea

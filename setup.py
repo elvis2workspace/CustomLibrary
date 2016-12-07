@@ -41,6 +41,10 @@ setup(name='robotframework-customlibrary',
                          ],
       py_modules=['ez_setup'],
       package_dir={'': 'src'},
+<<<<<<< HEAD
       packages=['CustomLibrary', 'CustomLibrary.keywords', 'CustomLibrary.locators', 'CustomLibrary.utils'],
+=======
+      packages=['CustomLibrary', 'CustomLibrary.customkeywords', 'CustomLibrary.locators', 'CustomLibrary.utils'],
+>>>>>>> first commit
       include_package_data=True,
       )

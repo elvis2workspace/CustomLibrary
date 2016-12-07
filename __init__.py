@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+<<<<<<< HEAD
 from keywords import *
+=======
+from customkeywords import *
+>>>>>>> first commit
 from version import VERSION
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,10 +23,10 @@ class CustomLibrary(
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+
     ROBOT_LIBRARY_VERSION = VERSION
     
     def __init__(self):
         print CustomLibrary.__bases__
         for base in CustomLibrary.__bases__:
             base.__init__(self)
-
