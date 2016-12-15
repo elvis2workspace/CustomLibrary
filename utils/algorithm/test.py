@@ -3,7 +3,6 @@ import string
 from random import choice
 
 
-
 def power_old(a, b):
     i = 0
     tmp = 1
