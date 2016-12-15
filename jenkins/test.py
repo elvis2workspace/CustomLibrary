@@ -1,29 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-<<<<<<< HEAD
 """
 Created on 2016年5月19日
 
 @author: zhang.xiuhai
 """
 
-=======
-'''
-Created on 2016年5月19日
-
-@author: zhang.xiuhai
-'''
->>>>>>> first commit
 import pexpect
 import shutil
 import os
 from datetime import *
-<<<<<<< HEAD
 from ..keywords._custom_android_utils import _CustomAndroidKeywords
-=======
 from CustomLibrary.customkeywords._custom_android_utils import _CustomAndroidKeywords
->>>>>>> first commit
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))

@@ -17,7 +17,7 @@ import time
 import sys
 sys.path.append("../")
 import ConfigParser
-from CustomLibrary.config import *
+from CustomLibrary.config import config
 
 
 def test():
@@ -32,16 +32,16 @@ def launch_local_exe(default=None):
 def custom_dir(name=None):
     if name is None:
         dir_name = date.today()
-        if os.path.exists(GLOBAL_LOG+str(dir_name)):
+        if os.path.exists(config.GLOBAL_LOG+str(dir_name)):
             print "have existed."
         else:
-            tmp = os.makedirs(GLOBAL_LOG+str(dir_name))
+            tmp = os.makedirs(config.GLOBAL_LOG+str(dir_name))
             if tmp:
                 print "mkdir failed."
-    elif os.path.exists(GLOBAL_LOG+name):
+    elif os.path.exists(config.GLOBAL_LOG+name):
         pass
     else:
-        os.makedirs(GLOBAL_LOG+name)
+        os.makedirs(config.GLOBAL_LOG+name)
 
 
 def check_dir(name):

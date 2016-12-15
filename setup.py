@@ -5,6 +5,7 @@ import sys
 from os.path import join, dirname
 from ez_setup import use_setuptools
 from setuptools import setup
+from version import VERSION
 
 sys.path.append(join(dirname(__file__), 'src'))
 use_setuptools()
@@ -41,10 +42,6 @@ setup(name='robotframework-customlibrary',
                          ],
       py_modules=['ez_setup'],
       package_dir={'': 'src'},
-<<<<<<< HEAD
       packages=['CustomLibrary', 'CustomLibrary.keywords', 'CustomLibrary.locators', 'CustomLibrary.utils'],
-=======
-      packages=['CustomLibrary', 'CustomLibrary.customkeywords', 'CustomLibrary.locators', 'CustomLibrary.utils'],
->>>>>>> first commit
       include_package_data=True,
       )

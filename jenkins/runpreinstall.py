@@ -6,16 +6,10 @@ Created on 2016年5月16日
 @author: zhang.xiuhai
 """
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/master
 
 import zipfile
 import os, os.path
 import subprocess
->>>>>>> origin/master
 import shutil
 import subprocess
 import time
