@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os
 
 @decorator(param=1)
 def f(x):

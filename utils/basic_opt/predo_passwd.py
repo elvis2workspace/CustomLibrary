@@ -33,8 +33,22 @@ class pseudo_rmdpwd(object):
             chars.append(ch)
         return ''.join(chars)
 
+    # get长度为count的随机数列表
+    def get_random_list(self, count):
+        """
+        :type count:
+        :param count:
+        :return:
+        """
+        list_tmp = [random.randrange(1, 100000, i+1) for i in range(0, count)]
+        return list_tmp
+
 if __name__ == '__main__':
-    p = pseudo_rmdpwd("LICENSE.txt")
+    p = pseudo_rmdpwd("e_random.py")
     print p.renew(12)
+
+    list_t = p.get_random_list(100000)
+    print len(list_t)
+    print list_t
 
 
