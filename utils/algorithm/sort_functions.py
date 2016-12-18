@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from utils.basic_opt._c_utils import _c_random_list
+
+from ..basic_opt._c_utils import  _c_random_list
 
 
 def insert_sort(args):

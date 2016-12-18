@@ -15,4 +15,5 @@ function test_ping($iplist)
         }
     }
 }
+
 test_ping args[0]

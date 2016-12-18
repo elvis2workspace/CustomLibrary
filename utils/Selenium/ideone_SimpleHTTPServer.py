@@ -5,7 +5,6 @@ and HEAD requests in a fairly straightforward manner.
 
 """
 
-
 __version__ = "0.6"
 
 __all__ = ["SimpleHTTPRequestHandler"]
@@ -18,20 +17,25 @@ import cgi
 import sys
 import shutil
 import mimetypes
+
 try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
-DIR=''
-prune_length=0
-def set_directory(d):
-    global DIR,prune_length
-    DIR=d
-    prune_length=len(DIR)
-files=[]
-    
-class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+DIR = ''
+prune_length = 0
 
+
+def set_directory(d):
+    global DIR, prune_length
+    DIR = d
+    prune_length = len(DIR)
+
+
+files = []
+
+
+class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Simple HTTP request handler with GET and HEAD commands.
 
     This serves files from the current directory and any of its
@@ -69,10 +73,10 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         None, in which case the caller has nothing further to do.
 
         """
-        #print self.path
+        # print self.path
         path = self.tanmay(self.path)
         self.tanmay(self.path)
-        #print path
+        # print path
         f = None
         if os.path.isdir(path):
             if not self.path.endswith('/'):
@@ -106,7 +110,6 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
         self.end_headers()
         return f
-        
 
     def list_directory(self, path):
         """Helper to produce a directory listing (absent index.html).
@@ -130,8 +133,8 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         f.write("<hr>\n<ul>\n")
         for name in list:
             fullname = os.path.join(path, name)
-            #print '###################'
-            #print fullname
+            # print '###################'
+            # print fullname
             displayname = linkname = name
             # Append / for directories or @ for symbolic links
             if os.path.isdir(fullname):
@@ -141,11 +144,11 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 displayname = name + "@"
                 # Note: a link to a directory displays with @ and links with /
             try:
-                f.write('<li><a href="%s">%s</a>\n'% (urllib.quote(linkname.encode("utf-8")), cgi.escape(displayname)))
-                #print '<li><a href="%s">%s</a>\n'% (urllib.quote(linkname), cgi.escape(displayname))
+                f.write('<li><a href="%s">%s</a>\n' % (urllib.quote(linkname.encode("utf-8")), cgi.escape(displayname)))
+                # print '<li><a href="%s">%s</a>\n'% (urllib.quote(linkname), cgi.escape(displayname))
             except:
-                #f.write('<li><a href="%s">%s</a>\n'% (linkname, displayname))
-                #print linkname
+                # f.write('<li><a href="%s">%s</a>\n'% (linkname, displayname))
+                # print linkname
                 continue
         f.write("</ul>\n<hr>\n</body>\n</html>\n")
         length = f.tell()
@@ -156,6 +159,7 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(length))
         self.end_headers()
         return f
+
     def translate_path(self, path):
         """Translate a /-separated PATH to the local filename syntax.
 
@@ -165,8 +169,8 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         """
         # abandon query parameters
-        path = path.split('?',1)[0]
-        path = path.split('#',1)[0]
+        path = path.split('?', 1)[0]
+        path = path.split('#', 1)[0]
         # Don't forget explicit trailing slash when normalizing. Issue17324
         trailing_slash = path.rstrip().endswith('/')
         path = posixpath.normpath(urllib.unquote(path))
@@ -181,20 +185,22 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if trailing_slash:
             path += '/'
         return path
-    def tanmay(self,p):
-        x=url=urllib.unquote(p).decode('utf8')
+
+    def tanmay(self, p):
+        x = url = urllib.unquote(p).decode('utf8')
         if x.endswith('/'):
-            y=x[:-1]
-            y=y.replace('/','\\')
-            #print '@@@@@@@@@@@@@@@@@@@@@@'
-            y+='/'
-            #print True
+            y = x[:-1]
+            y = y.replace('/', '\\')
+            # print '@@@@@@@@@@@@@@@@@@@@@@'
+            y += '/'
+            # print True
         else:
-            y=x
-            y=y.replace('/','\\')
-        path=DIR+y
-        #print '@@@@@@@@@@@@@@@@@@@@@@'
+            y = x
+            y = y.replace('/', '\\')
+        path = DIR + y
+        # print '@@@@@@@@@@@@@@@@@@@@@@'
         return path
+
     def copyfile(self, source, outputfile):
         """Copy all data between two file objects.
 
@@ -210,6 +216,7 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         """
         shutil.copyfileobj(source, outputfile)
+
     def guess_type(self, path):
         """Guess the type of a file.
 
@@ -235,21 +242,24 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             return self.extensions_map['']
 
     if not mimetypes.inited:
-        mimetypes.init() # try to read system mime.types
+        mimetypes.init()  # try to read system mime.types
     extensions_map = mimetypes.types_map.copy()
     extensions_map.update({
         '': 'application/octet-stream',
         '.mkv': 'octet-stream',
         '.avi': 'octet-stream',
-        '.flv': 'octet-stream',# Default
+        '.flv': 'octet-stream',  # Default
         '.py': 'text/plain',
         '.c': 'text/plain',
         '.h': 'text/plain',
-        })
+    })
 
 
-import os,time
-f=open('files.txt','w')
+import os, time
+
+f = open('files.txt', 'w')
+
+
 def get_filepaths(directory):
     """
     This function will generate the file names in a directory 
@@ -265,79 +275,83 @@ def get_filepaths(directory):
         for filename in files:
             # Join the two strings in order to form the full filepath.
             filepath = os.path.join(root, filename)
-            filepath=filepath.replace('\\','/')
-            filepath=filepath[prune_length:]
-            file_paths.append((filename,filepath))  # Add it to the list.
+            filepath = filepath.replace('\\', '/')
+            filepath = filepath[prune_length:]
+            file_paths.append((filename, filepath))  # Add it to the list.
         print 'sleeping'
         time.sleep(2)
-    
+
     return file_paths  # Self-explanatory.
 
 
-def test(HandlerClass = SimpleHTTPRequestHandler,
-         ServerClass = BaseHTTPServer.HTTPServer):
+def test(HandlerClass=SimpleHTTPRequestHandler,
+         ServerClass=BaseHTTPServer.HTTPServer):
     BaseHTTPServer.test(HandlerClass, ServerClass)
-
-
 
 
 '''
 '''
 
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-import os,urllib,urllib2
+import os, urllib, urllib2
 from easygui import *
 import socket
+
 '''
 print([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
 
 '''
-ip=''
+ip = ''
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("Gmail",80))
-    ip=s.getsockname()[0]
+    s.connect(("Gmail", 80))
+    ip = s.getsockname()[0]
     s.close()
 except:
     print 'Internet Connectivity issues'
     pass
-nick=raw_input('Enter your nick\n')
+nick = raw_input('Enter your nick\n')
 msgbox("Select the directory which you want to share")
-d=diropenbox()
-#print d
+d = diropenbox()
+
+
+# print d
 def hello():
     global nick
     while True:
-        if DIR!='':
-            x=get_filepaths(DIR)
+        if DIR != '':
+            x = get_filepaths(DIR)
             print 'done'
-            urllib2.urlopen('http://localhost:3000/upload/'+nick+'/',str(x))
+            urllib2.urlopen('http://localhost:3000/upload/' + nick + '/', str(x))
             break
         else:
             print 'doing'
             continue
+
+
 def run():
     global ip, nick
     print('http server is starting...')
- 
-    #ip and port of server
-    #by default http server port is 80
+
+    # ip and port of server
+    # by default http server port is 80
     server_address = ('', 80)
     set_directory(d)
     httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
     sa = httpd.socket.getsockname()
     print "Serving HTTP on", sa[0], "port", sa[1], "..."
     try:
-        x=urllib2.urlopen('http://localhost:3000/nick/'+nick+'/'+ip)
-        x=x.read()
+        x = urllib2.urlopen('http://localhost:3000/nick/' + nick + '/' + ip)
+        x = x.read()
         print x
     except:
         print 'not found'
     httpd.serve_forever()
 
+
 def main():
     from threading import Thread
-    
+
     # Second thread will print the hello message. Starting as a daemon means
     # the thread will not prevent the process from exiting.
     t = Thread(target=hello)
@@ -345,5 +359,7 @@ def main():
     t.start()
     # Main thread will read and process input
     run()
+
+
 if __name__ == '__main__':
     main()
