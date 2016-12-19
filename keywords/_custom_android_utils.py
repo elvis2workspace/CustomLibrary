@@ -11,7 +11,7 @@ import subprocess
 import time
 from xml.dom import minidom
 import zipfile
-from CustomLibrary.utils import custom_utils
+from CustomLibrary.e_utils import custom_utils
 from CustomLibrary.p11 import *
 from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
