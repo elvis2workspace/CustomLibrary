@@ -18,6 +18,6 @@ def upload_monkey_config(config_file):
         upload_file(config_file, "/data/local/tmp/")
 
 if __name__ == '__main__':
-    upload_monkey_config("cusmonkey")
-    monkey_stress("cusmonkey")
+    upload_monkey_config("monkey_key")
+    monkey_stress("monkey_key")
 

@@ -1,15 +1,20 @@
-#!/usr/bin/python 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import logging.config
 import thread
 
 logging.config.fileConfig('logging.conf') 
-# create logger 
+
+# create logger
 logger = logging.getLogger('simpleExample') 
-# Define a function for the thread 
-def print_time( threadName, delay): 
+
+
+# Define a function for the thread
+def print_time(thread_name, delay):
     logger.debug('thread 1 call print_time function body') 
     count = 0 
-    logger.debug('count:%s',count)
+    logger.debug('count:%s', count)
     
 if __name__ == '__main__':
     thread1 = thread.get_ident()

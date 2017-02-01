@@ -13,7 +13,7 @@ from datetime import *
 import time
 from robot.api import logger
 
-from config.config import ROBOTLOGPATH
+from ..config.config import ROBOTLOGPATH
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
@@ -137,6 +137,6 @@ if __name__ == '__main__':
 
     # 执行冒烟测试用例 Robot framework
     pybot_cmd = u"pybot.bat -d " + ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE --argumentfile " + \
-                PATH(r"./argfile.txt") + " D:\\PS_auto_project\\rf_mg_scripts"
+                PATH(r"./argfile_rf.txt") + " D:\\PS_auto_project\\rf_mg_scripts"
 
     os.system(pybot_cmd)

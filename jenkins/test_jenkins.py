@@ -43,6 +43,6 @@ PATH = lambda p: os.path.abspath(
 #     print fsrc.fileno()
 
 # print "shutil.copy rest: ", restr
-timezonetag = str(datetime.now().strftime('%Y%m%d%H%M%S'))
+timezone_tag = str(datetime.now().strftime('%Y%m%d%H%M%S'))
 tmpObject = _CustomAndroidKeywords()
-tmpObject.set_androidlog_status(timezonetag, False)
+tmpObject.set_androidlog_status(timezone_tag, False)

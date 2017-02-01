@@ -175,7 +175,7 @@ if __name__ == '__main__':
     # tmp_obj.check_service("ServerCenter")
     # 执行P11测试用例 Robot framework
     pybot_cmd = u"pybot.bat -d "+ config.ROBOTLOGPATH + " -o output.xml -r report.html -l log.html -L TRACE " \
-        "--argumentfile " + PATH(r"./argfile.txt") + " D:\PS_auto_project\Scripts\RobotframeworkProject"
+        "--argumentfile " + PATH(r"./argfile_rf.txt") + " D:\PS_auto_project\Scripts\RobotframeworkProject"
     print "pybot_cmd: ", pybot_cmd
     os.system(pybot_cmd)
 

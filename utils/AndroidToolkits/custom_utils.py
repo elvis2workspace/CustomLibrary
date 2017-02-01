@@ -8,20 +8,23 @@ Created on 2016年5月11日
 
 from __future__ import with_statement
 
+import datetime
+import os
 import platform
+import re
 import subprocess
 import time
 
-import re
 from dateutil.easter import *
 from dateutil.parser import *
 from dateutil.relativedelta import *
 from dateutil.rrule import *
-from pychartdir import *
+import pychartdir
 from robot.api import logger
 
-from utils.exception_utils import custom_exception
-from config.config import *
+from ...config.config import *
+from ..exception_utils import custom_exception
+
 
 serial_number = ""
 
@@ -54,7 +57,7 @@ def launch_local_exe(default=None):
 # make custom directory, can specify the directory name
 def custom_dir(name=None):
     if name is None:
-        dir_name = date.today()
+        dir_name = datetime.date.today()
         if os.path.exists(GLOBAL_LOG+str(dir_name)):
             print "have existed."
         else:
@@ -292,18 +295,18 @@ if __name__ == '__main__':
 
     # 获取当前时间
     print datetime.now()
-    print date.today()
+    print datetime.date.today()
     cur = datetime.now()
     print cur
     print cur.strftime('%Y%m%d')
     print datetime.now().strftime('%Y%m%d%H%M%S')
 
-    print str(date.today())+"-"+str(datetime.now().hour)
-    print str(date.today())+"-"+str(datetime.now().hour) + "-"+str(datetime.now().minute)
+    print str(datetime.date.today()) + "-" + str(datetime.now().hour)
+    print str(datetime.date.today())+"-"+str(datetime.now().hour) + "-"+str(datetime.now().minute)
     custom_dir("zhangxiuhai")
     print datetime.now()+relativedelta(months=+1)    # print now time in next month.
     print str(int(time.mktime(time.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y"))))
-    tmp_path = "D:\\PS_auto_project\Logs\\appium-runlog\\appium-runlog-"+str(date.today())+"-"+str(datetime.now().hour) + \
+    tmp_path = "D:\\PS_auto_project\Logs\\appium-runlog\\appium-runlog-"+str(datetime.date.today())+"-"+str(datetime.now().hour) + \
                "-" + str(datetime.now().minute)+"\\"
     check_dir(tmp_path)
     calculator = MuffledCalculator()

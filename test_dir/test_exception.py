@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 '''
 Created on 2015年10月9日
 
 @author: zhang.xiuhai
 '''
+
 from __future__ import division
         
 class DivisionException(Exception):

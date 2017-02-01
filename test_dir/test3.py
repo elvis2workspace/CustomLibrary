@@ -1,15 +1,17 @@
 #!/usr/bin/python3
 
 import os
+
+
 def rm_space():
     for root, dirs, files in os.walk(".", topdown=False):
         for fn in files:
             if fn.find(" ") > 0:
-                n  =  fn.replace(" ", "_")
+                n = fn.replace(" ", "_")
                 fn = os.path.join(root, fn)
                 n = os.path.join(root, n)
                 os.rename(fn, n)
-        for d in dirs: # remove space in directory names
+        for d in dirs:  # remove space in directory names
             if " " in d:
                 nd = d.replace(" ", "_")
                 d = os.path.join(root, d)
