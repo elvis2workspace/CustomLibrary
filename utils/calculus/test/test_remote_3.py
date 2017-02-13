@@ -1,7 +1,7 @@
-from calculus.remote_2 import RemoteCalculationFactory
-from twisted.trial import unittest
 from twisted.test import proto_helpers
+from twisted.trial import unittest
 
+from ..remote_2 import RemoteCalculationFactory
 
 
 class RemoteCalculationTestCase(unittest.TestCase):
@@ -11,27 +11,21 @@ class RemoteCalculationTestCase(unittest.TestCase):
         self.tr = proto_helpers.StringTransport()
         self.proto.makeConnection(self.tr)
 
-
     def _test(self, operation, a, b, expected):
         self.proto.dataReceived('%s %d %d\r\n' % (operation, a, b))
         self.assertEqual(int(self.tr.value()), expected)
 
-
     def test_add(self):
         return self._test('add', 7, 6, 13)
-
 
     def test_subtract(self):
         return self._test('subtract', 82, 78, 4)
 
-
     def test_multiply(self):
         return self._test('multiply', 2, 8, 16)
 
-
     def test_divide(self):
         return self._test('divide', 14, 3, 4)
-
 
     def test_invalidParameters(self):
         self.proto.dataReceived('add foo bar\r\n')

@@ -61,8 +61,8 @@ def insertion_sort(seq):
                 seq[i-1] = tmp
                 i = i - 1
 
-#调试调用函数              
-if  __name__ == '__main__':
+# 调试调用函数
+if __name__ == '__main__':
     getprim(1000)
     List=uniq(['b','b','d','b','c','a','a'])
     print "after deleting the repeated element the list is : " , List

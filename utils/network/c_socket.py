@@ -5,7 +5,9 @@ Created on 2015年1月24日
 @author: Elvis
 '''
 
-import asyncore, socket
+import asyncore
+import socket
+
 
 class HTTPClient(asyncore.dispatcher):
     '''

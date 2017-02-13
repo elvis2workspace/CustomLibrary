@@ -1,5 +1,7 @@
-import CustomLibrary.myTestRunner.MyTestRunner
 import unittest
+
+import CustomLibrary.myTestRunner.MyTestRunner
+
 
 class FooTest(unittest.TestCase):
 

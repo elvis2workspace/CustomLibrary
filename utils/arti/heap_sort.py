@@ -1,26 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
+'''
 Created on 2015年9月24日
 
 @author: zhang.xiuhai
-"""
+'''
 import heapq
 
 class heap_sort(object):
-    """
+    '''
     classdocs
-    """
+    '''
 
 
 #     def __init__(self, params):
 #         '''
 #         Constructor
 #         '''
-
     def _left(self, i):
         return 2*i+1
-
     def _right(self, i):
         return 2*i+2
      
@@ -59,8 +57,7 @@ class heap_sort(object):
             self._max_heapify(sort_list, 0)
  
         return sort_list 
-
-
+    
 def PHeapsort(alist):
     heapq.heapify(alist)
     heap = []

@@ -4,7 +4,7 @@ Created on 2015年1月31日
 
 @author: Elvis
 '''
-# -*- test_selenium2library-case-name: calculus.test_selenium2library.test_base_2 -*-
+# -*- test-case-name: calculus.test.test_base_2 -*-
 
 class Calculation(object):
     def add(self, a, b):

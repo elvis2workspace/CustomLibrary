@@ -1,8 +1,9 @@
 #coding=utf-8
 #!/usr/bin/python
 
-import uuid
 import time
+import uuid
+
 
 def get_mac_address(): 
     mac=uuid.UUID(int = uuid.getnode()).hex[-12:] 
@@ -10,7 +11,7 @@ def get_mac_address():
 
 def get_sys_time():
     return time.strftime('%Y-%m-%d',time.localtime(time.time()))
-#获取mac地址
+# 获取mac地址
 if  __name__ == '__main__':
     print get_mac_address()
     

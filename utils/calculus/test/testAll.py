@@ -1,16 +1,16 @@
-'''
+# coding=utf-8
+"""
 Created on 2015年9月1日
 
 @author: zhang.xiuhai
-'''
+"""
 
-import unittest  
-import Calculation  
-import re  
-import os  
-import sys  
-  
-  
+import os
+import re
+import sys
+import unittest
+
+
 def testAllinCurrent():  
     path = os.path.abspath(os.path.dirname(sys.argv[0]))     
     files = os.listdir(path)                                 

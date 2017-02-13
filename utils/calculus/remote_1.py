@@ -1,9 +1,8 @@
 # -*- test-case-name: calculus.test.test_remote_1 -*-
 
-from twisted.protocols import basic
-from twisted.internet import protocol
 from calculus.base_3 import Calculation
-
+from twisted.internet import protocol
+from twisted.protocols import basic
 
 
 class CalculationProxy(object):

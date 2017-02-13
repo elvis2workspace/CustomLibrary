@@ -4,8 +4,9 @@ Created on 2015年1月31日
 
 @author: Elvis
 '''
+import unittest
+
 from calculus.base_1 import Calculation
-from twisted.trial import unittest
 
 
 class CalculationTestCase(unittest.TestCase):

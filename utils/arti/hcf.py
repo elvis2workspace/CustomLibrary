@@ -7,29 +7,25 @@ Created on 2015年9月22日
 
 import heapq
 
-
 def hcf(x, y):
     for i in range(1, min(x,y)+1):
-        if (x % i == 0) and (y % i == 0):
+        if ((x % i == 0) and (y % i == 0)):
             hcf = i
             
     return hcf
-
 
 def mgb(x, y):
     hcfe = hcf(x, y)
     return x*y/hcfe
 
-
 def lcm(x, y):
     greater = max(x,y)
     while(True):
-        if (greater%x==0) and (greater%y==0):
+        if((greater%x==0) and (greater%y==0)):
             lcm = greater
             break
         greater += 1
     return lcm
-
 
 def recur_fibo(n):
     
@@ -39,14 +35,12 @@ def recur_fibo(n):
     else:
         return (recur_fibo(n-1) + recur_fibo(n-2))
 
-
 def sstring_oper():
     params = {"server":"mpilgrim", "database":"master", "uid":"sa", "pwd":"secret"}    
     for k, v in params.items():
         print "%s=%s" % (k, v) 
     for k, x in params.items():   
         print ";".join("%s=%s" % (k, v))
-
 
 def buble(lis):
     for i in range(len(lis), 0, -1):
@@ -58,7 +52,7 @@ def buble(lis):
     return str(lis)
     
 
-# 插入排序算法
+#插入排序算法 
 def insertion_sort(sort_list):
     iter_len = len(sort_list)
     if iter_len <= 2:
@@ -72,9 +66,8 @@ def insertion_sort(sort_list):
             j -= 1
         sort_list[j+1] = key
     return sort_list
-
-
-# 选择排序算法
+    
+#选择排序算法
 def selection_sort(sort_list):
     iter_len = len(sort_list)
     if iter_len <= 2:
@@ -95,7 +88,6 @@ def selection_sort(sort_list):
                               而不是括号
             '''
     return sort_list
-
 
 def quick_sort_2(sort_list):
     if len(sort_list)<=1:
@@ -131,3 +123,5 @@ if __name__ == '__main__':
     
     for i in range(num3):
         print recur_fibo(i)
+    
+    

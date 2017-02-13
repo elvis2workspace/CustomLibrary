@@ -1,16 +1,11 @@
 #!/usr/bin/env python
-from mitmproxy import flow
-from mitmproxy.proxy import ProxyServer, ProxyConfig
+import base64
+import json
+from pprint import pprint
+
+from flask import Flask
 from mitmproxy.script import concurrent
 from netlib.http import decoded
-from mitmproxy.models import HTTPResponse
-from netlib.http import Headers
-from pprint import pprint
-from flask import Flask
-from flask import request as flask_request
-import json
-import base64
-import traceback
 
 poor_man_global_var = []
 

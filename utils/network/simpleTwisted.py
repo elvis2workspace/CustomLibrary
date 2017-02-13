@@ -5,8 +5,10 @@ Created on 2015年1月30日
 @author: Elvis
 '''
 import sys
+
 from twisted.internet import reactor
 from twisted.internet.protocol import Protocol, Factory
+
 print sys.modules['twisted.internet.reactor']
 
 # 定义你Protocol类

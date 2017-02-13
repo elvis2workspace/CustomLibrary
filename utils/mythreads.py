@@ -5,9 +5,10 @@ Created on 2015年1月23日
 @author: Elvis
 '''
 
-from threading import Thread
 import subprocess
 from Queue import Queue
+from threading import Thread
+
 num_threads = 3
 ips = ['192.168.1.101', '119.75.218.77', '127.0.0.1']
 q = Queue()

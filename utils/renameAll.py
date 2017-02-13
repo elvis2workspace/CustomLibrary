@@ -2,8 +2,10 @@
 #coding:utf8
 __author__ = 'Kenny'
 
-import sys
 import os
+import sys
+
+
 def addName():
 	try:
 		fileNames = os.listdir(dir)

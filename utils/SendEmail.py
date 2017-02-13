@@ -1,10 +1,11 @@
 #-*-coding:utf-8 -*-
 __author__ = 'DongJie'
 
-import MySQLdb
-import time
 import smtplib
 from email.mime.text import MIMEText
+
+import MySQLdb
+
 
 #检测用户使用情况，如果用户超过两天未登录，测发送邮件
 

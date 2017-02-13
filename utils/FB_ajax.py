@@ -1,10 +1,8 @@
-﻿import pycurl
-import StringIO
+﻿import cookielib
+import sys
 import urllib
 import urllib2
-import re
-import cookielib
-import sys
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -37,6 +35,7 @@ login_url = "https://www.facebook.com/login.php?login_attempt=1"
 request = urllib2.Request(login_url,data,headers=headers)
 response = urllib2.urlopen(request)
 content = response.read()
+
 
 
 # post content
