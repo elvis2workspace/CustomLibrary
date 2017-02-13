@@ -53,7 +53,7 @@ def re_name():
 
 if __name__ == '__main__':
     choice = int(raw_input('what do you want? addName press \'1\',rename press \'2\'\t'))
-    dir = raw_input('The path of your files:\t')
+    dir_files = raw_input('The path of your files:\t')
     if choice == 1:
         add_name()
     elif choice == 2:

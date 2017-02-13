@@ -1,12 +1,15 @@
-#coding:utf-8
-import requests
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import re
+
+import requests
 
 url = r'http://www.renren.com/ajaxLogin'
 
-user = {'email':'15828692608','password':'haixiuzhang1988'}
+user = {'email': '15828692608', 'password': 'haixiuzhang1988'}
 s = requests.Session()
-r = s.post(url,data = user)
+r = s.post(url, data=user)
 
 html = r.text
 print html
@@ -25,6 +28,6 @@ for i in visit:
 print '以下是更多的最近来访'
 vm = s.get('http://www.renren.com/myfoot.do')
 fm = re.compile(r'"name":"(.*?)"')
-visitmore = fm.findall(vm.text)
-for i in visitmore:
+visit_more = fm.findall(vm.text)
+for i in visit_more:
     print i

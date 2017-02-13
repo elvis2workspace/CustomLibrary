@@ -18,7 +18,7 @@ tweet = "This is an example tweet talking about scala and sbt."
 print map(lambda x: x in tweet.split(), wordlist)
 
 # 4、读取文件
-print open("test_oneline.py").readlines()
+print open("oneline_fuc.py").readlines()
 
 # 5、祝你生日快乐！
 print map(lambda x: "Happy Birthday to " + ("you" if x != 2 else "dear Name"), range(4))

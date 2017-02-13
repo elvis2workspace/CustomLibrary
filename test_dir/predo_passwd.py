@@ -13,7 +13,7 @@ import string
 """
 
 
-class pseudo_rmdpwd(object):
+class Random_Pwd(object):
     def __init__(self, filename):
         self.data = open(filename).read().lower()
 
@@ -44,7 +44,7 @@ class pseudo_rmdpwd(object):
         return list_tmp
 
 if __name__ == '__main__':
-    p = pseudo_rmdpwd("e_random.py")
+    p = Random_Pwd("e_random.py")
     print p.renew(12)
 
     list_t = p.get_random_list(100000)
