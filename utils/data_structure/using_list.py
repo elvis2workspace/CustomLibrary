@@ -1,15 +1,15 @@
 #!/usr/bin/python
-#Filename:using_list.py
+# Filename:using_list.py
 
-#This is my shopping list
+# This is my shopping list
 shoplist = ['apple', 'mango', 'banana', 'carrot']
 
 print 'I have', len(shoplist), 'items to purchase.'
 
-print 'These items are:', #Notice the comma at end of Line
+print 'These items are:',  # Notice the comma at end of Line
 for item in shoplist:
     print item,
-    
+
 print '\nI also have to buy rice.'
 
 shoplist.append('rice')

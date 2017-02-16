@@ -22,4 +22,4 @@ class ScenarioPlugin(scenario.Scenario):
     def list_flavors(self):
         """List flavors."""
         self._list_flavors()
-        self._list_flavors_as_admin()ß
+        self._list_flavors_as_admin()

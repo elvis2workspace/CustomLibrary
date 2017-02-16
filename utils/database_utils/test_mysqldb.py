@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # test_mysqldb.py
-# just used for a mysql test
+# just used for a mysql_utils test
 
 """
 Created on 2016-9-2

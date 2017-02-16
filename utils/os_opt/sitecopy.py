@@ -57,7 +57,7 @@ def deflate(data):  # zlib only provides the zlib compress format, not the defla
 
 
 class Fetcher:
-    '''
+    """
     html Fetcher
 
     basic usage
@@ -79,7 +79,7 @@ class Fetcher:
     while f.taskleft()
         url,html = f.pop()
         deal_with(url,html)
-    '''
+    """
 
     def __init__(self, timeout=10, threads=None, stacksize=32768 * 16, loginfunc=None):
         # proxy_support = urllib2.ProxyHandler({'http':'http://localhost:3128'})

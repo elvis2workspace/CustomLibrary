@@ -6,7 +6,7 @@ import os
 def client_authenticate(connection, secret_key):
     '''
     Authenticate client to a remote service.
-    connection represents a network connection.
+    connection represents a network_utils connection.
     secret_key is a key known only to both client/server.
     '''
     message = connection.recv(32)

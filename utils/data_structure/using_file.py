@@ -1,10 +1,10 @@
-#coding=utf-8
-'''
+# coding=utf-8
+"""
 Created on 2015年3月6日
 
 @author: Elvis
-'''
-#!/usr/bin/python
+"""
+# !/usr/bin/python
 
 poem = '''\
 Programming is fun
@@ -23,5 +23,5 @@ while True:
     if len(line) == 0:
         break
     print len(line), line,
-    
+
 f.close()

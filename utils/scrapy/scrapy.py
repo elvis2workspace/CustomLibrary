@@ -12,7 +12,7 @@ def getHtml(url):
     return html
 
 
-def getWeather(html):
+def get_weather(html):
     reg = '<script type=.*?></script>'
     weatherList = re.compile(reg).findall(html)
     print weatherList
@@ -21,4 +21,4 @@ def getWeather(html):
 
 htmlexg = getHtml('http://www.weather.com.cn/weather/101270101.shtml')
 
-print getWeather(htmlexg)
+print get_weather(htmlexg)

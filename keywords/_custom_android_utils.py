@@ -11,7 +11,7 @@ import subprocess
 import time
 from xml.dom import minidom
 import zipfile
-from CustomLibrary.utils import custom_utils
+# from CustomLibrary.utils import data_utils
 from CustomLibrary.p11 import *
 from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
@@ -21,7 +21,7 @@ from CustomLibrary.config import config
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
 
-custom_utils.check_dir(config.APPIUM_RUNLOG)
+# data_utils.check_dir(config.APPIUM_RUNLOG)
 
 
 class _CustomAndroidKeywords(KeywordGroup):
