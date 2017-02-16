@@ -1,0 +1,6 @@
+CRITICAL:2017-02-13 15:35:43,052:Host www.python.org unknown
+ERROR:2017-02-13 15:35:43,052:Couldn't find 'spam'
+CRITICAL:2017-02-16 16:19:30,201:Host www.python.org unknown
+ERROR:2017-02-16 16:19:30,202:Couldn't find 'spam'
+CRITICAL:2017-02-16 16:41:10,073:Host www.python.org unknown
+ERROR:2017-02-16 16:41:10,073:Couldn't find 'spam'
