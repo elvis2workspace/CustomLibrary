@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from CustomLibrary.utils.logger_toolkits import logger
+# from CustomLibrary.utils.logger_toolkits import logger
 
 
 class CustomException(Exception):
