@@ -1,0 +1,20 @@
+#!/bin/bash
+/usr/bin/sysbench  \
+/home/ubuntu/sysbench-0.5/sysbench/tests/db/parallel_prepare.lua \
+--time=600 \
+--oltp-dist-type=uniform \
+--mysql-host=10.0.100.$1 \
+--mysql-port=3306 \
+--mysql-user=elvis \
+--mysql-password=Auto@123 \
+--mysql-db=auto \
+--mysql-table-type=innodb \
+--oltp-test-mode=complex \
+--oltp-reconnect=on \
+--oltp-table-size=1000000 \
+--oltp-tables-count=64 \
+--max-requests=0 \
+--threads=64 \
+--report-interval=10 \
+--report-checkpoints=10 \
+run \
