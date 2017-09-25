@@ -1,0 +1,1 @@
+10.12.32.93:22:root:Python@1:cat /proc/cpuinfo,df -Th,whoami

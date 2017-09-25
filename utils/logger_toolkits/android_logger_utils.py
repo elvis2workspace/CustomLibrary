@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from CustomLibrary.config import config
-from CustomLibrary.toolkits.utils_mobile import *
+from CustomLibrary.android_toolkits.utils_mobile import *
+from CustomLibrary.lib.custom_exception import *
 
 
 class AndroidLoggerUtils:

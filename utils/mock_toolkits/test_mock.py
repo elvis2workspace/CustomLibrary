@@ -18,5 +18,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(8, addition)
         self.assertEqual(15, multiple)
 
+
 if __name__ == '__main__':
     unittest.main()

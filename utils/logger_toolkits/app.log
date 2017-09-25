@@ -4,3 +4,9 @@ CRITICAL:2017-02-16 16:19:30,201:Host www.python.org unknown
 ERROR:2017-02-16 16:19:30,202:Couldn't find 'spam'
 CRITICAL:2017-02-16 16:41:10,073:Host www.python.org unknown
 ERROR:2017-02-16 16:41:10,073:Couldn't find 'spam'
+CRITICAL:2017-03-07 10:23:07,223:Host www.python.org unknown
+ERROR:2017-03-07 10:23:07,224:Couldn't find 'spam'
+CRITICAL:2017-09-07 16:17:41,069:Host www.python.org unknown
+ERROR:2017-09-07 16:17:41,070:Couldn't find 'spam'
+CRITICAL:2017-09-07 17:49:45,137:Host www.python.org unknown
+ERROR:2017-09-07 17:49:45,137:Couldn't find 'spam'

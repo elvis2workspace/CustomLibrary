@@ -5,7 +5,8 @@ from selenium.webdriver.support.select import Select
 import os,time
 
 driver = webdriver.Chrome()
-file_path = 'file:///' + os.path.abspath('test_block.html')
+file_path = 'file:///' + os.path.abspath('../res/test_block.html')
+print file_path
 driver.get(file_path)
 
 js = 'document.querySelectorAll("select")[0].style.display="block";'

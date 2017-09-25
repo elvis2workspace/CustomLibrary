@@ -17,9 +17,9 @@ from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 from CustomLibrary.config import config
 
-
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p))
+
 
 # data_utils.check_dir(config.APPIUM_RUNLOG)
 
@@ -41,18 +41,18 @@ class _CustomAndroidKeywords(KeywordGroup):
         pass
 
     # public
-    def get_local_address(self):    
+    def get_local_address(self):
         """获取本地测试环境的IP地址"""
         tmp_config = os.popen('ipconfig').read()
         ip = re.search(r'192.168.*.*', tmp_config)
         return ip.group(0)
-    
+
     def launch_local_appium(self, ip="127.0.0.1", tport="4723", mode="no-reset"):
         """根据ip，port，mode启动本地appium，例
 
         """
         launch_cmd = "appium -a " + str(ip) + " -p " + str(tport) + " " + "--" + mode + " " + \
-                "--log-timestamp --local-timezone --session-override -g " + config.APPIUM_RUNLOG + "appium-runlog.txt"
+                     "--log-timestamp --local-timezone --session-override -g " + config.APPIUM_RUNLOG + "appium-runlog.txt"
         print "launch_cmd: ", launch_cmd
 
         tmp_pid = self.get_port_pid(config.APPIUMPORT)
@@ -72,29 +72,30 @@ class _CustomAndroidKeywords(KeywordGroup):
 
         if "appium" == toolniki:
             pid = self.get_port_pid(config.APPIUMPORT)
-            logger.info("Going to stop local appium, pid: ."+str(pid), also_console=True)
+            logger.info("Going to stop local appium, pid: ." + str(pid), also_console=True)
             stop_appium_cmd = "tskill " + str(pid)
             child = subprocess.Popen(stop_appium_cmd, shell=True)
             child.wait()
             return child.pid
         else:
             logger.console("No other tools to use.")
-            
+
     def get_port_pid(self, port):
         """根据参数中的端口号查找对应使用该端口号的进程ID，并返回该进程的PID号。
         """
 
         get_pid_cmd = "netstat -ano | findstr  LISTENING | findstr " + str(port)
         appium_pid_str = os.popen(get_pid_cmd).read()
-        
+
         if appium_pid_str:
             appium_g = appium_pid_str.split(' ')
-            logger.console("Process about port " + str(port) + " have existed, is " + appium_g[-1] + ".", True, 'stdout')
+            logger.console("Process about port " + str(port) + " have existed, is " + appium_g[-1] + ".", True,
+                           'stdout')
             return appium_g[-1]
         else:
             logger.console("No process about port " + str(port) + "!", True, 'stdout')
             return None
-        
+
     def set_androidlog_status(self, mode=True):
         """设置android日志开关
         """
@@ -108,8 +109,8 @@ class _CustomAndroidKeywords(KeywordGroup):
         if mode is True:
             log_cmd_0 = "adb devices"
             log_cmd_1 = "adb logcat -s ecm_em ecm_jni ecm_em_okm ecm_ecms ecm_em_util ecm_ui_service ecm " \
-                          "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
-                          " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" +\
+                        "ecm_mqttservice libc ecm_ui cryptfunc cryptfunc_p2p cryptfunc_exchange cryptfunc_transfer" \
+                        " MainService voltencryptd TelecomFramework > D:\Logs\\android-runlog\logcat_" + \
                         time_stamp + ".log"
             log_cmd_2 = "adb shell logcat -v time > D:\Logs\\android-runlog\logcat_" + time_stamp + ".log &1"
             # print "log_cmd_1: ", log_cmd_1
@@ -120,14 +121,14 @@ class _CustomAndroidKeywords(KeywordGroup):
                 return 0
             else:
                 return -1
-            # re_code = child_str.wait()
-            # print "re_code: ", re_code
-            # if re_code is 0:
-            #     print "Open the android log tool for log successfully."
-            #     return 0
-            # else:
-            #     print "Open the android log tool for log failed."
-            #     return -1
+                # re_code = child_str.wait()
+                # print "re_code: ", re_code
+                # if re_code is 0:
+                #     print "Open the android log tool for log successfully."
+                #     return 0
+                # else:
+                #     print "Open the android log tool for log failed."
+                #     return -1
         else:
             for i in log_pid:
                 logoff_cmd = "taskkill -PID " + i + " /F"
@@ -144,7 +145,7 @@ class _CustomAndroidKeywords(KeywordGroup):
         """获取操作后日志
         
         """
-        os.system("adb logcat -v time -d > "+path+"log_" + flag + ".log &1")
+        os.system("adb logcat -v time -d > " + path + "log_" + flag + ".log &1")
 
     def get_cmd_pids(self, t_cmd):
         """获取执行命令的进程ID"""
@@ -177,7 +178,7 @@ class _CustomAndroidKeywords(KeywordGroup):
             return -1
         else:
             adb_pid = process_details.split(' ')
-            logger.info(self._getcurtm() + ": The ecm application pid is: "+ str(adb_pid[4]), also_console=True)
+            logger.info(self._getcurtm() + ": The ecm application pid is: " + str(adb_pid[4]), also_console=True)
             ret_val = os.system("adb shell kill " + str(adb_pid[4]))
             if 0 == ret_val:
                 logger.info(self._getcurtm() + ": " + pro_alias + " " + str(adb_pid[4]) + " killed successfully.", \
@@ -187,25 +188,25 @@ class _CustomAndroidKeywords(KeywordGroup):
                 logger.error("Failed to kill ecm pid.")
                 return -1
 
-    def reset_android(self, pro_alias=None, remote_url=None ):
+    def reset_android(self, pro_alias=None, remote_url=None):
         """重置android设备"""
 
         # 重启android设备
         ret_reb = os.popen("adb shell reboot").read()
         is_null = (len(ret_reb) == 0)
         if is_null:
-                logger.info(self._getcurtm()+": Succeed rebooting android device.", also_console=True)
+            logger.info(self._getcurtm() + ": Succeed rebooting android device.", also_console=True)
         else:
             logger.error(ret_reb)
             return -1
-            
+
         # 等待android设备重新连接
         ret_val = subprocess.Popen("adb wait-for-device", shell=True)
         ret_val.wait()
 
         if ret_val.stdout is None:
             ret_dev = os.popen('adb devices').read()
-            logger.info(self._getcurtm() + ": Android device named: "+ ret_dev.split('\n')[1].split('\t')[0] +
+            logger.info(self._getcurtm() + ": Android device named: " + ret_dev.split('\n')[1].split('\t')[0] +
                         " connected.", also_console=True)
             time.sleep(15)
             logger.info(self._getcurtm() + ": Sleep 10 to wait return.", also_console=True)
@@ -217,9 +218,9 @@ class _CustomAndroidKeywords(KeywordGroup):
 
     def Cswipe(self, xstart, ystart, xend, yend):
         """自定义滑动屏幕关键字"""
-        os.system("adb shell input swipe "+str(xstart)+" "+str(ystart)+" " +str(xend)+" "+str(yend))
-        return 0  
-    
+        os.system("adb shell input swipe " + str(xstart) + " " + str(ystart) + " " + str(xend) + " " + str(yend))
+        return 0
+
     def run_all_batf(self, path):
         """接收一个目录的路径，并执行目录下的所有bat文件.例
          | run all bat | file path|
@@ -387,13 +388,14 @@ class _CustomAndroidKeywords(KeywordGroup):
         package_info['startActivity'] = matching[0].split(" ")[1].split("=")[1]
         return package_info
 
+
 if __name__ == '__main__':
     tmpObject = _CustomAndroidKeywords()
     # tmpObject.kill_shell_process("ecm")
     # tmpObject.reset_android()
     # adb_pid = tmpObject.get_cmd_pids('adb.exe')
     # print adb_pid
-    # path = "E:/Python27/Lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
+    # path = "E:/Python27/lib/site-packages/CustomLibrary/res/SCS/SecureCenterService.apk"
     # tmpObject.adb_install_app(path, 'r')
     tmpObject._get_apk_package("EncryptCardManager.apk")
     # tmpObject.set_androidlog_status()
@@ -411,4 +413,3 @@ if __name__ == '__main__':
 #     tmpObject.kill_adb_process('ecm')
 #     tmpObject.set_androidlog_status('test729343434322', True)
 #     tmpIp = tmpObject.get_local_address()
-

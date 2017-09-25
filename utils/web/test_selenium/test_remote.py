@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from test_selenium import webdriver
-from test_selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 def process_remote_task(url):

@@ -10,7 +10,7 @@ from urlparse import urlparse
 import json
 import time
 import unittest
-import pdf
+# import pdf
 
 currentdir = os.path.split(os.path.realpath(__file__))[0]
 

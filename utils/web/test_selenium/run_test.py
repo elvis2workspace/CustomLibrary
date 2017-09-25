@@ -15,7 +15,7 @@ suite = doctest.DocTestSuite()
 suite.addTest(unittest.makeSuite(test_baidu.Baidu))
 suite.addTest(unittest.makeSuite(test_youdao.Youdao))
 
-file_name = u'D:\\PS_auto_project\\Logs\\result20.html'
+file_name = u'../res/result20.html'
 
 fp = file(file_name, 'wb')
 

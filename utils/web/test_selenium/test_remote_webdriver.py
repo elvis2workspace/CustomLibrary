@@ -9,7 +9,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 class Baidu(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Remote(
-            command_executor='http://192.168.20.247:4444/wd/hub',
+            command_executor='http://10.12.32.37:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME
         )
         # self.driver = webdriver.Chrome()
